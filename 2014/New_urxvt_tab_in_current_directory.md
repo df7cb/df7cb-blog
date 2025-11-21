@@ -1,0 +1,54 @@
+Following Enrico's
+<a href="http://www.enricozini.org/2014/debian/terminal-emulators/">terminal-emulators</a>
+comparison, I wanted to implement "start a new terminal tab in my current
+working directory" for rxvt-unicode aka urxvt. As Enrico notes, this
+functionality is something between "rather fragile" and non-existing, so I went
+to implement it myself. Martin Pohlack had the
+<a href="http://permalink.gmane.org/gmane.comp.terminal-emulators.rxvt-unicode.general/1175">
+right hint</a>, so here's the patch:
+
+<pre>
+--- /usr/lib/urxvt/perl/tabbed	2014-05-03 21:37:37.000000000 +0200
++++ ./tabbed	2014-07-09 18:50:26.000000000 +0200
+@@ -97,6 +97,16 @@
+       $term->resource (perl_ext_2 => $term->resource ("perl_ext_2") . ",-tabbed");
+    };
+ 
++   if (@{ $self->{tabs} }) {
++      # Get the working directory of the current tab and append a -cd to the command line
++      my $pid = $self->{cur}{pid};
++      my $pwd = readlink "/proc/$pid/cwd";
++      #print "pid $pid pwd $pwd\n";
++      if ($pwd) {
++         push @argv, "-cd", $pwd;
++      }
++   }
++
+    push @urxvt::TERM_EXT, urxvt::ext::tabbed::tab::;
+ 
+    my $term = new urxvt::term
+@@ -312,6 +322,12 @@
+    1
+ }
+ 
++sub tab_child_start {
++   my ($self, $term, $pid) = @_;
++   $term->{pid} = $pid;
++   1;
++}
++
+ sub tab_start {
+    my ($self, $tab) = @_;
+ 
+@@ -402,7 +418,7 @@
+ # simply proxies all interesting calls back to the tabbed class.
+ 
+ {
+-   for my $hook (qw(start destroy key_press property_notify)) {
++   for my $hook (qw(start destroy key_press property_notify child_start)) {
+       eval qq{
+          sub on_$hook {
+             my \$parent = \$_[0]{term}{parent}
+</pre>
+
+[[!tag debian]]
