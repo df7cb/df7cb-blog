@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Myon&#39;s Blog</title>
+    <link>https://df7cb.de/blog/tags/index.html</link>
+    <description>Recent content in Tags on Myon&#39;s Blog</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 18 Mar 2024 15:22:23 +0100</lastBuildDate>
+    <atom:link href="https://df7cb.de/blog/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Debian</title>
+      <link>https://df7cb.de/blog/tags/debian.html</link>
+      <pubDate>Mon, 18 Mar 2024 15:22:23 +0100</pubDate>
+      <guid>https://df7cb.de/blog/tags/debian.html</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Postgresql</title>
+      <link>https://df7cb.de/blog/tags/postgresql.html</link>
+      <pubDate>Sat, 26 Aug 2023 23:49:40 +0200</pubDate>
+      <guid>https://df7cb.de/blog/tags/postgresql.html</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Afu</title>
+      <link>https://df7cb.de/blog/tags/afu.html</link>
+      <pubDate>Sat, 26 Aug 2023 23:29:23 +0200</pubDate>
+      <guid>https://df7cb.de/blog/tags/afu.html</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Unix</title>
+      <link>https://df7cb.de/blog/tags/unix.html</link>
+      <pubDate>Fri, 09 Mar 2018 10:06:21 +0100</pubDate>
+      <guid>https://df7cb.de/blog/tags/unix.html</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Life</title>
+      <link>https://df7cb.de/blog/tags/life.html</link>
+      <pubDate>Mon, 07 May 2012 23:56:12 +0200</pubDate>
+      <guid>https://df7cb.de/blog/tags/life.html</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Notes</title>
+      <link>https://df7cb.de/blog/tags/notes.html</link>
+      <pubDate>Tue, 27 Dec 2011 18:02:58 +0100</pubDate>
+      <guid>https://df7cb.de/blog/tags/notes.html</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Bridge</title>
+      <link>https://df7cb.de/blog/tags/bridge.html</link>
+      <pubDate>Thu, 17 Feb 2011 13:21:52 +0100</pubDate>
+      <guid>https://df7cb.de/blog/tags/bridge.html</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Books</title>
+      <link>https://df7cb.de/blog/tags/books.html</link>
+      <pubDate>Sun, 17 Feb 2008 13:21:52 +0100</pubDate>
+      <guid>https://df7cb.de/blog/tags/books.html</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Geocaching</title>
+      <link>https://df7cb.de/blog/tags/geocaching.html</link>
+      <pubDate>Sun, 17 Feb 2008 13:21:52 +0100</pubDate>
+      <guid>https://df7cb.de/blog/tags/geocaching.html</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Irc</title>
+      <link>https://df7cb.de/blog/tags/irc.html</link>
+      <pubDate>Sun, 17 Feb 2008 13:21:52 +0100</pubDate>
+      <guid>https://df7cb.de/blog/tags/irc.html</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

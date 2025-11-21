@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Irc on Myon&#39;s Blog</title>
+    <link>https://df7cb.de/blog/tags/irc.html</link>
+    <description>Recent content in Irc on Myon&#39;s Blog</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 17 Feb 2008 13:21:52 +0100</lastBuildDate>
+    <atom:link href="https://df7cb.de/blog/tags/irc/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Dear irssi</title>
+      <link>https://df7cb.de/blog/posts/2008/dear_irssi.html</link>
+      <pubDate>Sun, 17 Feb 2008 13:21:52 +0100</pubDate>
+      <guid>https://df7cb.de/blog/posts/2008/dear_irssi.html</guid>
+      <description>&lt;p&gt;when a connection is lagging, and I type /reconnect, please don&amp;rsquo;t try to&#xA;reconnect to the same IP in the rotation.&lt;/p&gt;&#xA;&lt;p&gt;Thank you.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Kick message</title>
+      <link>https://df7cb.de/blog/posts/2008/kick_message.html</link>
+      <pubDate>Sun, 17 Feb 2008 13:21:52 +0100</pubDate>
+      <guid>https://df7cb.de/blog/posts/2008/kick_message.html</guid>
+      <description>&lt;p&gt;While wondering how kick messages look on the client side and if they are&#xA;actually visible in the sense of not being cluttered with other crap around,&#xA;here&amp;rsquo;s one way how &lt;strong&gt;not&lt;/strong&gt; to test this:&lt;/p&gt;&#xA;&lt;pre&gt;&#xA;23:56 [testnet] !larich Myon is setting God mode&#xA;23:56 [testnet] !larich Myon is using God mode: to evade KICK from Myon: #test Myon boo&#xA;&lt;/pre&gt;</description>
+    </item>
+    <item>
+      <title>Datamining</title>
+      <link>https://df7cb.de/blog/posts/2007/datamining.html</link>
+      <pubDate>Sat, 17 Feb 2007 13:21:52 +0100</pubDate>
+      <guid>https://df7cb.de/blog/posts/2007/datamining.html</guid>
+      <description>&lt;p&gt;I&amp;rsquo;m just digging through OFTC&amp;rsquo;s nickserv database to do some cleaning. We have&#xA;a bit over 20k nicknames in the database on 18k accounts which means about 10%&#xA;of registered nicks are linked to other master nicks.&lt;/p&gt;&#xA;&lt;p&gt;By the power of sql, here&amp;rsquo;s some statistics on the domain names of the&#xA;email addresses our users:&lt;/p&gt;&#xA;&lt;pre&gt;&#xA;com  9144&#xA;net  2241&#xA;org  1778&#xA;de   1016&#xA;uk    392&#xA;nl    288&#xA;fr    223&#xA;edu   217&#xA;au    203&#xA;it    193&#xA;br    190&#xA;ru    174&#xA;ca    165&#xA;se     88&#xA;dk     74&#xA;at     70&#xA;fi     62&#xA;cx     59&#xA;info   58&#xA;&lt;/pre&gt;&#xA;&lt;pre&gt;&#xA;gmail.com             3997&#xA;hotmail.com           1405&#xA;yahoo.com              843&#xA;gmx.de                 221&#xA;gmx.net                201&#xA;web.de                 156&#xA;debian.org             148&#xA;free.fr                 94&#xA;aol.com                 90&#xA;msn.com                 73&#xA;comcast.net             72&#xA;gentoo.org              71&#xA;mail.ru                 65&#xA;xs4all.nl               59&#xA;linuxmail.org           58&#xA;verizon.net             57&#xA;yahoo.co.uk             54&#xA;yahoo.com.br            45&#xA;googlemail.com          45&#xA;student.uq.edu.au       44&#xA;sbcglobal.net           36&#xA;earthlink.net           33&#xA;users.sourceforge.net   32&#xA;&lt;/pre&gt;&#xA;&lt;p&gt;The numbers could use some aggregation as some providers use zillions of TLDs&#xA;(yahoo, gmx).&lt;/p&gt;&#xA;&lt;p&gt;My personal favorite in there is &lt;b&gt;root@localhorst&lt;/b&gt; :-)&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

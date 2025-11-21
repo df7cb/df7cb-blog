@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Life on Myon&#39;s Blog</title>
+    <link>https://df7cb.de/blog/tags/life.html</link>
+    <description>Recent content in Life on Myon&#39;s Blog</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 07 May 2012 23:56:12 +0200</lastBuildDate>
+    <atom:link href="https://df7cb.de/blog/tags/life/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Andreas</title>
+      <link>https://df7cb.de/blog/posts/2012/andreas.html</link>
+      <pubDate>Mon, 07 May 2012 23:56:12 +0200</pubDate>
+      <guid>https://df7cb.de/blog/posts/2012/andreas.html</guid>
+      <description>&lt;img src=&#34;http://www.df7cb.de/pictures/2012-05-Andreas/IMG_6414.JPG&#34; width=&#34;800&#34; height=&#34;600&#34;&gt;&#xA;&lt;p&gt;May 7th, 2012&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Marriage and Baptism</title>
+      <link>https://df7cb.de/blog/posts/2011/marriage_and_baptism.html</link>
+      <pubDate>Fri, 29 Apr 2011 23:55:40 +0200</pubDate>
+      <guid>https://df7cb.de/blog/posts/2011/marriage_and_baptism.html</guid>
+      <description>&lt;img src=&#34;http://www.df7cb.de/blog/2011/christoph_laura.jpg&#34;&gt;&#xA;&lt;img src=&#34;http://www.df7cb.de/blog/2011/christoph_laura_julia.jpg&#34;&gt;&#xA;&lt;p&gt;29. April 2011&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Julia</title>
+      <link>https://df7cb.de/blog/posts/2011/julia.html</link>
+      <pubDate>Wed, 05 Jan 2011 13:21:52 +0100</pubDate>
+      <guid>https://df7cb.de/blog/posts/2011/julia.html</guid>
+      <description>&lt;img src=&#34;http://www.df7cb.de/blog/2011/julia.jpg&#34;&gt;&#xA;&lt;p&gt;Jan 5 2011, 3070g, 54cm&lt;/p&gt;&#xA;&lt;p&gt;Julia, Mom and Dad are all well and very happy.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Marrying</title>
+      <link>https://df7cb.de/blog/posts/2010/marrying.html</link>
+      <pubDate>Tue, 10 Aug 2010 13:21:52 +0100</pubDate>
+      <guid>https://df7cb.de/blog/posts/2010/marrying.html</guid>
+      <description>&lt;p&gt;Yesterday (Monday), Laura and I got married.&lt;/p&gt;&#xA;&lt;img src=&#34;http://www.df7cb.de/blog/2010/wedding.jpg&#34;&gt;</description>
+    </item>
+    <item>
+      <title>Mönchengladbach</title>
+      <link>https://df7cb.de/blog/posts/2007/moenchengladbach.html</link>
+      <pubDate>Sat, 17 Feb 2007 13:21:52 +0100</pubDate>
+      <guid>https://df7cb.de/blog/posts/2007/moenchengladbach.html</guid>
+      <description>&lt;p&gt;To also announce it here, I&amp;rsquo;ve moved to Mönchengladbach to work at&#xA;&lt;a href=&#34;http://www.credativ.de/&#34;&gt;credativ&lt;/a&gt;, along with several other DDs,&#xA;Postgresql, and other open source folks. So far work has been pretty cool, and&#xA;I&amp;rsquo;m fairly sure it will stay that way.&lt;/p&gt;&#xA;&lt;p&gt;I&amp;rsquo;ve been mostly inactive lately because I didn&amp;rsquo;t have internet access at home&#xA;yet. In fact, I officially still don&amp;rsquo;t, but my provider is so &amp;ldquo;nice&amp;rdquo; to let me&#xA;connect to the DSL line, login in, and then tell me via http that&#xA;username/password were wrong. But, at this point, port 53/udp is open :)&#xA;Ganneff was so kind to set up an openvpn gateway for me and forward 22/tcp to&#xA;my server, so I can ssh, and tunnel everything else I like via that.&lt;/p&gt;&#xA;&lt;p&gt;Sorry to my NMs for any delays lately, I hope to catch up this week.&lt;/p&gt;&#xA;&lt;p&gt;On a different note, I&amp;rsquo;m playing with ikiwiki and converting my blog, so please&#xA;excuse if that causes flooding on planet.debian.org (which I of course hope to&#xA;avoid by keeping the old timestamps, mmmv).&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

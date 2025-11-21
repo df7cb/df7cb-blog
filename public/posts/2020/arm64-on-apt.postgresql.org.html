@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>arm64 on apt.postgresql.org | Myon&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="The apt.postgresql.org repository has been extended
+to cover the arm64 architecture.
+We had occasionally received user request to add &ldquo;arm&rdquo; in the past, but it was
+never really clear which kind of &ldquo;arm&rdquo; made sense to target for PostgreSQL. In
+terms of Debian architectures, there&rsquo;s (at least) armel, armhf, and arm64.
+Furthermore, Raspberry Pis are very popular (and indeed what most users seemed
+to were asking about), but the raspbian &ldquo;armhf&rdquo; port is incompatible with the
+Debian &ldquo;armhf&rdquo; port.
+Now that most hardware has moved to 64-bit, it was becoming clear that &ldquo;arm64&rdquo;
+was the way to go. Amit Khandekar made it happen that
+HUAWEI Cloud Services
+donated a arm64 build host with enough resources to build the arm64 packages
+at the same speed as the existing amd64, i386, and ppc64el architectures.
+A few days later, all the build jobs were done, including passing all
+test-suites. Very few arm-specific issues were encountered which makes me
+confident that arm64 is a solid architecture to run PostgreSQL on.
+We are targeting Debian buster (stable), bullseye (testing), and sid
+(unstable), and Ubuntu bionic (18.04) and focal (20.04). To use the arm64
+archive, just add the normal sources.list entry:
+
+deb https://apt.postgresql.org/pub/repos/apt buster-pgdg main
+
+Ubuntu focal
+At the same time, I&rsquo;ve added the next Ubuntu LTS release to apt.postgresql.org:
+focal (20.04). It ships amd64, arm64, and ppc64el binaries.
+
+deb https://apt.postgresql.org/pub/repos/apt focal-pgdg main
+
+Old PostgreSQL versions
+Many PostgreSQL extensions are still supporting older server versions that are
+EOL. For testing these extension, server packages need to be available. I&rsquo;ve
+built packages for PostgreSQL 9.2&#43; on all Debian distributions, and all Ubuntu
+LTS distributions. 9.1 will follow shortly.
+This means people can move to newer base distributions in their .travis.yml,
+.gitlab-ci.yml, and other CI files.">
+    <meta name="generator" content="Hugo 0.152.2">
+    
+    
+    
+      <meta name="robots" content="index, follow">
+    
+    <meta name="author" content="Christoph Berg">
+    
+
+    
+<link rel="stylesheet" href="/blog/ananke/css/main.min.efe4d852f731d5d1fbb87718387202a97aafd768cdcdaed0662bbe6982e91824.css" >
+
+
+
+
+    
+
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="https://df7cb.de/blog/posts/2020/arm64-on-apt.postgresql.org.html">
+    
+
+    <meta property="og:url" content="https://df7cb.de/blog/posts/2020/arm64-on-apt.postgresql.org.html">
+  <meta property="og:site_name" content="Myon&#39;s Blog">
+  <meta property="og:title" content="arm64 on apt.postgresql.org">
+  <meta property="og:description" content="The apt.postgresql.org repository has been extended to cover the arm64 architecture.
+We had occasionally received user request to add “arm” in the past, but it was never really clear which kind of “arm” made sense to target for PostgreSQL. In terms of Debian architectures, there’s (at least) armel, armhf, and arm64. Furthermore, Raspberry Pis are very popular (and indeed what most users seemed to were asking about), but the raspbian “armhf” port is incompatible with the Debian “armhf” port.
+Now that most hardware has moved to 64-bit, it was becoming clear that “arm64” was the way to go. Amit Khandekar made it happen that HUAWEI Cloud Services donated a arm64 build host with enough resources to build the arm64 packages at the same speed as the existing amd64, i386, and ppc64el architectures. A few days later, all the build jobs were done, including passing all test-suites. Very few arm-specific issues were encountered which makes me confident that arm64 is a solid architecture to run PostgreSQL on.
+We are targeting Debian buster (stable), bullseye (testing), and sid (unstable), and Ubuntu bionic (18.04) and focal (20.04). To use the arm64 archive, just add the normal sources.list entry:
+deb https://apt.postgresql.org/pub/repos/apt buster-pgdg main Ubuntu focal At the same time, I’ve added the next Ubuntu LTS release to apt.postgresql.org: focal (20.04). It ships amd64, arm64, and ppc64el binaries.
+deb https://apt.postgresql.org/pub/repos/apt focal-pgdg main Old PostgreSQL versions Many PostgreSQL extensions are still supporting older server versions that are EOL. For testing these extension, server packages need to be available. I’ve built packages for PostgreSQL 9.2&#43; on all Debian distributions, and all Ubuntu LTS distributions. 9.1 will follow shortly.
+This means people can move to newer base distributions in their .travis.yml, .gitlab-ci.yml, and other CI files.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2020-05-04T14:28:54+02:00">
+    <meta property="article:modified_time" content="2020-05-04T14:28:54+02:00">
+    <meta property="article:tag" content="Debian">
+    <meta property="article:tag" content="Postgresql">
+
+  <meta itemprop="name" content="arm64 on apt.postgresql.org">
+  <meta itemprop="description" content="The apt.postgresql.org repository has been extended to cover the arm64 architecture.
+We had occasionally received user request to add “arm” in the past, but it was never really clear which kind of “arm” made sense to target for PostgreSQL. In terms of Debian architectures, there’s (at least) armel, armhf, and arm64. Furthermore, Raspberry Pis are very popular (and indeed what most users seemed to were asking about), but the raspbian “armhf” port is incompatible with the Debian “armhf” port.
+Now that most hardware has moved to 64-bit, it was becoming clear that “arm64” was the way to go. Amit Khandekar made it happen that HUAWEI Cloud Services donated a arm64 build host with enough resources to build the arm64 packages at the same speed as the existing amd64, i386, and ppc64el architectures. A few days later, all the build jobs were done, including passing all test-suites. Very few arm-specific issues were encountered which makes me confident that arm64 is a solid architecture to run PostgreSQL on.
+We are targeting Debian buster (stable), bullseye (testing), and sid (unstable), and Ubuntu bionic (18.04) and focal (20.04). To use the arm64 archive, just add the normal sources.list entry:
+deb https://apt.postgresql.org/pub/repos/apt buster-pgdg main Ubuntu focal At the same time, I’ve added the next Ubuntu LTS release to apt.postgresql.org: focal (20.04). It ships amd64, arm64, and ppc64el binaries.
+deb https://apt.postgresql.org/pub/repos/apt focal-pgdg main Old PostgreSQL versions Many PostgreSQL extensions are still supporting older server versions that are EOL. For testing these extension, server packages need to be available. I’ve built packages for PostgreSQL 9.2&#43; on all Debian distributions, and all Ubuntu LTS distributions. 9.1 will follow shortly.
+This means people can move to newer base distributions in their .travis.yml, .gitlab-ci.yml, and other CI files.">
+  <meta itemprop="datePublished" content="2020-05-04T14:28:54+02:00">
+  <meta itemprop="dateModified" content="2020-05-04T14:28:54+02:00">
+  <meta itemprop="wordCount" content="288">
+  <meta itemprop="keywords" content="Debian,Postgresql">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="arm64 on apt.postgresql.org">
+  <meta name="twitter:description" content="The apt.postgresql.org repository has been extended to cover the arm64 architecture.
+We had occasionally received user request to add “arm” in the past, but it was never really clear which kind of “arm” made sense to target for PostgreSQL. In terms of Debian architectures, there’s (at least) armel, armhf, and arm64. Furthermore, Raspberry Pis are very popular (and indeed what most users seemed to were asking about), but the raspbian “armhf” port is incompatible with the Debian “armhf” port.
+Now that most hardware has moved to 64-bit, it was becoming clear that “arm64” was the way to go. Amit Khandekar made it happen that HUAWEI Cloud Services donated a arm64 build host with enough resources to build the arm64 packages at the same speed as the existing amd64, i386, and ppc64el architectures. A few days later, all the build jobs were done, including passing all test-suites. Very few arm-specific issues were encountered which makes me confident that arm64 is a solid architecture to run PostgreSQL on.
+We are targeting Debian buster (stable), bullseye (testing), and sid (unstable), and Ubuntu bionic (18.04) and focal (20.04). To use the arm64 archive, just add the normal sources.list entry:
+deb https://apt.postgresql.org/pub/repos/apt buster-pgdg main Ubuntu focal At the same time, I’ve added the next Ubuntu LTS release to apt.postgresql.org: focal (20.04). It ships amd64, arm64, and ppc64el binaries.
+deb https://apt.postgresql.org/pub/repos/apt focal-pgdg main Old PostgreSQL versions Many PostgreSQL extensions are still supporting older server versions that are EOL. For testing these extension, server packages need to be available. I’ve built packages for PostgreSQL 9.2&#43; on all Debian distributions, and all Ubuntu LTS distributions. 9.1 will follow shortly.
+This means people can move to newer base distributions in their .travis.yml, .gitlab-ci.yml, and other CI files.">
+
+      
+    
+	
+  </head><body class="ma0 avenir bg-near-white production">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l center items-center justify-between">
+    <a href="/blog/index.html" class="f3 fw2 hover-white white-90 dib no-underline">
+      
+        Myon&#39;s Blog
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  
+  <article class="flex-l mw8 center ph3 flex-wrap justify-between">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Posts
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">arm64 on apt.postgresql.org</h1>
+      
+      <p class="tracked"><strong>Christoph Berg</strong>
+      </p>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2020-05-04T14:28:54+02:00">May 4, 2020</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>The <a href="https://apt.postgresql.org/">apt.postgresql.org</a> repository has been extended
+to cover the <em>arm64</em> architecture.</p>
+<p>We had occasionally received user request to add &ldquo;arm&rdquo; in the past, but it was
+never really clear which kind of &ldquo;arm&rdquo; made sense to target for PostgreSQL. In
+terms of Debian architectures, there&rsquo;s (at least) armel, armhf, and arm64.
+Furthermore, Raspberry Pis are very popular (and indeed what most users seemed
+to were asking about), but the raspbian &ldquo;armhf&rdquo; port is incompatible with the
+Debian &ldquo;armhf&rdquo; port.</p>
+<p>Now that most hardware has moved to 64-bit, it was becoming clear that &ldquo;arm64&rdquo;
+was the way to go. Amit Khandekar made it happen that
+<a href="https://intl.huaweicloud.com/en-us/">HUAWEI Cloud Services</a>
+donated a arm64 build host with enough resources to build the arm64 packages
+at the same speed as the existing amd64, i386, and ppc64el architectures.
+A few days later, all the build jobs were done, including passing all
+test-suites. Very few arm-specific issues were encountered which makes me
+confident that arm64 is a solid architecture to run PostgreSQL on.</p>
+<p>We are targeting Debian buster (stable), bullseye (testing), and sid
+(unstable), and Ubuntu bionic (18.04) and focal (20.04). To use the arm64
+archive, just add the normal sources.list entry:</p>
+<pre>
+deb https://apt.postgresql.org/pub/repos/apt buster-pgdg main
+</pre>
+<h2>Ubuntu focal</h2>
+<p>At the same time, I&rsquo;ve added the next Ubuntu LTS release to apt.postgresql.org:
+focal (20.04). It ships amd64, arm64, and ppc64el binaries.</p>
+<pre>
+deb https://apt.postgresql.org/pub/repos/apt focal-pgdg main
+</pre>
+<h2>Old PostgreSQL versions</h2>
+<p>Many PostgreSQL extensions are still supporting older server versions that are
+EOL. For testing these extension, server packages need to be available. I&rsquo;ve
+built packages for PostgreSQL 9.2+ on all Debian distributions, and all Ubuntu
+LTS distributions. 9.1 will follow shortly.</p>
+<p>This means people can move to newer base distributions in their .travis.yml,
+.gitlab-ci.yml, and other CI files.</p>
+<ul class="pa0">
+  
+   <li class="list di">
+     <a href="/blog/tags/debian.html" class="link f5 grow br-pill ba ph3 pv2 mb2 dib black sans-serif no-underline">Debian</a>
+   </li>
+  
+   <li class="list di">
+     <a href="/blog/tags/postgresql.html" class="link f5 grow br-pill ba ph3 pv2 mb2 dib black sans-serif no-underline">Postgresql</a>
+   </li>
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3">Related</p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/blog/posts/2020/apt-archive.postgresql.org.html">Announcing apt-archive.postgresql.org</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/blog/posts/2015/10_years_debian_developer.html">10 Years Debian Developer</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/blog/posts/2015/postgresql_9.5_in_debian.html">PostgreSQL 9.5 in Debian</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/blog/posts/2015/apt.postgresql.org_statistics.html">apt.postgresql.org statistics</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/blog/posts/2014/postgresql_9.4_on_debian.html">PostgreSQL 9.4 on Debian</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/blog/posts/2014/trusty_and_saucy_on_apt.postgresql.org.html">Trusty and Saucy on apt.postgresql.org</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/blog/posts/2013/how_not_to_monitor_a_boolean.html">How not to monitor a boolean</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/blog/posts/2013/postgresql_minor_releases.html">PostgreSQL minor releases</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/blog/posts/2012/apt.postgresql.org.html">apt.postgresql.org</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/blog/posts/2012/pgbouncer_running_on_the_same_hardware.html">pgbouncer running on the same hardware</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/blog/posts/2012/shared_memory_and_swapping.html">Shared Memory and Swapping</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/blog/posts/2012/postgresql_in_debian_hackathon.html">PostgreSQL in Debian Hackathon</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/blog/posts/2011/postgresql_in_debian.html">PostgreSQL in Debian</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/blog/posts/2018/paste.html">Cool Unix Features: paste</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/blog/posts/2018/stepping_down_as_dam.html">Stepping down as DAM</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white white-70 dn dib-ns pv2 ph3 no-underline" href="https://df7cb.de/blog/index.html" >
+    &copy;  Myon's Blog 2025 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

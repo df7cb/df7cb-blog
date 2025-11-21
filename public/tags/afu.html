@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Myon&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="">
+    <meta name="generator" content="Hugo 0.152.2">
+    
+    
+    
+      <meta name="robots" content="index, follow">
+    
+    <meta name="author" content="Christoph Berg">
+    
+
+    
+<link rel="stylesheet" href="/blog/ananke/css/main.min.efe4d852f731d5d1fbb87718387202a97aafd768cdcdaed0662bbe6982e91824.css" >
+
+
+
+
+    
+
+
+    
+      
+
+    
+
+    
+    
+      <link href="/blog/tags/afu/index.xml" rel="alternate" type="application/rss+xml" title="Myon&#39;s Blog" />
+      <link href="/blog/tags/afu/index.xml" rel="feed" type="application/rss+xml" title="Myon&#39;s Blog" />
+      
+    
+
+    
+      <link rel="canonical" href="https://df7cb.de/blog/tags/afu.html">
+    
+
+    <meta property="og:url" content="https://df7cb.de/blog/tags/afu.html">
+  <meta property="og:site_name" content="Myon&#39;s Blog">
+  <meta property="og:title" content="Afu">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="website">
+
+  <meta itemprop="name" content="Afu">
+  <meta itemprop="datePublished" content="2023-08-26T23:29:23+02:00">
+  <meta itemprop="dateModified" content="2023-08-26T23:29:23+02:00">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Afu">
+
+      
+    
+	
+  </head><body class="ma0 avenir bg-near-white production">
+
+    
+
+  <header>
+    <div class="pb3-m pb6-l bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l center items-center justify-between">
+    <a href="/blog/index.html" class="f3 fw2 hover-white white-90 dib no-underline">
+      
+        Myon&#39;s Blog
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+      <div class="tc-l pv3 ph3 ph4-ns">
+        <h1 class="f2 f-subheadline-l fw2 light-silver mb0 lh-title">
+          Afu
+        </h1>
+        
+      </div>
+    </div>
+  </header>
+
+
+    <main class="pb7" role="main">
+      
+  <article class="cf pa3 pa4-m pa4-l">
+    <div class="measure-wide-l center f4 lh-copy nested-copy-line-height nested-links mid-gray">
+      <p>Below you will find pages that utilize the taxonomy term “Afu”</p>
+    </div>
+  </article>
+  <div class="mw8 center">
+    <section class="flex-ns mt5 flex-wrap justify-around">
+      
+        <div class="w-100 mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2023/ic7610ftdi.html" class="link black dim">
+        Getting I/Q SDR data from Icom IC-7610&#39;s USB 3 port using libftd3xx
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>I had been looking around for some time if someone had already managed to get
+I/Q data from Icom&rsquo;s IC-7610 HF transceiver without going through the
+binary-only hdsdr driver provided by Icom, but couldn&rsquo;t find anything.</p>
+<p>First attempts at doing that on Debian Linux using libftdi1 didn&rsquo;t work, so I
+resorted to using the (again binary-only) libftd3xx driver from FT, and
+succeeded after some tinkering around.</p>
+<p>The program writes raw I/Q data to a file in int16-int16 format.</p>
+<ul>
+<li>ic7610ftdi: <a href="https://github.com/df7cb/ic7610ftdi">https://github.com/df7cb/ic7610ftdi</a></li>
+<li>Get libftd3xx from <a href="https://ftdichip.com/drivers/d3xx-drivers/">https://ftdichip.com/drivers/d3xx-drivers/</a></li>
+<li>IC-7610 I/Q port reference: <a href="https://www.icomjapan.com/support/manual/1792/">https://www.icomjapan.com/support/manual/1792/</a></li>
+<li>The IC-7610 needs to be connected using a decent USB 3 cable, preferably without any hub in-between</li>
+<li>If the SuperSpeed-FIFO Bridge disappears after some time, re-plug the cable or power-cycle the transceiver</li>
+</ul>
+<pre tabindex="0"><code>$ lsusb | grep IC
+Bus 002 Device 024: ID 0c26:0029 Prolific Technology Inc. IC-7610 SuperSpeed-FIFO Bridge
+
+$ make
+cc -Wall -g   -c -o ic7610ftdi.o ic7610ftdi.c
+cc   ic7610ftdi.o  -lftd3xx -o ic7610ftdi
+
+$ ./ic7610ftdi iq.cs16
+Device[0]
+	Flags: 0x4 [USB 3] | Type: 600 | ID: 0x0C260029
+	SerialNumber=23001123
+	Description=IC-7610 SuperSpeed-FIFO Bridge
+fe fe 98 e0 1a 0b fd ff
+fe fe e0 98 1a 0b 00 fd IQ data output: 0
+fe fe 98 e0 1a 0b 01 fd
+fe fe e0 98 fb fd ff ff OK
+RX 42 MiB ^C
+fe fe 98 e0 1a 0b 00 fd
+fe fe e0 98 fb fd ff ff OK
+
+$ ls -l iq.cs16
+-rw-rw-r-- 1 myon myon 44040192 26. Aug 22:37 iq.cs16
+
+$ inspectrum -r 1920000 iq.cs16 &amp;
+</code></pre>
+    </div>
+    <a href="/blog/posts/2023/ic7610ftdi.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2022/udp-portforwarding.html" class="link black dim">
+        UDP port forwarding with iptables and ferm
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>To talk to my IC-7610 via wireguard, I set up UDP port forwarding for ports 50001 50002 50003 on a raspi:</p>
+<pre tabindex="0"><code>domain (ip) {
+  table filter {
+    chain FORWARD {
+      policy ACCEPT;
+    }
+  }
+
+  table nat {
+    chain PREROUTING {
+      interface (wg0) {
+        proto udp dport 50001 DNAT to 192.168.0.6;
+        proto udp dport 50002 DNAT to 192.168.0.6;
+        proto udp dport 50003 DNAT to 192.168.0.6;
+      }
+    }
+
+    chain POSTROUTING {
+      outerface (eth0) {
+        proto udp dport 50001 SNAT to-source 192.168.0.3;
+        proto udp dport 50002 SNAT to-source 192.168.0.3;
+        proto udp dport 50003 SNAT to-source 192.168.0.3;
+      }
+    }
+  }
+}
+</code></pre>
+    </div>
+    <a href="/blog/posts/2022/udp-portforwarding.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2022/lora-aprs-igate.html" class="link black dim">
+        LoRa APRS iGate on TTGO LoRa32
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <h1 id="lora-aprs-igate">LoRa APRS iGate</h1>
+<p>The official documentation of
+<a href="https://github.com/lora-aprs/LoRa_APRS_iGate">https://github.com/lora-aprs/LoRa_APRS_iGate</a>
+uses the PlatformIO plugin of MS Visual Studio Code. Here are the commands to
+get it running without the GUI:</p>
+<pre tabindex="0"><code>git clone https://github.com/lora-aprs/LoRa_APRS_iGate.git
+cd LoRa_APRS_iGate
+</code></pre><ul>
+<li>Edit data/is-cfg.json with your station info</li>
+<li>Edit platformio.ini: <code>board = ttgo-lora32-v21</code></li>
+</ul>
+<pre tabindex="0"><code>pip3 install platformio
+
+pio run
+...
+Building .pio/build/lora_board/firmware.bin
+...
+
+pio run --target upload
+...
+Uploading .pio/build/lora_board/firmware.bin
+...
+
+pio run --target uploadfs
+...
+Building SPIFFS image from &#39;data&#39; directory to .pio/build/lora_board/spiffs.bin
+/is-cfg.json
+...
+Uploading .pio/build/lora_board/spiffs.bin
+...
+</code></pre><h1 id="lora-aprs-tracker">LoRa APRS Tracker</h1>
+<p>The procedure for the tracker is the same, but the GPS module might need a
+reset first:</p>
+<pre tabindex="0"><code>git clone https://github.com/lora-aprs/TTGO-T-Beam_GPS-reset.git
+cd TTGO-T-Beam_GPS-reset
+pio run -e ttgo-t-beam-v1
+pio run --target upload -e ttgo-t-beam-v1
+# screen /dev/ttyACM0 115200
+</code></pre><p>&hellip; and then upload <a href="https://github.com/lora-aprs/LoRa_APRS_Tracker.git">https://github.com/lora-aprs/LoRa_APRS_Tracker.git</a></p>
+    </div>
+    <a href="/blog/posts/2022/lora-aprs-igate.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2022/midicwkeyer.html" class="link black dim">
+        Iambic CW keyer based on DigiSpark, MIDI, and PulseAudio on Linux
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>Classic ham radio transceivers have physical connectors for morse keys and
+microphones. When the transceiver is a software defined radio (SDR) device,
+voice operation is easy by attaching a headset, but solutions to connect a
+morse key, be it a straight key or paddles, to a modern PC are rare. In the old
+times, machines had serial ports with RTS/DTR lines, but these do not exist
+anymore, so a new interface is needed.</p>
+<p>I am using a LimeSDR as ground station for the QO-100 satellite, and naturally
+also wanted to do CW operation there. I started with SDRangel which has a
+built-in morse generator, but naturally wanted to connect a CW key. At first
+sight, all the bits are there, there&rsquo;s a tune button that could be used as a
+straight key, as well as keyboard bindings for dots and dashes. But the delay
+key-&gt;local audio is almost a full second, so that&rsquo;s a no-go. I then went to
+hack my K3NG keyer to output ^ (high) _ (low) signals on the USB interface, and
+have a smallish Python program read that and send SDRangel REST API requests.
+Works, but that solution always felt &ldquo;too big&rdquo; to me, plus the sidetone from
+the buzzer inside the Arduino case could be heard in the whole house. And the
+total TX-RX delay was well over a second.</p>
+<p>Next I tried building some GNU Radio flowcharts to solve the same problem but
+which all had the same trouble that the buffers grew way too big to allow the
+sidetone to be used for keying. At the same time, I switched the transceiver
+from SDRangel to another GR flowchart which reduced the overall TX-RX delay to
+something much shorter, but the local audio delay was still too slow for CW.</p>
+<p>So after some back and forth, I came up with this solution: the external
+interface from the CW paddles to the PC is a small DigiSpark board programmed
+to output MIDI signals, and on the (Linux) PC side, there is a Python program
+listening for MIDI and acting as a iambic CW keyer. The morse dots and dashes
+are uploaded as &ldquo;samples&rdquo; to PulseAudio, where they are played both on the
+local sidetone channel (usually headphones) and on the audio channel driving
+the SDR transceiver. There is no delay. :)</p>
+<h2 id="digispark-hardware">DigiSpark hardware</h2>
+<p>The DigiSpark is a very small embedded computer that can be programmed using
+the Arduino toolchain.</p>
+<p>Of the 6 IO pins, two are used for the USB bus, two connect the dit and dah
+lines of the CW paddle, one connects to a potentiometer for adjusting the
+keying speed, and the last one is unconnected in this design, but could be used
+for keying a physical transceiver. (The onboard LED uses the this pin.)</p>
+<pre tabindex="0"><code>            +---------------+
+            |            P5 o  -- 10k potentiometer middle pin
+        =====  Attiny85  P4 o  -- USB (internal)
+   USB  -----            P3 o  -- USB (internal)
+        -----            P2 o  -- dah paddle
+        =====   78M05    P1 o  -- (LED/TRX)
+            |            P0 o  -- dit paddle
+            +---o-o-o-------+
+</code></pre><p>There is an extra 27 kΩ resistor in the ground connection of the potentiometer
+to keep the P5 voltage &gt; 2.5 V, or else the DigiSpark resets. (This could be
+changed by blowing some fuses, but is not necessary.)</p>
+    </div>
+    <a href="/blog/posts/2022/midicwkeyer.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2007/darc-xmas.html" class="link black dim">
+        DARC Xmas Contest 2006
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>For years, the Xmas contest has virtually been my only ham radio activity. This
+year, after I had to take down the antenna in my parents&rsquo; yard, I put up the
+40m part of a 80/40m dipole in the attic of my flat in Saarbrücken. The first
+tests were satisfying so I drove back to Saarbrücken for December 26th.</p>
+<p>
+The contest started nice with a S9+50 signal from DR5S - of course DOK Q10
+meant it was just very close. Unfortunately, things turned out much worse. The
+antenna wasn't as matched as I had hoped and I had to put my small MFJ tuner
+in. But, whatever I would tune to, the 1:1 would only withstand some second of
+transmission and I had to retune. The 1:1 there would pop back up, and I had to
+retune back to the original settings. GOTO 10.
+<p>
+After a bit more than one hour I gave up. The final log is here:
+<p>
+<table>
+<tr><td>8.33</td><td>3.543</td><td>DR5S</td><td>599 Q02</td><td>599 Q10</td></tr>
+<tr><td>8.42</td><td>7.016</td><td>DL0CS</td><td>599 Q02</td><td>599 M15</td></tr>
+<tr><td>8.43</td><td>7.016</td><td>G4OGD</td><td>599 Q02</td><td>599 004</td></tr>
+<tr><td>8.50</td><td>7.013</td><td>OK5MM</td><td>599 Q02</td><td>599 019</td></tr>
+<tr><td>9.38</td><td>3.545</td><td>DK9IP</td><td>599 Q02</td><td>599 A24</td></tr>
+</table>
+<p>
+I don't know where the fault was, in the TRX, the tuner, or the antenna. I hope
+it is not the TRX.
+    </div>
+    <a href="/blog/posts/2007/darc-xmas.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+    </section>
+  </div>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white white-70 dn dib-ns pv2 ph3 no-underline" href="https://df7cb.de/blog/index.html" >
+    &copy;  Myon's Blog 2025 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

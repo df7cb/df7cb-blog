@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>vcswatch and git --filter | Myon&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Debian is running a &ldquo;vcswatch&rdquo;
+service that keeps track of the status of all packaging repositories that have a
+Vcs-Git
+(and other VCSes) header set and shows which repos might need a package upload to push pending changes out.
+Naturally, this is a lot of data and the scratch partition on qa.debian.org
+had to be expanded several times, up to 300 GB in the last iteration.
+Attempts to reduce that size using shallow clones (git clone &ndash;depth=50)
+did not result more than a few percent of space saved. Running git gc on
+all repos helps a bit, but is tedious and as Debian is growing, the repos are
+still growing both in size and number. I ended up blocking all repos with
+checkouts larger than a gigabyte, and still the only cure was expanding the
+disk, or to lower the blocking threshold.
+Since we only need a tiny bit of info from the repositories, namely the content
+of debian/changelog and a few other files from debian/, plus
+the number of commits since the last tag on the packaging branch, it made sense
+to try to get the info without fetching a full repo clone. The question if we
+could grab that solely using the GitLab API at salsa.debian.org was never
+really answered. But then, in #1032623,
+Gábor Németh suggested the use of
+git clone &ndash;filter blob:none.
+As things go, this sat unattended in the bug report for almost a year until the
+next &ldquo;disk full&rdquo; event made me give it a try.
+The blob:none filter makes git clone omit all files, fetching only commit and
+tree information. Any blob (file content) needed at git run time is
+transparently fetched from the upstream repository, and stored locally. It
+turned out to be a game-changer. The (largish) repositories I tried it on
+shrank to 1/100 of the original size.
+Poking around I figured we could even do better by using tree:0 as
+filter. This additionally omits all trees from the git clone, again only
+fetching the information at run time when needed. Some of the larger repos I
+tried it on shrank to 1/1000 of their original size.
+I deployed the new option on qa.debian.org and scheduled all repositories to
+fetch a new clone on the next scan:
+
+The initial dip from 100% to 95% is my first &ldquo;what happens if we block repos
+&gt; 500 MB&rdquo; attempt. Over the week after that, the git filter clones reduce the
+overall disk consumption from almost 300 GB to 15 GB, a 1/20. Some
+repos shrank from GBs to below a MB.
+Perhaps I should make all my git clones use one of the filters.">
+    <meta name="generator" content="Hugo 0.152.2">
+    
+    
+    
+      <meta name="robots" content="index, follow">
+    
+    <meta name="author" content="Christoph Berg">
+    
+
+    
+<link rel="stylesheet" href="/blog/ananke/css/main.min.efe4d852f731d5d1fbb87718387202a97aafd768cdcdaed0662bbe6982e91824.css" >
+
+
+
+
+    
+
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="https://df7cb.de/blog/posts/2024/vcswatch-git-filter.html">
+    
+
+    <meta property="og:url" content="https://df7cb.de/blog/posts/2024/vcswatch-git-filter.html">
+  <meta property="og:site_name" content="Myon&#39;s Blog">
+  <meta property="og:title" content="vcswatch and git --filter">
+  <meta property="og:description" content="Debian is running a “vcswatch” service that keeps track of the status of all packaging repositories that have a Vcs-Git (and other VCSes) header set and shows which repos might need a package upload to push pending changes out.
+Naturally, this is a lot of data and the scratch partition on qa.debian.org had to be expanded several times, up to 300 GB in the last iteration. Attempts to reduce that size using shallow clones (git clone –depth=50) did not result more than a few percent of space saved. Running git gc on all repos helps a bit, but is tedious and as Debian is growing, the repos are still growing both in size and number. I ended up blocking all repos with checkouts larger than a gigabyte, and still the only cure was expanding the disk, or to lower the blocking threshold.
+Since we only need a tiny bit of info from the repositories, namely the content of debian/changelog and a few other files from debian/, plus the number of commits since the last tag on the packaging branch, it made sense to try to get the info without fetching a full repo clone. The question if we could grab that solely using the GitLab API at salsa.debian.org was never really answered. But then, in #1032623, Gábor Németh suggested the use of git clone –filter blob:none. As things go, this sat unattended in the bug report for almost a year until the next “disk full” event made me give it a try.
+The blob:none filter makes git clone omit all files, fetching only commit and tree information. Any blob (file content) needed at git run time is transparently fetched from the upstream repository, and stored locally. It turned out to be a game-changer. The (largish) repositories I tried it on shrank to 1/100 of the original size.
+Poking around I figured we could even do better by using tree:0 as filter. This additionally omits all trees from the git clone, again only fetching the information at run time when needed. Some of the larger repos I tried it on shrank to 1/1000 of their original size.
+I deployed the new option on qa.debian.org and scheduled all repositories to fetch a new clone on the next scan:
+The initial dip from 100% to 95% is my first “what happens if we block repos &gt; 500 MB” attempt. Over the week after that, the git filter clones reduce the overall disk consumption from almost 300 GB to 15 GB, a 1/20. Some repos shrank from GBs to below a MB.
+Perhaps I should make all my git clones use one of the filters.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-03-18T15:22:23+01:00">
+    <meta property="article:modified_time" content="2024-03-18T15:22:23+01:00">
+    <meta property="article:tag" content="Debian">
+
+  <meta itemprop="name" content="vcswatch and git --filter">
+  <meta itemprop="description" content="Debian is running a “vcswatch” service that keeps track of the status of all packaging repositories that have a Vcs-Git (and other VCSes) header set and shows which repos might need a package upload to push pending changes out.
+Naturally, this is a lot of data and the scratch partition on qa.debian.org had to be expanded several times, up to 300 GB in the last iteration. Attempts to reduce that size using shallow clones (git clone –depth=50) did not result more than a few percent of space saved. Running git gc on all repos helps a bit, but is tedious and as Debian is growing, the repos are still growing both in size and number. I ended up blocking all repos with checkouts larger than a gigabyte, and still the only cure was expanding the disk, or to lower the blocking threshold.
+Since we only need a tiny bit of info from the repositories, namely the content of debian/changelog and a few other files from debian/, plus the number of commits since the last tag on the packaging branch, it made sense to try to get the info without fetching a full repo clone. The question if we could grab that solely using the GitLab API at salsa.debian.org was never really answered. But then, in #1032623, Gábor Németh suggested the use of git clone –filter blob:none. As things go, this sat unattended in the bug report for almost a year until the next “disk full” event made me give it a try.
+The blob:none filter makes git clone omit all files, fetching only commit and tree information. Any blob (file content) needed at git run time is transparently fetched from the upstream repository, and stored locally. It turned out to be a game-changer. The (largish) repositories I tried it on shrank to 1/100 of the original size.
+Poking around I figured we could even do better by using tree:0 as filter. This additionally omits all trees from the git clone, again only fetching the information at run time when needed. Some of the larger repos I tried it on shrank to 1/1000 of their original size.
+I deployed the new option on qa.debian.org and scheduled all repositories to fetch a new clone on the next scan:
+The initial dip from 100% to 95% is my first “what happens if we block repos &gt; 500 MB” attempt. Over the week after that, the git filter clones reduce the overall disk consumption from almost 300 GB to 15 GB, a 1/20. Some repos shrank from GBs to below a MB.
+Perhaps I should make all my git clones use one of the filters.">
+  <meta itemprop="datePublished" content="2024-03-18T15:22:23+01:00">
+  <meta itemprop="dateModified" content="2024-03-18T15:22:23+01:00">
+  <meta itemprop="wordCount" content="441">
+  <meta itemprop="keywords" content="Debian">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="vcswatch and git --filter">
+  <meta name="twitter:description" content="Debian is running a “vcswatch” service that keeps track of the status of all packaging repositories that have a Vcs-Git (and other VCSes) header set and shows which repos might need a package upload to push pending changes out.
+Naturally, this is a lot of data and the scratch partition on qa.debian.org had to be expanded several times, up to 300 GB in the last iteration. Attempts to reduce that size using shallow clones (git clone –depth=50) did not result more than a few percent of space saved. Running git gc on all repos helps a bit, but is tedious and as Debian is growing, the repos are still growing both in size and number. I ended up blocking all repos with checkouts larger than a gigabyte, and still the only cure was expanding the disk, or to lower the blocking threshold.
+Since we only need a tiny bit of info from the repositories, namely the content of debian/changelog and a few other files from debian/, plus the number of commits since the last tag on the packaging branch, it made sense to try to get the info without fetching a full repo clone. The question if we could grab that solely using the GitLab API at salsa.debian.org was never really answered. But then, in #1032623, Gábor Németh suggested the use of git clone –filter blob:none. As things go, this sat unattended in the bug report for almost a year until the next “disk full” event made me give it a try.
+The blob:none filter makes git clone omit all files, fetching only commit and tree information. Any blob (file content) needed at git run time is transparently fetched from the upstream repository, and stored locally. It turned out to be a game-changer. The (largish) repositories I tried it on shrank to 1/100 of the original size.
+Poking around I figured we could even do better by using tree:0 as filter. This additionally omits all trees from the git clone, again only fetching the information at run time when needed. Some of the larger repos I tried it on shrank to 1/1000 of their original size.
+I deployed the new option on qa.debian.org and scheduled all repositories to fetch a new clone on the next scan:
+The initial dip from 100% to 95% is my first “what happens if we block repos &gt; 500 MB” attempt. Over the week after that, the git filter clones reduce the overall disk consumption from almost 300 GB to 15 GB, a 1/20. Some repos shrank from GBs to below a MB.
+Perhaps I should make all my git clones use one of the filters.">
+
+      
+    
+	
+  </head><body class="ma0 avenir bg-near-white production">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l center items-center justify-between">
+    <a href="/blog/index.html" class="f3 fw2 hover-white white-90 dib no-underline">
+      
+        Myon&#39;s Blog
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  
+  <article class="flex-l mw8 center ph3 flex-wrap justify-between">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Posts
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">vcswatch and git --filter</h1>
+      
+      <p class="tracked"><strong>Christoph Berg</strong>
+      </p>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2024-03-18T15:22:23+01:00">March 18, 2024</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>Debian is running a &ldquo;<a href="https://qa.debian.org/cgi-bin/vcswatch">vcswatch</a>&rdquo;
+service that keeps track of the status of all packaging repositories that have a
+<a href="https://www.debian.org/doc/manuals/developers-reference/best-pkging-practices.de.html#vcs"><tt>Vcs-Git</tt></a>
+(and other VCSes) header set and shows which repos might need a package upload to push pending changes out.</p>
+<p>Naturally, this is a lot of data and the scratch partition on qa.debian.org
+had to be expanded several times, up to 300 GB in the last iteration.
+Attempts to reduce that size using shallow clones (<tt>git clone &ndash;depth=50</tt>)
+did not result more than a few percent of space saved. Running <tt>git gc</tt> on
+all repos helps a bit, but is tedious and as Debian is growing, the repos are
+still growing both in size and number. I ended up blocking all repos with
+checkouts larger than a gigabyte, and still the only cure was expanding the
+disk, or to lower the blocking threshold.</p>
+<p>Since we only need a tiny bit of info from the repositories, namely the content
+of <tt>debian/changelog</tt> and a few other files from <tt>debian/</tt>, plus
+the number of commits since the last tag on the packaging branch, it made sense
+to try to get the info without fetching a full repo clone. The question if we
+could grab that solely using the GitLab API at salsa.debian.org was never
+really answered. But then, in <a href="https://bugs.debian.org/1032623">#1032623</a>,
+Gábor Németh suggested the use of
+<a href="https://git-scm.com/docs/git-clone#Documentation/git-clone.txt---filterltfilter-specgt"><tt>git clone &ndash;filter blob:none</tt></a>.
+As things go, this sat unattended in the bug report for almost a year until the
+next &ldquo;disk full&rdquo; event made me give it a try.</p>
+<p>The <tt>blob:none</tt> filter makes git clone omit all files, fetching only commit and
+tree information. Any blob (file content) needed at git run time is
+transparently fetched from the upstream repository, and stored locally. It
+turned out to be a game-changer. The (largish) repositories I tried it on
+shrank to 1/100 of the original size.</p>
+<p>Poking around I figured we could even do better by using <tt>tree:0</tt> as
+filter. This additionally omits all trees from the git clone, again only
+fetching the information at run time when needed. Some of the larger repos I
+tried it on shrank to <em>1/1000</em> of their original size.</p>
+<p>I deployed the new option on qa.debian.org and scheduled all repositories to
+fetch a new clone on the next scan:</p>
+<img src="https://www.df7cb.de/blog/2024/df-month.png">
+<p>The initial dip from 100% to 95% is my first &ldquo;what happens if we block repos
+&gt; 500 MB&rdquo; attempt. Over the week after that, the git filter clones reduce the
+overall disk consumption from almost 300 GB to 15 GB, a <em>1/20</em>. Some
+repos shrank from GBs to below a MB.</p>
+<p>Perhaps I should make all my git clones use one of the filters.</p>
+<ul class="pa0">
+  
+   <li class="list di">
+     <a href="/blog/tags/debian.html" class="link f5 grow br-pill ba ph3 pv2 mb2 dib black sans-serif no-underline">Debian</a>
+   </li>
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3">Related</p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/blog/posts/2023/popcon-postgresql.html">PostgreSQL Popularity Contest</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/blog/posts/2021/postgresql-undelete.html">PostgreSQL and Undelete</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/blog/posts/2020/arm64-on-apt.postgresql.org.html">arm64 on apt.postgresql.org</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/blog/posts/2020/apt-archive.postgresql.org.html">Announcing apt-archive.postgresql.org</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/blog/posts/2018/paste.html">Cool Unix Features: paste</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/blog/posts/2018/stepping_down_as_dam.html">Stepping down as DAM</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/blog/posts/2017/salsa_batch_import.html">Salsa batch import</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/blog/posts/2016/vcswatch_is_now_looking_for_tags.html">vcswatch is now looking for tags</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/blog/posts/2015/10_years_debian_developer.html">10 Years Debian Developer</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/blog/posts/2015/postgresql_9.5_in_debian.html">PostgreSQL 9.5 in Debian</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/blog/posts/2015/apt.postgresql.org_statistics.html">apt.postgresql.org statistics</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/blog/posts/2014/new_urxvt_tab_in_current_directory.html">New urxvt in current directory</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/blog/posts/2014/comparing_version_numbers_in_shell.html">Comparing Version Numbers in Shell</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/blog/posts/2014/postgresql_9.4_on_debian.html">PostgreSQL 9.4 on Debian</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/blog/posts/2014/trusty_and_saucy_on_apt.postgresql.org.html">Trusty and Saucy on apt.postgresql.org</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white white-70 dn dib-ns pv2 ph3 no-underline" href="https://df7cb.de/blog/index.html" >
+    &copy;  Myon's Blog 2025 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Iambic CW keyer based on DigiSpark, MIDI, and PulseAudio on Linux | Myon&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Classic ham radio transceivers have physical connectors for morse keys and
+microphones. When the transceiver is a software defined radio (SDR) device,
+voice operation is easy by attaching a headset, but solutions to connect a
+morse key, be it a straight key or paddles, to a modern PC are rare. In the old
+times, machines had serial ports with RTS/DTR lines, but these do not exist
+anymore, so a new interface is needed.
+I am using a LimeSDR as ground station for the QO-100 satellite, and naturally
+also wanted to do CW operation there. I started with SDRangel which has a
+built-in morse generator, but naturally wanted to connect a CW key. At first
+sight, all the bits are there, there&rsquo;s a tune button that could be used as a
+straight key, as well as keyboard bindings for dots and dashes. But the delay
+key-&gt;local audio is almost a full second, so that&rsquo;s a no-go. I then went to
+hack my K3NG keyer to output ^ (high) _ (low) signals on the USB interface, and
+have a smallish Python program read that and send SDRangel REST API requests.
+Works, but that solution always felt &ldquo;too big&rdquo; to me, plus the sidetone from
+the buzzer inside the Arduino case could be heard in the whole house. And the
+total TX-RX delay was well over a second.
+Next I tried building some GNU Radio flowcharts to solve the same problem but
+which all had the same trouble that the buffers grew way too big to allow the
+sidetone to be used for keying. At the same time, I switched the transceiver
+from SDRangel to another GR flowchart which reduced the overall TX-RX delay to
+something much shorter, but the local audio delay was still too slow for CW.
+So after some back and forth, I came up with this solution: the external
+interface from the CW paddles to the PC is a small DigiSpark board programmed
+to output MIDI signals, and on the (Linux) PC side, there is a Python program
+listening for MIDI and acting as a iambic CW keyer. The morse dots and dashes
+are uploaded as &ldquo;samples&rdquo; to PulseAudio, where they are played both on the
+local sidetone channel (usually headphones) and on the audio channel driving
+the SDR transceiver. There is no delay. :)
+DigiSpark hardware
+The DigiSpark is a very small embedded computer that can be programmed using
+the Arduino toolchain.
+Of the 6 IO pins, two are used for the USB bus, two connect the dit and dah
+lines of the CW paddle, one connects to a potentiometer for adjusting the
+keying speed, and the last one is unconnected in this design, but could be used
+for keying a physical transceiver. (The onboard LED uses the this pin.)
+            &#43;---------------&#43;
+            |            P5 o  -- 10k potentiometer middle pin
+        =====  Attiny85  P4 o  -- USB (internal)
+   USB  -----            P3 o  -- USB (internal)
+        -----            P2 o  -- dah paddle
+        =====   78M05    P1 o  -- (LED/TRX)
+            |            P0 o  -- dit paddle
+            &#43;---o-o-o-------&#43;
+There is an extra 27 kΩ resistor in the ground connection of the potentiometer
+to keep the P5 voltage &gt; 2.5 V, or else the DigiSpark resets. (This could be
+changed by blowing some fuses, but is not necessary.)">
+    <meta name="generator" content="Hugo 0.152.2">
+    
+    
+    
+      <meta name="robots" content="index, follow">
+    
+    <meta name="author" content="Christoph Berg">
+    
+
+    
+<link rel="stylesheet" href="/blog/ananke/css/main.min.efe4d852f731d5d1fbb87718387202a97aafd768cdcdaed0662bbe6982e91824.css" >
+
+
+
+
+    
+
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="https://df7cb.de/blog/posts/2022/midicwkeyer.html">
+    
+
+    <meta property="og:url" content="https://df7cb.de/blog/posts/2022/midicwkeyer.html">
+  <meta property="og:site_name" content="Myon&#39;s Blog">
+  <meta property="og:title" content="Iambic CW keyer based on DigiSpark, MIDI, and PulseAudio on Linux">
+  <meta property="og:description" content="Classic ham radio transceivers have physical connectors for morse keys and microphones. When the transceiver is a software defined radio (SDR) device, voice operation is easy by attaching a headset, but solutions to connect a morse key, be it a straight key or paddles, to a modern PC are rare. In the old times, machines had serial ports with RTS/DTR lines, but these do not exist anymore, so a new interface is needed.
+I am using a LimeSDR as ground station for the QO-100 satellite, and naturally also wanted to do CW operation there. I started with SDRangel which has a built-in morse generator, but naturally wanted to connect a CW key. At first sight, all the bits are there, there’s a tune button that could be used as a straight key, as well as keyboard bindings for dots and dashes. But the delay key-&gt;local audio is almost a full second, so that’s a no-go. I then went to hack my K3NG keyer to output ^ (high) _ (low) signals on the USB interface, and have a smallish Python program read that and send SDRangel REST API requests. Works, but that solution always felt “too big” to me, plus the sidetone from the buzzer inside the Arduino case could be heard in the whole house. And the total TX-RX delay was well over a second.
+Next I tried building some GNU Radio flowcharts to solve the same problem but which all had the same trouble that the buffers grew way too big to allow the sidetone to be used for keying. At the same time, I switched the transceiver from SDRangel to another GR flowchart which reduced the overall TX-RX delay to something much shorter, but the local audio delay was still too slow for CW.
+So after some back and forth, I came up with this solution: the external interface from the CW paddles to the PC is a small DigiSpark board programmed to output MIDI signals, and on the (Linux) PC side, there is a Python program listening for MIDI and acting as a iambic CW keyer. The morse dots and dashes are uploaded as “samples” to PulseAudio, where they are played both on the local sidetone channel (usually headphones) and on the audio channel driving the SDR transceiver. There is no delay. :)
+DigiSpark hardware The DigiSpark is a very small embedded computer that can be programmed using the Arduino toolchain.
+Of the 6 IO pins, two are used for the USB bus, two connect the dit and dah lines of the CW paddle, one connects to a potentiometer for adjusting the keying speed, and the last one is unconnected in this design, but could be used for keying a physical transceiver. (The onboard LED uses the this pin.)
+&#43;---------------&#43; | P5 o -- 10k potentiometer middle pin ===== Attiny85 P4 o -- USB (internal) USB ----- P3 o -- USB (internal) ----- P2 o -- dah paddle ===== 78M05 P1 o -- (LED/TRX) | P0 o -- dit paddle &#43;---o-o-o-------&#43; There is an extra 27 kΩ resistor in the ground connection of the potentiometer to keep the P5 voltage &gt; 2.5 V, or else the DigiSpark resets. (This could be changed by blowing some fuses, but is not necessary.)">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2022-03-23T18:55:11+01:00">
+    <meta property="article:modified_time" content="2022-03-23T18:55:11+01:00">
+    <meta property="article:tag" content="Afu">
+
+  <meta itemprop="name" content="Iambic CW keyer based on DigiSpark, MIDI, and PulseAudio on Linux">
+  <meta itemprop="description" content="Classic ham radio transceivers have physical connectors for morse keys and microphones. When the transceiver is a software defined radio (SDR) device, voice operation is easy by attaching a headset, but solutions to connect a morse key, be it a straight key or paddles, to a modern PC are rare. In the old times, machines had serial ports with RTS/DTR lines, but these do not exist anymore, so a new interface is needed.
+I am using a LimeSDR as ground station for the QO-100 satellite, and naturally also wanted to do CW operation there. I started with SDRangel which has a built-in morse generator, but naturally wanted to connect a CW key. At first sight, all the bits are there, there’s a tune button that could be used as a straight key, as well as keyboard bindings for dots and dashes. But the delay key-&gt;local audio is almost a full second, so that’s a no-go. I then went to hack my K3NG keyer to output ^ (high) _ (low) signals on the USB interface, and have a smallish Python program read that and send SDRangel REST API requests. Works, but that solution always felt “too big” to me, plus the sidetone from the buzzer inside the Arduino case could be heard in the whole house. And the total TX-RX delay was well over a second.
+Next I tried building some GNU Radio flowcharts to solve the same problem but which all had the same trouble that the buffers grew way too big to allow the sidetone to be used for keying. At the same time, I switched the transceiver from SDRangel to another GR flowchart which reduced the overall TX-RX delay to something much shorter, but the local audio delay was still too slow for CW.
+So after some back and forth, I came up with this solution: the external interface from the CW paddles to the PC is a small DigiSpark board programmed to output MIDI signals, and on the (Linux) PC side, there is a Python program listening for MIDI and acting as a iambic CW keyer. The morse dots and dashes are uploaded as “samples” to PulseAudio, where they are played both on the local sidetone channel (usually headphones) and on the audio channel driving the SDR transceiver. There is no delay. :)
+DigiSpark hardware The DigiSpark is a very small embedded computer that can be programmed using the Arduino toolchain.
+Of the 6 IO pins, two are used for the USB bus, two connect the dit and dah lines of the CW paddle, one connects to a potentiometer for adjusting the keying speed, and the last one is unconnected in this design, but could be used for keying a physical transceiver. (The onboard LED uses the this pin.)
+&#43;---------------&#43; | P5 o -- 10k potentiometer middle pin ===== Attiny85 P4 o -- USB (internal) USB ----- P3 o -- USB (internal) ----- P2 o -- dah paddle ===== 78M05 P1 o -- (LED/TRX) | P0 o -- dit paddle &#43;---o-o-o-------&#43; There is an extra 27 kΩ resistor in the ground connection of the potentiometer to keep the P5 voltage &gt; 2.5 V, or else the DigiSpark resets. (This could be changed by blowing some fuses, but is not necessary.)">
+  <meta itemprop="datePublished" content="2022-03-23T18:55:11+01:00">
+  <meta itemprop="dateModified" content="2022-03-23T18:55:11+01:00">
+  <meta itemprop="wordCount" content="897">
+  <meta itemprop="keywords" content="Afu">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Iambic CW keyer based on DigiSpark, MIDI, and PulseAudio on Linux">
+  <meta name="twitter:description" content="Classic ham radio transceivers have physical connectors for morse keys and microphones. When the transceiver is a software defined radio (SDR) device, voice operation is easy by attaching a headset, but solutions to connect a morse key, be it a straight key or paddles, to a modern PC are rare. In the old times, machines had serial ports with RTS/DTR lines, but these do not exist anymore, so a new interface is needed.
+I am using a LimeSDR as ground station for the QO-100 satellite, and naturally also wanted to do CW operation there. I started with SDRangel which has a built-in morse generator, but naturally wanted to connect a CW key. At first sight, all the bits are there, there’s a tune button that could be used as a straight key, as well as keyboard bindings for dots and dashes. But the delay key-&gt;local audio is almost a full second, so that’s a no-go. I then went to hack my K3NG keyer to output ^ (high) _ (low) signals on the USB interface, and have a smallish Python program read that and send SDRangel REST API requests. Works, but that solution always felt “too big” to me, plus the sidetone from the buzzer inside the Arduino case could be heard in the whole house. And the total TX-RX delay was well over a second.
+Next I tried building some GNU Radio flowcharts to solve the same problem but which all had the same trouble that the buffers grew way too big to allow the sidetone to be used for keying. At the same time, I switched the transceiver from SDRangel to another GR flowchart which reduced the overall TX-RX delay to something much shorter, but the local audio delay was still too slow for CW.
+So after some back and forth, I came up with this solution: the external interface from the CW paddles to the PC is a small DigiSpark board programmed to output MIDI signals, and on the (Linux) PC side, there is a Python program listening for MIDI and acting as a iambic CW keyer. The morse dots and dashes are uploaded as “samples” to PulseAudio, where they are played both on the local sidetone channel (usually headphones) and on the audio channel driving the SDR transceiver. There is no delay. :)
+DigiSpark hardware The DigiSpark is a very small embedded computer that can be programmed using the Arduino toolchain.
+Of the 6 IO pins, two are used for the USB bus, two connect the dit and dah lines of the CW paddle, one connects to a potentiometer for adjusting the keying speed, and the last one is unconnected in this design, but could be used for keying a physical transceiver. (The onboard LED uses the this pin.)
+&#43;---------------&#43; | P5 o -- 10k potentiometer middle pin ===== Attiny85 P4 o -- USB (internal) USB ----- P3 o -- USB (internal) ----- P2 o -- dah paddle ===== 78M05 P1 o -- (LED/TRX) | P0 o -- dit paddle &#43;---o-o-o-------&#43; There is an extra 27 kΩ resistor in the ground connection of the potentiometer to keep the P5 voltage &gt; 2.5 V, or else the DigiSpark resets. (This could be changed by blowing some fuses, but is not necessary.)">
+
+      
+    
+	
+  </head><body class="ma0 avenir bg-near-white production">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l center items-center justify-between">
+    <a href="/blog/index.html" class="f3 fw2 hover-white white-90 dib no-underline">
+      
+        Myon&#39;s Blog
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  
+  <article class="flex-l mw8 center ph3 flex-wrap justify-between">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Posts
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">Iambic CW keyer based on DigiSpark, MIDI, and PulseAudio on Linux</h1>
+      
+      <p class="tracked"><strong>Christoph Berg</strong>
+      </p>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2022-03-23T18:55:11+01:00">March 23, 2022</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>Classic ham radio transceivers have physical connectors for morse keys and
+microphones. When the transceiver is a software defined radio (SDR) device,
+voice operation is easy by attaching a headset, but solutions to connect a
+morse key, be it a straight key or paddles, to a modern PC are rare. In the old
+times, machines had serial ports with RTS/DTR lines, but these do not exist
+anymore, so a new interface is needed.</p>
+<p>I am using a LimeSDR as ground station for the QO-100 satellite, and naturally
+also wanted to do CW operation there. I started with SDRangel which has a
+built-in morse generator, but naturally wanted to connect a CW key. At first
+sight, all the bits are there, there&rsquo;s a tune button that could be used as a
+straight key, as well as keyboard bindings for dots and dashes. But the delay
+key-&gt;local audio is almost a full second, so that&rsquo;s a no-go. I then went to
+hack my K3NG keyer to output ^ (high) _ (low) signals on the USB interface, and
+have a smallish Python program read that and send SDRangel REST API requests.
+Works, but that solution always felt &ldquo;too big&rdquo; to me, plus the sidetone from
+the buzzer inside the Arduino case could be heard in the whole house. And the
+total TX-RX delay was well over a second.</p>
+<p>Next I tried building some GNU Radio flowcharts to solve the same problem but
+which all had the same trouble that the buffers grew way too big to allow the
+sidetone to be used for keying. At the same time, I switched the transceiver
+from SDRangel to another GR flowchart which reduced the overall TX-RX delay to
+something much shorter, but the local audio delay was still too slow for CW.</p>
+<p>So after some back and forth, I came up with this solution: the external
+interface from the CW paddles to the PC is a small DigiSpark board programmed
+to output MIDI signals, and on the (Linux) PC side, there is a Python program
+listening for MIDI and acting as a iambic CW keyer. The morse dots and dashes
+are uploaded as &ldquo;samples&rdquo; to PulseAudio, where they are played both on the
+local sidetone channel (usually headphones) and on the audio channel driving
+the SDR transceiver. There is no delay. :)</p>
+<h2 id="digispark-hardware">DigiSpark hardware</h2>
+<p>The DigiSpark is a very small embedded computer that can be programmed using
+the Arduino toolchain.</p>
+<p>Of the 6 IO pins, two are used for the USB bus, two connect the dit and dah
+lines of the CW paddle, one connects to a potentiometer for adjusting the
+keying speed, and the last one is unconnected in this design, but could be used
+for keying a physical transceiver. (The onboard LED uses the this pin.)</p>
+<pre tabindex="0"><code>            +---------------+
+            |            P5 o  -- 10k potentiometer middle pin
+        =====  Attiny85  P4 o  -- USB (internal)
+   USB  -----            P3 o  -- USB (internal)
+        -----            P2 o  -- dah paddle
+        =====   78M05    P1 o  -- (LED/TRX)
+            |            P0 o  -- dit paddle
+            +---o-o-o-------+
+</code></pre><p>There is an extra 27 kΩ resistor in the ground connection of the potentiometer
+to keep the P5 voltage &gt; 2.5 V, or else the DigiSpark resets. (This could be
+changed by blowing some fuses, but is not necessary.)</p>
+<p><img src="https://www.df7cb.de/blog/2022/digisparkkeyer.jpg" alt="DigiSpark keyer"></p>
+<p>The <a href="midicwkeyer.ino">Arduino sketch</a> for the keyer uses the
+<a href="https://github.com/heartscrytech/DigisparkMIDI">DigisparkMIDI library</a>.
+The code is quite simple: if the paddles are pressed, send a MIDI note_on event
+(dit = note 1, dah = note 2), when released, send note_off. When the
+potentiometer is changed, send a control_change event (control 3), the value
+read is conveniently scaled to wpm speed values between 8 and 40.</p>
+<pre tabindex="0"><code>    if (dit)
+      midi.sendNoteOn(NOTE_DIT, 1);
+    else
+      midi.sendNoteOff(NOTE_DIT, 0);
+
+    if (dah)
+      midi.sendNoteOn(NOTE_DAH, 1);
+    else
+      midi.sendNoteOff(NOTE_DAH, 0);
+
+    if (new_speed != old_speed)
+      midi.sendControlChange(CHANNEL_SPEED, new_speed);
+</code></pre><p>The device uses a generic USB id that is recognized by Linux as a MIDI device:</p>
+<pre tabindex="0"><code>$ lsusb
+Bus 001 Device 008: ID 16c0:05e4 Van Ooijen Technische Informatica Free shared USB VID/PID pair for MIDI devices
+
+$ amidi -l
+Dir Device    Name
+IO  hw:2,0,0  MidiStomp MIDI 1
+
+$ aseqdump -l
+ Port    Client name                      Port name
+ 24:0    MidiStomp                        MidiStomp MIDI 1
+
+$ aseqdump --port MidiStomp
+Source  Event                  Ch  Data
+ 24:0   Control change          0, controller 3, value 24
+ 24:0   Note on                 0, note 1, velocity 1
+ 24:0   Note on                 0, note 2, velocity 1
+ 24:0   Note off                0, note 1, velocity 0
+ 24:0   Note off                0, note 2, velocity 0
+ 24:0   Control change          0, controller 3, value 25
+ 24:0   Control change          0, controller 3, value 26
+</code></pre><h2 id="python-and-pulseaudio-software">Python and PulseAudio software</h2>
+<p>On the Linux host side, a <a href="midicwkeyer.py">Python program</a> is listening for
+MIDI events and acts as a iambic CW keyer that converts the stream of note
+on/off into CW signals.</p>
+<p>Instead of providing a full audio stream, dit and dah &ldquo;samples&rdquo; are uploaded to
+PulseAudio, and triggered via the
+<a href="https://github.com/mk-fg/python-pulse-control">pulsectl library</a>.
+On speed changes, new samples are uploaded.
+The samples are played on two channels, one for the sidetone on the operator
+headphones, and one on the audio input device for the SDR transmitter.</p>
+<p><img src="https://www.df7cb.de/blog/2022/cw050.png" alt="24 wpm dit (50 ms)"></p>
+<p>The virtual &ldquo;tx0&rdquo; audio device can be created on boot using this systemd config
+snippet:</p>
+<pre tabindex="0"><code># $HOME/.config/systemd/user/pulseaudio.service.d/override.conf
+[Service]
+ExecStartPost=/usr/bin/pacmd load-module module-null-sink sink_name=tx0 sink_properties=device.description=tx0
+</code></pre><p>The CW text sent is printed on stdout:</p>
+<pre tabindex="0"><code>$ ./midicwkeyer.py
+TX port is tx0 (3)
+Sidetone port is Plantronics Blackwire 3225 Series Analog Stereo (7)
+ CQ CQ DF7CB
+</code></pre><h2 id="download">Download</h2>
+<p>Needless to say, this is open source:
+<a href="https://github.com/df7cb/df7cb-shack/tree/master/midicwkeyer">https://github.com/df7cb/df7cb-shack/tree/master/midicwkeyer</a></p>
+<ul class="pa0">
+  
+   <li class="list di">
+     <a href="/blog/tags/afu.html" class="link f5 grow br-pill ba ph3 pv2 mb2 dib black sans-serif no-underline">Afu</a>
+   </li>
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3">Related</p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/blog/posts/2007/darc-xmas.html">DARC Xmas Contest 2006</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white white-70 dn dib-ns pv2 ph3 no-underline" href="https://df7cb.de/blog/index.html" >
+    &copy;  Myon's Blog 2025 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

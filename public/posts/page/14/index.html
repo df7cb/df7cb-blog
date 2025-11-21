@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Myon&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="">
+    <meta name="generator" content="Hugo 0.152.2">
+    
+    
+    
+      <meta name="robots" content="index, follow">
+    
+    <meta name="author" content="Christoph Berg">
+    
+
+    
+<link rel="stylesheet" href="/blog/ananke/css/main.min.efe4d852f731d5d1fbb87718387202a97aafd768cdcdaed0662bbe6982e91824.css" >
+
+
+
+
+    
+
+
+    
+      
+
+    
+
+    
+    
+      <link href="/blog/posts/index.xml" rel="alternate" type="application/rss+xml" title="Myon&#39;s Blog" />
+      <link href="/blog/posts/index.xml" rel="feed" type="application/rss+xml" title="Myon&#39;s Blog" />
+      
+    
+
+    
+      <link rel="canonical" href="https://df7cb.de/blog/posts/index.html">
+    
+
+    <meta property="og:url" content="https://df7cb.de/blog/posts/index.html">
+  <meta property="og:site_name" content="Myon&#39;s Blog">
+  <meta property="og:title" content="Posts">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="website">
+
+  <meta itemprop="name" content="Posts">
+  <meta itemprop="datePublished" content="2024-03-18T15:22:23+01:00">
+  <meta itemprop="dateModified" content="2024-03-18T15:22:23+01:00">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Posts">
+
+      
+    
+	
+  </head><body class="ma0 avenir bg-near-white production">
+
+    
+
+  <header>
+    <div class="pb3-m pb6-l bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l center items-center justify-between">
+    <a href="/blog/index.html" class="f3 fw2 hover-white white-90 dib no-underline">
+      
+        Myon&#39;s Blog
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+      <div class="tc-l pv3 ph3 ph4-ns">
+        <h1 class="f2 f-subheadline-l fw2 light-silver mb0 lh-title">
+          Posts
+        </h1>
+        
+      </div>
+    </div>
+  </header>
+
+
+    <main class="pb7" role="main">
+      
+  <article class="pa3 pa4-ns nested-copy-line-height">
+    <section class="cf ph3 ph5-l pv3 pv4-l f4 tc-l center measure-wide lh-copy nested-links mid-gray"></section>
+    <section class="flex-ns mt5 flex-wrap justify-around">
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2006/dns-serials.html" class="link black dim">
+        Incrementing DNS Zone Serials
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <pre>
+$cat .vim/after/ftplugin/dns.vim
+nmap _a !!perl -pe '($y,$m,$d) = (localtime)[5,4,3]; $d = sprintf("\%04d\%02d\%02d", $y+1900, $m+1, $d); s/\b(?\!$d)(\d{8})(\d{2})/${d}00/'&lt;cr&gt;&lt;c-a&gt;
+</pre>
+    </div>
+    <a href="/blog/posts/2006/dns-serials.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2006/bridge_camp.html" class="link black dim">
+        Junior Bridge Camp in Rieneck
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>I spent the first 12 days of August at the German <a
+href="http://www.juniorbridge.de/">Junior Bridge camp</a><sup>[*]</sup> in
+Rieneck.</p>
+<p> The reason I'm blogging about that in the "debian" section is that it felt
+very much like DebConf - lots of weird just-like-you people. We played about
+two tournaments per day, always using different scoring methods or other ways
+to make up pairs of players - we were not supposed to play with the same
+partner twice, though Frederic, my flatmate, and I were casted together for a
+second time in a young-plays-with-old tourney. In this sport, you are a junior
+until well past 30, and he was just above the cut of 35 of this event. We also
+bribed the good fairy to let Eva and me play together in the final masterpoint
+tourney. We didn't score especially well since we were quite tired, but hey :*
+<p> The site is an old castle, now operated by a German Scouts organization.
+Somehow, the castle operates in a different time zone, breakfast was served at
+12am, lunch at 7pm, and dinner at 11pm. DebConf should consider adopting that
+:) It would also be interesting to see if we could have a "performance" at the
+end, and who would run for Miss and Mister DebConf...
+<p> The pictures I took are in
+<a href="http://www.df7cb.de/pictures/0607-Rieneck/">my gallery</a>.
+Sadly I didn't take a picture of the coffee tally list where one guy made
+<em>two</em> ticks in the "flatrate" column 8-)
+<p> <small>[*] beware, this is ugly html</small>
+<p> <em>Update:</em> Next year's bridge camp will be from July 26th to August
+5th - please pick a disjoint range for DebConf...
+    </div>
+    <a href="/blog/posts/2006/bridge_camp.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2006/debcamp.html" class="link black dim">
+        Oaxtepec, Debcamp, and Internet Mañana
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>The flight to Mexico last Saturday went pretty much all ok, except that the
+plane had to start through at MEX because of some unexpected wind and the
+generally low air pressure at high altitudes. While this delayed the landing
+for about 20 minutes, I had the opportunity for a second look at this
+incredibly large city. After getting through customs, we (with Herman, Tore,
+and Annabelle) met Neil McGovern in the airport lounge, and after Marcella and
+Luciano had arrived, we had a rather bumpy ride to Oaxtepec, amounting to a 20h
+journey for me.</p>
+<p> The site here is really beautiful, with lots of green, palms, other plants,
+and of the swimming pool. However, so far Debcamp has been rather unproductive,
+we haven't had net access until Monday evening, and even yesterday round trip
+times and packet loss were so high that neither ssh (IRC!) nor scp/ftp/http
+were really usable. Using irssi's proxy module allowed me to get rid of the lag
+locally for IRC, but the connection was still unstable. I wrote some patches
+which I have yet to submit and replied to most of my NM mail, but the next
+projects will all require access to the BTS and debian.org machines to be
+worked on. At the moment, network is down again because the antenna connecting
+us from the village fell down. The main activity for me so far has ben to play
+Mao with Jesus, Adeodato, Marga, Graham, Gerfried, and others :-)
+<p> Todo: get some real work done; upload pictures; go to the pool.
+<p> Ah... network just went up again, yet still slow... mail queue flushed...
+network down again...
+    </div>
+    <a href="/blog/posts/2006/debcamp.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2006/oftc-netrep.html" class="link black dim">
+        OFTC NetRep
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <pre>
+15:10 [oftc] -!- Myon [cb@meitner.df7cb.de]
+15:10 -!- Irssi: Got a positive response from NickServ/oftc
+15:10 [oftc] !keid.oftc.net Activating Cloak: myon.netrep.oftc.net
+15:10 [oftc] -!- Myon [cb@myon.netrep.oftc.net]
+</pre>
+<p>Today, I was accepted as <a href="http://www.oftc.net/oftc/Network_Representative">OFTC
+network representative</a>. Basically this means I&rsquo;m now officially supposed to
+behave on IRC ;-)</p>
+<p> More seriously, I'll try to make the network a better place by helping the
+<a href="http://www.oftc.net/oftc/Staff">OFTC staff</a> answer user requests,
+mostly on the main #oftc channel and various #debian* channels.
+    </div>
+    <a href="/blog/posts/2006/oftc-netrep.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2006/der_talentierte_mr._ripley.html" class="link black dim">
+        Patricia Highsmith: Der talentierte Mr. Ripley
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>Ein furioses Buch. Was sehr harmlos als Europareise beginnt, entwickelt
+sich zur Suche nach einer Identität. Fesselnd bis zur letzten Seite.</p>
+    </div>
+    <a href="/blog/posts/2006/der_talentierte_mr._ripley.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2006/post-debconf.html" class="link black dim">
+        Post-DebConf Woes
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>After getting back from DebConf and the 1-week trip afterwards, it took me a
+full week to get out of most of the chaos travelling usually leaves behind. I
+still haven&rsquo;t unpacked all stuff from the suitcase, but at least managed to
+wash the dirty clothes. Oh, and I&rsquo;ve signed all keys from the KSP - including
+madduck&rsquo;s, he showed me his proper German ID card when I asked what this funny
+Transnational Republic was. (Oh, and if you were listed at the KSP, didn&rsquo;t show
+up, but I&rsquo;ve signed your key anyway, that&rsquo;s because we met before and you have
+a new UID, in case you are wondering.) The pictures I took are still scatered
+over several home dirs on different hosts, I&rsquo;ll try to sort/rotate/rename them
+over the next days. (Oh, and DebConf was great, the trip afterwards likewise -
+I&rsquo;ll try to write a separate blog post on that later&hellip;)</p>
+<p>
+At the moment I'm slowly starting to get into frontdesk work. I have some notes
+from Neil's and Enrico's AM BoF and the discussion BoF round around my
+"<a href="http://lists.debian.org/debian-newmaint/2006/05/msg00015.html">NM process future</a>"
+proposal that I still have to write down once I'm finished with answering my
+own NMs' mails. Both BoFs went pretty well, the major outcome being that we
+should discuss much more among AMs on -newmaint and IRC, have older AM reports
+available for reference by other AMs, and have some sort of "AM report template"
+that lists the points the DAMs want to see in the report. About the propsal, my
+feeling is that we shouldn't implement any major NM changes (like the DM idea)
+until we really understand what the problem with the current process is. (It
+takes too long, but that can be fixed by throwing out the not-ready applicants
+more aggressively.) Thanks to all the people who provided very valuable
+feedback during the BoFs and in the private conversations afterwards.
+<p>
+So far, I've assigned a few applicants to AMs, added comments to the database on
+the level of prior contribution of the new applicants, and worked a bit on the
+web pages. The major visible change is that the
+<a href="https://nm.debian.org/nmgraph.php">NM graphs</a> are now included on
+nm.d.o. The 'big' thing I'd like to implement next is to let the applicants
+write some application email where they list what they've done for Debian so
+far before the AM assignment, so we can match NM-AM better, and also improve
+our judgement of the level of prior contribution. Also, we will probably
+require 2 advocates per applicant in the future, to make sure people have
+worked with more than a single DD before. Of course, all this must not get
+excessive, we don't want to make joining Debian harder than it already is.
+<p>
+Then there's also the usual 2k+ message backlog waiting in the Debian mailbox...
+    </div>
+    <a href="/blog/posts/2006/post-debconf.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2006/sa-postfix-rbl.html" class="link black dim">
+        Spamassassin, RBLs, and Dialup
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>I&rsquo;m using SMTP over dialup to my smarthost. Unfortunately that doesn&rsquo;t stop spamassassin
+to think I am a spammer:</p>
+<pre>
+Received: from tesla.df7cb.de ([88.198.227.218] ident=postfix)
+        by merkel.debian.org with esmtp (Exim 4.50) id 1Gm6h1-0001Fw-26
+        for ???@qa.debian.org; Mon, 20 Nov 2006 03:48:03 -0700
+Received: from volta.df7cb.de (dslb-084-058-218-241.pools.arcor-ip.net [84.58.218.241])
+        by tesla.df7cb.de (Postfix) with ESMTP id 2F5364475D
+        for &lt;???@qa.debian.org&gt;; Mon, 20 Nov 2006 11:48:24 +0100 (CET)
+Received: by volta.df7cb.de (Postfix, from userid 1000)
+        id BBABE18E95; Mon, 20 Nov 2006 11:49:32 +0100 (CET)
+
+ 0.1 FORGED_RCVD_HELO       Received: contains a forged HELO
+ 0.1 RCVD_IN_SORBS_DUL      RBL: SORBS: sent directly from dynamic IP address
+                            [84.58.218.241 listed in dnsbl.sorbs.net]
+ 1.8 RCVD_IN_BL_SPAMCOP_NET RBL: Received via a relay in bl.spamcop.net
+               [Blocked - see &lt;http://www.spamcop.net/bl.shtml?70.103.162.29&gt;]
+ 2.5 RCVD_IN_XBL            RBL: Received via a relay in Spamhaus XBL
+                            [84.58.218.241 listed in sbl-xbl.spamhaus.org]
+ 1.7 RCVD_IN_NJABL_DUL      RBL: NJABL: dialup sender did non-local SMTP
+                            [84.58.218.241 listed in combined.njabl.org]
+</pre>
+<p>My previous solution was to use an openvpn tunnel to the smarthost, but my
+current one (provided by <a href="http://www.flexserv.de/blog">codebreaker</a>)
+is a vserver, so that doesn&rsquo;t work. <a href="http://ganneff.de/blog">Ganneff</a>
+provided the workaround: make postfix drop the Received: header.</p>
+<pre>
+[0] cb@tesla:~ $grep header /etc/postfix/main.cf
+header_checks = pcre:/etc/postfix/header_checks
+
+[0] cb@tesla:~ $cat /etc/postfix/header_checks
+/^Received: from [a-z]*\.df7cb\.de \(dslb-[0-9.-]*\.pools\.arcor-ip\.net/ IGNORE
+
+Received: from tesla.df7cb.de ([88.198.227.218] ident=postfix)
+        by merkel.debian.org with esmtp (Exim 4.50) id 1GmX3t-0000Pw-4I
+        for ???@qa.debian.org; Tue, 21 Nov 2006 07:57:27 -0700
+Received: by volta.df7cb.de (Postfix, from userid 1000)
+        id 69AB218EAC; Tue, 21 Nov 2006 15:58:57 +0100 (CET)
+</pre>
+<p>Of course this is a gross hack, but I&rsquo;m happy with it :)</p>
+    </div>
+    <a href="/blog/posts/2006/sa-postfix-rbl.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2006/bridge_blog.html" class="link black dim">
+        Starting a Bridge blog
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>I should have started this blog about a year ago or so just to have something
+that documents my progress learning this fascinating game. I haven&rsquo;t decided
+yet whether this should be in English or German. I guess it will be a mix with
+English for the more general stuff and German for tournament results, schaun
+mer mal :)</p>
+<p> It all began in May 2004 with Sigi talking about Skat and Doppelkopf in his
+dancing club, when a friend told him to try Bridge. He then joined a beginners
+course and asked me to join. After the second session (too much Minibridge in
+the first one ;-) I knew I loved the game. Together with a few others we (Sigi
+and I) quickly went through a crash course in bidding and basic playing
+techniques in a few weeks that would normally have lasted over a year. Thanks
+Regine :-)
+<p> I don't remember exactly when we played the first tournament in the club,
+but it must have been something like August '04. Our goal was not to become
+last one, and from memory, we exactly did that. The expectations quickly
+raised, soon we scored around or above 50% most of the time. I won my first
+club tournament in January '05 with Regine. A very nice result was in August
+'05 when we scored 8th in a field of 91 pairs at a pub tournament in Koblenz
+(Regine and Frederic were 1st).
+<p> I guess since about 3/4 of a year I can really tell the difference between
+MPs and IMPs. Having soon discovered BBO (I'm Myon there), and regularly
+playing team events in Dudweiler, we learned to love IMPs and very much prefer
+that scoring. We now playing for team 1 of the Saarbrücken 65 club together
+with Klaus and Arno, and absolutely unexpectedly, have just won 72 out of 75
+victory points at the first three matches in Frankfurt. We probably won't
+benefit too much from that, though, since these three teams probably won't make
+it into the final round, and the remaining two teams seem to be stronger.
+Judging from the recent team results in the Dudweiler club, and the (few)
+butler results in the Saarbrücken 84 club, we seem to be good at IMPs. Compare
+that with the 32% MP result last week ;-)
+<p> We are currently playing a <a href="http://www.df7cb.de/bridge/">5
+Majors</a> system with a 15-17 NT, developed by Thomas Schmitt. He trusts us
+enough that we edit the system script and will usually accept new stuff. We
+were having a look at Moscito recently, but at the moment I don't feel like
+going into bidding more, at the current level I'm at, declarer play is much
+more important (you have to make the contracts you bid, after all...). Defense
+also could be improved, though I should practise declarer play much more
+judging from the hands that I could have made had I given more care to the
+opponents' discards.
+<p> Together with teams from Halle/Saale and <a
+href="http://www.unibridge.de">BUM Mannheim</a>, we were playing team matches
+on BBO in the past weeks, usually on Sundays. I'd like to have more teams join
+us there, if you are interested, please subscribe to the <a
+href="http://luithle.net/mailman/listinfo/bbo-team">bbo-team list</a>.
+    </div>
+    <a href="/blog/posts/2006/bridge_blog.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2006/screen-bce.html" class="link black dim">
+        Today&#39;s screen hack: bce
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>When you have trouble cut-and-pasting in screen because it copies full terminal
+lines filled up with spaces, put the following into your .screenrc:</p>
+<pre>
+defbce on
+term screen-bce
+</pre>
+<p>Ganneff reports that the first line is enough, and even works at the : prompt
+of a running screen. Happy pasting :)</p>
+    </div>
+    <a href="/blog/posts/2006/screen-bce.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/1993/1993-09-4254.html" class="link black dim">
+        Good Times!
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>The <a href="http://www.df7cb.de/projects/sdate/">sdate</a>
+<a href="http://bugs.debian.org/304266">ITP</a> sparked a little flamewar on
+-devel, but the feedback was positive enough so I went ahead.
+NEW processing is lightning fast these days:</p>
+<pre>
+18793   + 0,2K Sep 4254  9:58 Archive Adminis cb         Processing of sdate_0.2_multi.changes
+18794   + 1,5K Sep 4254 10:02 Debian Installe cb         sdate_0.2_multi.changes is NEW
+18795   + 0,4K Sep 4254 11:40 Debian Installe cb         sdate_0.2_multi.changes ACCEPTED
+</pre>
+<p>Thanks to Marc Brockschmidt for sponsoring the upload and
+<a href="http://ganneff.de/blog">Joerg Jaspert</a> for the ftp-master part.</p>
+<p> Oh, here's the current time:
+So Sep 4254 13:33:12 CEST 1993
+    </div>
+    <a href="/blog/posts/1993/1993-09-4254.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+    </section>
+    <ul class="pagination pagination-default">
+      <li class="page-item">
+        <a href="/blog/posts/index.html" aria-label="First" class="page-link" role="button"><span aria-hidden="true">&laquo;&laquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/blog/posts/page/13/index.html" aria-label="Previous" class="page-link" role="button"><span aria-hidden="true">&laquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/blog/posts/page/12/index.html" aria-label="Page 12" class="page-link" role="button">12</a>
+      </li>
+      <li class="page-item">
+        <a href="/blog/posts/page/13/index.html" aria-label="Page 13" class="page-link" role="button">13</a>
+      </li>
+      <li class="page-item active">
+        <a aria-current="page" aria-label="Page 14" class="page-link" role="button">14</a>
+      </li>
+      <li class="page-item">
+        <a href="/blog/posts/page/15/index.html" aria-label="Page 15" class="page-link" role="button">15</a>
+      </li>
+      <li class="page-item">
+        <a href="/blog/posts/page/16/index.html" aria-label="Page 16" class="page-link" role="button">16</a>
+      </li>
+      <li class="page-item">
+        <a href="/blog/posts/page/15/index.html" aria-label="Next" class="page-link" role="button"><span aria-hidden="true">&raquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/blog/posts/page/16/index.html" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
+      </li>
+    </ul></article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white white-70 dn dib-ns pv2 ph3 no-underline" href="https://df7cb.de/blog/index.html" >
+    &copy;  Myon's Blog 2025 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

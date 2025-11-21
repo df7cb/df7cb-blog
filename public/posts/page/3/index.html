@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Myon&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="">
+    <meta name="generator" content="Hugo 0.152.2">
+    
+    
+    
+      <meta name="robots" content="index, follow">
+    
+    <meta name="author" content="Christoph Berg">
+    
+
+    
+<link rel="stylesheet" href="/blog/ananke/css/main.min.efe4d852f731d5d1fbb87718387202a97aafd768cdcdaed0662bbe6982e91824.css" >
+
+
+
+
+    
+
+
+    
+      
+
+    
+
+    
+    
+      <link href="/blog/posts/index.xml" rel="alternate" type="application/rss+xml" title="Myon&#39;s Blog" />
+      <link href="/blog/posts/index.xml" rel="feed" type="application/rss+xml" title="Myon&#39;s Blog" />
+      
+    
+
+    
+      <link rel="canonical" href="https://df7cb.de/blog/posts/index.html">
+    
+
+    <meta property="og:url" content="https://df7cb.de/blog/posts/index.html">
+  <meta property="og:site_name" content="Myon&#39;s Blog">
+  <meta property="og:title" content="Posts">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="website">
+
+  <meta itemprop="name" content="Posts">
+  <meta itemprop="datePublished" content="2024-03-18T15:22:23+01:00">
+  <meta itemprop="dateModified" content="2024-03-18T15:22:23+01:00">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Posts">
+
+      
+    
+	
+  </head><body class="ma0 avenir bg-near-white production">
+
+    
+
+  <header>
+    <div class="pb3-m pb6-l bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l center items-center justify-between">
+    <a href="/blog/index.html" class="f3 fw2 hover-white white-90 dib no-underline">
+      
+        Myon&#39;s Blog
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+      <div class="tc-l pv3 ph3 ph4-ns">
+        <h1 class="f2 f-subheadline-l fw2 light-silver mb0 lh-title">
+          Posts
+        </h1>
+        
+      </div>
+    </div>
+  </header>
+
+
+    <main class="pb7" role="main">
+      
+  <article class="pa3 pa4-ns nested-copy-line-height">
+    <section class="cf ph3 ph5-l pv3 pv4-l f4 tc-l center measure-wide lh-copy nested-links mid-gray"></section>
+    <section class="flex-ns mt5 flex-wrap justify-around">
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2014/trusty_and_saucy_on_apt.postgresql.org.html" class="link black dim">
+        Trusty and Saucy on apt.postgresql.org
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>Over the past few weeks, new distributions have been added on
+<a href="http://apt.postgresql.org/">apt.postgresql.org</a>:
+Ubuntu 13.10 codenamed &ldquo;saucy&rdquo; and the upcoming Ubuntu LTS release 14.04
+codenamed &ldquo;trusty&rdquo;.</p>
+<p>Adding non-LTS releases for the benefit of developers using PostgreSQL on their
+notebooks and desktop machines has been a frequently requested item since we
+created the repository. I had some qualms about targeting a new Ubuntu release
+every 6 months, but with having automated more and more parts of the repository
+infrastructure, and the bootstrapping process now being painless, the
+distributions are now available for use. Technically, trusty started as empty,
+so it hasn&rsquo;t all packages yet, but of course all the PostgreSQL server packages
+are there, along with pgAdmin. Saucy started as a copy of precise (12.04) so it
+has all packages. Not all packages have been rebuilt for saucy, but the precise
+packages included (you can tell by the version number ending in .pgdg12.4+12 or
+.pgdg13.10+1) will work, unless apt complains about dependency problems. I have
+rebuilt the packages needing it I was aware about (most notably the
+postgresql-plperl packages) - if you spot problems, please let us know on the
+mailing list.</p>
+<p>Needless to say, last week&rsquo;s PostgreSQL server updates are already included in
+the repository.</p>
+    </div>
+    <a href="/blog/posts/2014/trusty_and_saucy_on_apt.postgresql.org.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2014/ci.debian.net_on_ddpo.html" class="link black dim">
+        ci.debian.net on DDPO
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>More and more packages are getting
+<a href="http://packages.qa.debian.org/a/autopkgtest.html">autopkgtest</a> aka
+<a href="http://dep.debian.net/deps/dep8/">DEP-8</a> testsuites these days.
+Thanks to Antonio Terceiro, there is <a href="http://ci.debian.net/">ci.debian.net&quot;</a>
+running the tests.</p>
+<p>Last weekend, I&rsquo;ve added a &ldquo;CI&rdquo; column on <a href="http://qa.debian.org/developer.php">DDPO</a>
+that shows the current test results for your packages. Enjoy, and add tests to your packages!</p>
+    </div>
+    <a href="/blog/posts/2014/ci.debian.net_on_ddpo.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2013/tf101_flickering_and_a_loose_cable.html" class="link black dim">
+        TF101 flickering and a loose cable
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>My ASUS Transformer TF101 had suddenly started flickering in all sorts of funny
+colors some weeks ago. As tapping it gently on the table in the right angle made
+the problem go away temporarily, it was clear the problem was about a loose
+cable, or some other hardware connection issue.</p>
+<p>As I needed to go on a business trip the other day, I didn&rsquo;t look up the
+warranty expiration day until later that week. Then, Murphy struck: the tablet
+was now 2 years + 1 day old! Calling ASUS, some friendly guy there suggested I
+still tried to get ASUS to accept it for warranty, because the tablet had been
+with them last year for 5 days, so if they added that, it would still be within
+the warranty period. I filled out the RMA form, but one hour later the reply was
+they rejected it because it was out of warranty. Another guy on the phone then
+said they would probably only do the adding if it had been with them for maybe
+10 days, or actually really 30 days, or whatever.</p>
+<p>Some googling suggested that the loose cable theory was indeed worth a try, so I
+took <a
+href="http://www.zdnet.com/photos/cracking-open-the-asus-eee-pad-transformer-tf101/6272908">it</a>
+<a href="http://www.youtube.com/watch?v=JG9gEYRALtU">apart</a>. Thanks to a
+<a href="http://forum.xda-developers.com/showthread.php?p=48273006">forum
+post</a> I could then locate the display connector and fix it.</p>
+<p>Putting the case back together was actually harder than disassembling it because
+some plastic bits got stuck, but now everything is back to normal.</p>
+<img src="http://www.df7cb.de/blog/2013/tf101cable.jpg">
+    </div>
+    <a href="/blog/posts/2013/tf101_flickering_and_a_loose_cable.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2013/hp6715b-wifi.html" class="link black dim">
+        Jessie, the HP 6715b, and Wifi
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>If you are upgrading your HP/Compaq 6715b to Debian Jessie, and suddenly Wifi
+stops working because the PCI device is gone, install the &ldquo;rfkill&rdquo; package:</p>
+<pre>
+# lspci | tail -2
+02:04.1 FireWire (IEEE 1394): Ricoh Co Ltd R5C832 IEEE 1394 Controller (rev 02)
+10:00.0 Ethernet controller: Broadcom Corporation NetLink BCM5787M Gigabit Ethernet PCI Express (rev 02)
+
+# rfkill list 1
+1: hp-wifi: Wireless LAN
+	Soft blocked: yes
+	Hard blocked: no
+
+# rfkill unblock wifi
+
+# rfkill list 1
+1: hp-wifi: Wireless LAN
+	Soft blocked: no
+	Hard blocked: no
+
+# lspci | tail -2
+10:00.0 Ethernet controller: Broadcom Corporation NetLink BCM5787M Gigabit Ethernet PCI Express (rev 02)
+30:00.0 Network controller: Broadcom Corporation BCM4311 802.11a/b/g (rev 02)
+</pre>
+<p>Reports on the internet say that the same could be done by going into the BIOS
+and selecting &ldquo;Reset to default&rdquo; - this makes the Wifi LED active until about
+udev is started on the next boot.</p>
+<p>To be done: figure out how to automate this.</p>
+    </div>
+    <a href="/blog/posts/2013/hp6715b-wifi.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2013/version_numbers.html" class="link black dim">
+        Version Numbers
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>Following an idea by Ansgar Burchardt, I&rsquo;ve done some digging on version numbers in Debian:</p>
+<p>
+Most common version numbers:
+<pre>
+projectb=> select version::text, count(*) from source group by 1 order by 2 desc;
+  version   | count 
+------------+-------
+ 4:4.10.5-1 |   131
+ 1.0-1      |   120
+ 1.0.0-1    |    95
+ 1.1-1      |    95
+ 1.0.1-1    |    93
+ 1.2-1      |    88
+ 1.0-2      |    82
+ 0.2-1      |    80
+ 0.3-1      |    79
+ 0.5-1      |    77
+ 0.04-1     |    76
+ 1.1.1-1    |    76
+ 0.10-1     |    74
+ 1.4-1      |    72
+ 1.1-2      |    71
+ 0.1-1      |    70
+ 0.11-1     |    70
+</pre>
+</p>
+<p>
+Version number with the most spellings: (considered equal by the dpkg
+definition, implemented in the "debversion" type)
+<pre>
+projectb=> select version::text, count(*) from source where version = '1.02-1' group by 1 order by 2 desc;
+  version   | count 
+------------+-------
+ 1.2-1      |    88
+ 1.02-1     |    46
+ 1.002-1    |     4
+ 1.000002-1 |     1
+ 001.002-1  |     1
+ 1.00002-1  |     1
+</pre>
+</p>
+<p>
+If we look at equivalent version numbers, the first table above looks entirely different:
+<pre>
+projectb=> select version, count(*) from source group by 1 order by 2 desc limit 30;
+  version   | count 
+------------+-------
+ 0.3-1      |   162
+ 1.0-1      |   160
+ 0.05-1     |   156
+ 0.04-1     |   154
+ 0.02-1     |   151
+ 1.02-1     |   141
+ 0.006-1    |   133
+ 1.001-1    |   131
+ 4:4.10.5-1 |   131
+ 0.7-1      |   127
+</pre>
+</p>
+<p>(I&rsquo;m also participating in the &ldquo;longest version number&rdquo; contest, I&rsquo;ve just uploaded bind9 version
+<b>1:9.8.4.dfsg.P1-6+nmu2+deb7u1~bpo60+1</b> to backports.)</p>
+    </div>
+    <a href="/blog/posts/2013/version_numbers.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2013/how_not_to_monitor_a_boolean.html" class="link black dim">
+        How not to monitor a boolean
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>We were lazy and wrote a simple PostgreSQL monitoring check in shell instead of
+using some proper language. The code looked about this:</p>
+<pre>
+out=$(psql -tAc "SELECT some_stuff, t > now() - '1 day'::interval FROM some_table" some_db 2>&1)
+case $out in
+	*t) echo "OK: $out" ;;
+	*) echo "NOT OK: $out" ;;
+esac
+</pre>
+<p>If the string ends with &rsquo;t&rsquo;, all is well, if it ends with &lsquo;f&rsquo; or someting else, something is wrong.</p>
+<p>Unfortunately, this didn&rsquo;t go that well:</p>
+<p><tt>OK: psql: FATAL:  database &ldquo;some_db&rdquo; does not exis<em>t</em></tt></p>
+    </div>
+    <a href="/blog/posts/2013/how_not_to_monitor_a_boolean.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2013/postgresql_minor_releases.html" class="link black dim">
+        PostgreSQL minor releases
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>We&rsquo;ve just put the new PostgreSQL minor releases live on apt.postgresql.org.
+Building 5 major versions for 10 distributions produces quite a lot of stuff:</p>
+<ul>
+<li>25 .dsc files (source packages)
+<li>745 .deb files (360 *_amd64.deb + 360 *_i386.deb + 25 *_all.deb)
+<li>497 MB in *_amd64.deb files
+<li>488 MB in *_i386.deb files
+<li>58 MB in *_all.deb files
+<li>73 MB in *.orig.tar.bz2 files
+<li>in total 1118 MB
+</ul>
+<p>Compiling took a bit more than 10 hours on a 2-cpu VM. Of course that includes
+running regression tests and the postgresql-common testsuite.</p>
+<p><b>Note:</b> This will be the last update published on pgapt.debian.net. Please
+update your sources.list entries to point to apt.postgresql.org!</p>
+    </div>
+    <a href="/blog/posts/2013/postgresql_minor_releases.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2012/apt.postgresql.org.html" class="link black dim">
+        apt.postgresql.org
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>So we finally made it, and sent out an
+<a href="http://archives.postgresql.org/pgsql-announce/2012-12/msg00008.php">official announcement</a> for
+<a href="https://wiki.postgresql.org/wiki/Apt">apt.postgresql.org</a>.</p>
+<p>This new repository hosts packages for all PostgreSQL server versions (at the
+moment 8.3, 8.4, 9.0, 9.1, 9.2) for several Debian/Ubuntu distributions
+(squeeze, wheezy, sid, precise) on two architectures (amd64, i386). Now add
+packages for extension modules on top of all these, and you get a really large
+amount of binaries from a small number of sources. Right now there&rsquo;s 1670 .deb
+files and 148 .dsc files, but the .dsc count includes variants that only differ
+in the version number per distribution (we attach .pgdg60+1 for squeeze
+packages, .pgdg70+1 for wheezy and so on), so the real number of different
+sources is rather something like 81, with 38 distinct source package names.</p>
+<p><a href="http://tapoueh.org/">Dimitri Fontaine</a>,
+<a href="http://www.hagander.net/">Magnus Hagander</a>, and I have been working
+on this since I first presented the idea at PGconf.EU 2011 in Amsterdam. We now
+have a Jenkins server building all the packages, an archive server with the
+master repository, and a feed that syncs the repository to the postgresql.org
+FTP (well, mostly http) server.</p>
+<p>If you were previously using pgapt.debian.net, that&rsquo;s the same archive as on
+apt.postgresql.org (one rsync away). Please update your sources.list to point
+to apt.postgresql.org, I&rsquo;ll shut down the archive at that location at the end
+of January.</p>
+<p>Here&rsquo;s the <a href="https://wiki.postgresql.org/wiki/Apt#Quickstart">Quickstart
+instructions from the Wiki page</a>:</p>
+<p>Import the repository key from <a href="http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc">http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc</a>:</p>
+<pre>
+wget -O - http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc | sudo apt-key add -
+</pre>
+<p>Edit /etc/apt/sources.list.d/pgdg.list. The distributions are called codename-pgdg. In the example, replace squeeze with the actual distribution you are using:</p>
+<pre>
+deb http://apt.postgresql.org/pub/repos/apt/ squeeze-pgdg main
+</pre>
+<p>Configure apt&rsquo;s package pinning to prefer the PGDG packages over the Debian ones in /etc/apt/preferences.d/pgdg.pref:</p>
+<pre>
+Package: *
+Pin: release o=apt.postgresql.org
+Pin-Priority: 500
+</pre>
+<p>Note: this will replace all your Debian/Ubuntu packages with available packages from the PGDG repository. If you do not want this, skip this step.</p>
+<p>Update the package lists, and install the pgdg-keyring package to automatically get repository key updates:</p>
+<pre>
+apt-get update
+apt-get install pgdg-keyring
+</pre>
+    </div>
+    <a href="/blog/posts/2012/apt.postgresql.org.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2012/pgbouncer_running_on_the_same_hardware.html" class="link black dim">
+        pgbouncer running on the same hardware
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>We have a PostgreSQL server with 16 cores that was apparently running well
+below its capacity: load something between 3.0 and 4.0, around 200 active
+database connections, almost all always being &lt;IDLE&gt;. However, when the
+tps count reached 7k transactions per second, things started to throttle, and
+pgbouncer (running on the database server) started listing up to half of the
+client connections to be in cl_waiting state. Load was still low, but
+application performance was bad.</p>
+<img src="http://www.df7cb.de/blog/2012/renice_pgbouncer.png">
+<p>The culprit turned out to be the kernel scheduler, fairly distributing CPU time
+among all running processes. There&rsquo;s one single pgbouncer process, but hundreds
+of postgres processes.</p>
+<p>A simple <em>renice</em> of the pgbouncer process did the trick and gave us another
+extra 2k tps.</p>
+    </div>
+    <a href="/blog/posts/2012/pgbouncer_running_on_the_same_hardware.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2012/shared_memory_and_swapping.html" class="link black dim">
+        Shared Memory and Swapping
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>We have this PostgreSQL server with plenty of RAM that is still using some of
+its swap over the day (up to 600MB). Then suddenly everything is swapped in
+again.</p>
+<img src="http://www.df7cb.de/blog/2012/dbsrv_swap.png">
+<p>It turned out the reason is there are two clusters running, and the second one
+isn&rsquo;t used as heavily as the first one. Disk I/O activity of the first cluster
+slowly evicts pages from the second shared buffers cache to swap, and then the
+daily pg_dump run reads them back every evening.</p>
+<p>I was not aware of an easy way to get numbers for &ldquo;amount of SysV shared memory
+swapped to disk&rdquo;, but some googling led to shmctl(2):</p>
+<pre>
+#define _GNU_SOURCE 1
+#include &lt;sys/ipc.h&gt;
+#include &lt;sys/shm.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;unistd.h&gt;
+
+int main ()
+{
+        struct shm_info info;
+        int max;
+        long PAGE_SIZE = sysconf(_SC_PAGESIZE);
+
+        max = shmctl(0, SHM_INFO, (struct shmid_ds *) &info);
+        printf ("max: %d\nshm_tot: %ld\nshm_rss: %ld\nshm_swp: %ld\n",
+                        max,
+                        info.shm_tot * PAGE_SIZE,
+                        info.shm_rss * PAGE_SIZE,
+                        info.shm_swp * PAGE_SIZE);
+
+        return 0;
+}
+</pre>
+<p>The output looks like this:</p>
+<pre>
+max: 13
+shm_tot: 13232308224
+shm_rss: 12626661376
+shm_swp: 601616384
+</pre>
+<p><b>Update:</b> Mark points out that <em>ipcs -mu</em> shows the same information. Thanks for the hint!</p>
+<pre>
+# ipcs -mu
+
+------ Shared Memory Status --------
+segments allocated 2
+pages allocated 3230544
+pages resident  3177975
+pages swapped   51585
+Swap performance: 0 attempts     0 successes
+</pre>
+    </div>
+    <a href="/blog/posts/2012/shared_memory_and_swapping.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+    </section>
+    <ul class="pagination pagination-default">
+      <li class="page-item">
+        <a href="/blog/posts/index.html" aria-label="First" class="page-link" role="button"><span aria-hidden="true">&laquo;&laquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/blog/posts/page/2/index.html" aria-label="Previous" class="page-link" role="button"><span aria-hidden="true">&laquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/blog/posts/index.html" aria-label="Page 1" class="page-link" role="button">1</a>
+      </li>
+      <li class="page-item">
+        <a href="/blog/posts/page/2/index.html" aria-label="Page 2" class="page-link" role="button">2</a>
+      </li>
+      <li class="page-item active">
+        <a aria-current="page" aria-label="Page 3" class="page-link" role="button">3</a>
+      </li>
+      <li class="page-item">
+        <a href="/blog/posts/page/4/index.html" aria-label="Page 4" class="page-link" role="button">4</a>
+      </li>
+      <li class="page-item">
+        <a href="/blog/posts/page/5/index.html" aria-label="Page 5" class="page-link" role="button">5</a>
+      </li>
+      <li class="page-item">
+        <a href="/blog/posts/page/4/index.html" aria-label="Next" class="page-link" role="button"><span aria-hidden="true">&raquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/blog/posts/page/16/index.html" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
+      </li>
+    </ul></article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white white-70 dn dib-ns pv2 ph3 no-underline" href="https://df7cb.de/blog/index.html" >
+    &copy;  Myon's Blog 2025 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

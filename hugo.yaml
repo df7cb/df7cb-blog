@@ -1,0 +1,20 @@
+title: "Myon's Blog"
+baseURL: 'https://df7cb.de/blog/'
+languageCode: 'en-us'
+theme: 'ananke'
+summaryLength: 500
+uglyURLs: true
+
+params:
+  recent_posts_number: 10
+  author: Christoph Berg
+  email: cb@df7cb.de
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+
+services:
+  rss:
+    limit: 20

@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Myon&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="">
+    <meta name="generator" content="Hugo 0.152.2">
+    
+    
+    
+      <meta name="robots" content="index, follow">
+    
+    <meta name="author" content="Christoph Berg">
+    
+
+    
+<link rel="stylesheet" href="/blog/ananke/css/main.min.efe4d852f731d5d1fbb87718387202a97aafd768cdcdaed0662bbe6982e91824.css" >
+
+
+
+
+    
+
+
+    
+      
+
+    
+
+    
+    
+      <link href="/blog/posts/index.xml" rel="alternate" type="application/rss+xml" title="Myon&#39;s Blog" />
+      <link href="/blog/posts/index.xml" rel="feed" type="application/rss+xml" title="Myon&#39;s Blog" />
+      
+    
+
+    
+      <link rel="canonical" href="https://df7cb.de/blog/posts/index.html">
+    
+
+    <meta property="og:url" content="https://df7cb.de/blog/posts/index.html">
+  <meta property="og:site_name" content="Myon&#39;s Blog">
+  <meta property="og:title" content="Posts">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="website">
+
+  <meta itemprop="name" content="Posts">
+  <meta itemprop="datePublished" content="2024-03-18T15:22:23+01:00">
+  <meta itemprop="dateModified" content="2024-03-18T15:22:23+01:00">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Posts">
+
+      
+    
+	
+  </head><body class="ma0 avenir bg-near-white production">
+
+    
+
+  <header>
+    <div class="pb3-m pb6-l bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l center items-center justify-between">
+    <a href="/blog/index.html" class="f3 fw2 hover-white white-90 dib no-underline">
+      
+        Myon&#39;s Blog
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+      <div class="tc-l pv3 ph3 ph4-ns">
+        <h1 class="f2 f-subheadline-l fw2 light-silver mb0 lh-title">
+          Posts
+        </h1>
+        
+      </div>
+    </div>
+  </header>
+
+
+    <main class="pb7" role="main">
+      
+  <article class="pa3 pa4-ns nested-copy-line-height">
+    <section class="cf ph3 ph5-l pv3 pv4-l f4 tc-l center measure-wide lh-copy nested-links mid-gray"></section>
+    <section class="flex-ns mt5 flex-wrap justify-around">
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2018/stepping_down_as_dam.html" class="link black dim">
+        Stepping down as DAM
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>After quite some time (years actually) of inactivity as
+<a href="https://www.debian.org/intro/organization#dam">Debian Account Manager</a>,
+I finally decided to give back that Debian hat.
+<a href="https://lists.debian.org/debian-devel-announce/2018/03/msg00001.html">I&rsquo;m stepping down as DAM</a>.
+I will still be around for the occasional comment from the peanut gallery, or
+to provide input if anyone actually cares to ask me about the old times.</p>
+<p>Thanks for the fish!</p>
+    </div>
+    <a href="/blog/posts/2018/stepping_down_as_dam.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2017/salsa_batch_import.html" class="link black dim">
+        Salsa batch import
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>Now that <a href="https://salsa.debian.org/">Salsa</a> is in
+<a href="http://blog.snow-crash.org/blog/salsa.debian.org-git.debian.org-replacement-going-into-beta/">beta</a>,
+it&rsquo;s time to import projects (= GitLab speak for &ldquo;repository&rdquo;). This is
+probably best done automated. Head to
+<a href="https://salsa.debian.org/profile/personal_access_tokens">Access Tokens</a>
+and generate a token with &ldquo;api&rdquo; scope, which you can then use with curl:</p>
+<pre>
+$ cat salsa-import
+#!/bin/sh
+
+set -eux
+
+PROJECT="${1%.git}"
+DESCRIPTION="$PROJECT packaging"
+ALIOTH_URL="https://anonscm.debian.org/git"
+ALIOTH_GROUP="collab-maint"
+SALSA_URL="https://salsa.debian.org/api/v4"
+SALSA_GROUP="debian" # "debian" has id 2
+SALSA_TOKEN="yourcryptictokenhere"
+
+# map group name to namespace id (this is slow on large groups, see https://gitlab.com/gitlab-org/gitlab-ce/issues/42415)
+SALSA_NAMESPACE=$(curl -s https://salsa.debian.org/api/v4/groups/$SALSA_GROUP | jq '.id')
+
+# trigger import
+curl -f "$SALSA_URL/projects?private_token=$SALSA_TOKEN" \
+  --data "path=$PROJECT&namespace_id=$SALSA_NAMESPACE&description=$DESCRIPTION&import_url=$ALIOTH_URL/$ALIOTH_GROUP/$PROJECT&visibility=public"
+</pre>
+<p>This will create the GitLab project in the chosen namespace, and import the repository from Alioth.</p>
+<p>Pro tip: To import a whole Alioth group to GitLab, run this on Alioth:</p>
+<pre>
+for f in *.git; do sh salsa-import $f; done
+</pre>
+<p>(<em>Update 2018-02-04</em>: Query namespace ID via the API)</p>
+    </div>
+    <a href="/blog/posts/2017/salsa_batch_import.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2016/vcswatch_is_now_looking_for_tags.html" class="link black dim">
+        vcswatch is now looking for tags
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>About a week ago, I extended
+<em><a href="https://qa.debian.org/cgi-bin/vcswatch">vcswatch</a></em>
+to also look at tags in git repositories.</p>
+<p>Previously, it was solely paying attention to the version number in the top
+paragraph in debian/changelog, and would alert if that version didn&rsquo;t match the
+package version in Debian unstable or experimental. The idea is that <em>&ldquo;UNRELEASED&rdquo;</em>
+versions will keep nagging the maintainer
+(via <a href="https://qa.debian.org/developer.php">DDPO</a>)
+not to forget that some day this package needs an upload. This works for git,
+svn, bzr, hg, cvs, mtn, and darcs repositories (in decreasing order of actual
+usage numbers in Debian. I had actually tried to add arch support as well, but
+that VCS is so weird that it wasn&rsquo;t worth the trouble).</p>
+<p>There are several shortcomings in that simple approach:</p>
+<ul>
+<li>Some packages update debian/changelog only at release time, e.g. auto-generated from the git changelog using <em>git-dch</em></li>
+<li>Missing or misplaced release tags are not detected</li>
+</ul>
+<p>The new mechanism fixes this for git repositories by also looking at the output
+of <em>git describe &ndash;tags</em>. If there are any commits since the last tag, and the
+vcswatch status according to debian/changelog would otherwise be <em>&ldquo;OK&rdquo;</em>, a new
+status <em>&ldquo;COMMITS&rdquo;</em> is set. DDPO will report e.g. &ldquo;1.4-1+2&rdquo;, to be read as &ldquo;2
+commits since the tag [debian/]1.4-1&rdquo;.</p>
+<p>Of the 16644 packages using git in Debian, currently 7327 are &ldquo;OK&rdquo;, 2649 are in
+the new &ldquo;COMMITS&rdquo; state, and 4227 are &ldquo;NEW&rdquo;. 723 are &ldquo;OLD&rdquo; and 79 are &ldquo;UNREL&rdquo;
+which indicates that the package in Debian is ahead of the git repository. 1639
+are in an ERROR state.</p>
+<p>So far the new mechanism works for git only, but other VCSes could be added as
+well.</p>
+    </div>
+    <a href="/blog/posts/2016/vcswatch_is_now_looking_for_tags.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2015/10_years_debian_developer.html" class="link black dim">
+        10 Years Debian Developer
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>I knew it was about this time of the year 10 years ago when my Debian account
+was created, but I couldn&rsquo;t remember the exact date until I looked it up
+earlier this evening: today :). Rene Engelhard had been my advocate, and Marc
+Brockschmidt my AM. Thanks guys!</p>
+<p>A lot of time has passed since then, and I&rsquo;ve worked in various parts of the
+project. I became an application manager almost immediately, and quickly got
+into the NM front desk as well, revamping parts of the NM process which had
+become pretty bureaucratic (I think we are now, 10 years later, back where we
+should be, thanks to almost all of the paperwork being automated, thanks
+Enrico!). I&rsquo;ve processed 37 NMs, most of them between 2005 and 2008, later I
+was only active as front desk and eventually Debian account manager. I&rsquo;ve
+recently picked up AMing again, which I still find quite refreshing as the AM
+will always also learn new things.</p>
+<p>Quality Assurance was and is the other big field. Starting by doing QA uploads
+of orphaned packages, I attended some QA meetings around Germany, and picked up
+maintenance of the DDPO pages, which I still maintain. The link between QA and
+NM is the MIA team where I was active for some years until they kindly kicked
+me out because I was MIA there myself. I&rsquo;m glad they are still using some of
+the scripts I was writing to automate some things.</p>
+<p>My favorite MUA is mutt, of which I became co-maintainer in 2007, and later
+maintainer. I&rsquo;m still listed in the uploaders field, but admittedly I haven&rsquo;t
+really done anything there lately.</p>
+<p>Also in 2007 I started working at credativ, after having been a research
+assistant at the university, which meant making my Debian work professional. Of
+course it also meant more real work and less time for the hobby part, but I was
+still very active around that time. Later in 2010 I was marrying, and we got
+two kids, at which point family was of course much more important, so my Debian
+involvement dropped to a minimum. (Mostly lurking on IRC ;)</p>
+<p>Being a PostgreSQL consultant at work, it was natural to start looking into the
+packaging, so I started submitting patches to postgresql-common in 2011, and
+became a co-maintainer in 2012. Since then, I&rsquo;ve mostly been working on
+PostgreSQL-related packages, of which far too many have my (co-)maintainer
+stamp on them. To link the Debian and PostgreSQL worlds together, we started an
+external repository (apt.postgresql.org) that contains packages for the
+PostgreSQL major releases that Debian doesn&rsquo;t ship. Most of my open source time
+at the moment is spent on getting all PostgreSQL packages in shape for Debian
+and this repository.</p>
+<p>According to minechangelogs, currently 844 changelog entries in Debian mention
+my name, or were authored by me. Scrolling back yields memories of packages
+that are long gone again from unstable, or I passed on to other maintainers.
+There are way too many people in Debian that I enjoy(ed) working with to list
+them here, and many of them are my friends. Debian is really the extended
+family on the internet. My last DebConf before this year had been in Mar del
+Plata - I had met some people at other conferences like FOSDEM, but meeting
+(almost) everyone again in Heidelberg was very nice. I even remembered all
+basic Mao rules :D.</p>
+    </div>
+    <a href="/blog/posts/2015/10_years_debian_developer.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2015/postgresql_9.5_in_debian.html" class="link black dim">
+        PostgreSQL 9.5 in Debian
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>Today saw the release of PostgreSQL 9.5 Alpha 1. Packages for all supported
+Debian and Ubuntu releases are available on <a href="http://apt.postgresql.org/">apt.postgresql.org</a>:</p>
+<tt>
+deb http://apt.postgresql.org/pub/repos/apt/ <i>YOUR_RELEASE_HERE</i>-pgdg main 9.5
+</tt>
+<p>The package is also waiting in NEW to be accepted for Debian experimental.</p>
+<p>Being curious which PostgreSQL releases have been in use over time, I pulled some graphics
+from <a href="https://qa.debian.org/popcon-graph.php?packages=postgresql+postgresql-7.4+postgresql-8.0+postgresql-8.1+postgresql-8.2+postgresql-8.3+postgresql-8.4+postgresql-9.0+postgresql-9.1+postgresql-9.2+postgresql-9.3+postgresql-9.4+postgresql-9.5&show_installed=on&want_legend=on&want_ticks=on&from_date=&to_date=&hlght_date=&date_fmt=%25Y-%25m&beenhere=1">Debian&rsquo;s popularity contest data</a>:</p>
+<p><a href="https://qa.debian.org/popcon-graph.php?packages=postgresql+postgresql-7.4+postgresql-8.0+postgresql-8.1+postgresql-8.2+postgresql-8.3+postgresql-8.4+postgresql-9.0+postgresql-9.1+postgresql-9.2+postgresql-9.3+postgresql-9.4+postgresql-9.5&show_installed=on&want_legend=on&want_ticks=on&from_date=&to_date=&hlght_date=&date_fmt=%25Y-%25m&beenhere=1"><img src="https://www.df7cb.de/blog/2015/popcon-postgresql.png"></a></p>
+<p>Before we included the PostgreSQL major version in the package name,
+&ldquo;postgresql&rdquo; contained the server, so that line represents the installation
+count of the pre-7.4 releases at the left end of the graph.</p>
+<p>Interestingly, 7.4 reached its installation peak well past 8.1&rsquo;s. Does anyone have an
+idea why that happened?</p>
+    </div>
+    <a href="/blog/posts/2015/postgresql_9.5_in_debian.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2015/apt.postgresql.org_statistics.html" class="link black dim">
+        apt.postgresql.org statistics
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>At this year&rsquo;s FOSDEM I gave a talk in the PostgreSQL devroom
+about <a href="http://www.df7cb.de/projects/talks/2015-FOSDEM/">
+Large Scale Quality Assurance in the PostgreSQL Ecosystem</a>.
+The talk included a graph about the growth of the
+<a href="https://apt.postgresql.org/">apt.postgresql.org</a>
+repository that I want to share here as well:</p>
+<img src="https://www.df7cb.de/blog/2015/apt-stats.png">
+<p>The yellow line at the very bottom is the number of different source package
+names, currently 71. From that, a somewhat larger number of actual source
+packages that include the &ldquo;pgdgXX&rdquo; version suffixes targeting the various
+distributions we have is built (blue). The number of different binary package
+names (green) is in about the same range. The dimension explosion then happens
+for the actual number of binary packages (black, almost 8000) targeting all
+distributions and architectures.</p>
+<p>The red line is the total size of the pool/ directory, currently a bit less
+than 6GB.</p>
+<p>(The graphs sometimes decrease when packages in the -testing distributions are
+promoted to the live distributions and the old live packages get removed.)</p>
+    </div>
+    <a href="/blog/posts/2015/apt.postgresql.org_statistics.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2014/mounttree.html" class="link black dim">
+        mounttree
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>If you think this is confusing &hellip;</p>
+<pre>
+$ mount
+</pre>
+<font size="-2">
+<pre>
+sysfs on /sys type sysfs (rw,nosuid,nodev,noexec,relatime)
+proc on /proc type proc (rw,nosuid,nodev,noexec,relatime)
+udev on /dev type devtmpfs (rw,relatime,size=10240k,nr_inodes=1008105,mode=755)
+devpts on /dev/pts type devpts (rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000)
+tmpfs on /run type tmpfs (rw,nosuid,relatime,size=1616484k,mode=755)
+/dev/mapper/benz-root on / type ext4 (rw,relatime,errors=remount-ro,data=ordered)
+securityfs on /sys/kernel/security type securityfs (rw,nosuid,nodev,noexec,relatime)
+tmpfs on /dev/shm type tmpfs (rw,nosuid,nodev)
+tmpfs on /run/lock type tmpfs (rw,nosuid,nodev,noexec,relatime,size=5120k)
+tmpfs on /sys/fs/cgroup type tmpfs (ro,nosuid,nodev,noexec,mode=755)
+cgroup on /sys/fs/cgroup/systemd type cgroup (rw,nosuid,nodev,noexec,relatime,xattr,release_agent=/lib/systemd/systemd-cgroups-agent,name=systemd)
+pstore on /sys/fs/pstore type pstore (rw,nosuid,nodev,noexec,relatime)
+cgroup on /sys/fs/cgroup/cpuset type cgroup (rw,nosuid,nodev,noexec,relatime,cpuset)
+cgroup on /sys/fs/cgroup/cpu,cpuacct type cgroup (rw,nosuid,nodev,noexec,relatime,cpu,cpuacct)
+cgroup on /sys/fs/cgroup/devices type cgroup (rw,nosuid,nodev,noexec,relatime,devices)
+cgroup on /sys/fs/cgroup/freezer type cgroup (rw,nosuid,nodev,noexec,relatime,freezer)
+cgroup on /sys/fs/cgroup/net_cls,net_prio type cgroup (rw,nosuid,nodev,noexec,relatime,net_cls,net_prio)
+cgroup on /sys/fs/cgroup/blkio type cgroup (rw,nosuid,nodev,noexec,relatime,blkio)
+cgroup on /sys/fs/cgroup/perf_event type cgroup (rw,nosuid,nodev,noexec,relatime,perf_event)
+systemd-1 on /proc/sys/fs/binfmt_misc type autofs (rw,relatime,fd=22,pgrp=1,timeout=300,minproto=5,maxproto=5,direct)
+mqueue on /dev/mqueue type mqueue (rw,relatime)
+hugetlbfs on /dev/hugepages type hugetlbfs (rw,relatime)
+debugfs on /sys/kernel/debug type debugfs (rw,relatime)
+fusectl on /sys/fs/fuse/connections type fusectl (rw,relatime)
+/dev/sda1 on /boot type ext2 (rw,relatime)
+/dev/mapper/benz-home on /home type ext4 (rw,relatime,data=ordered)
+binfmt_misc on /proc/sys/fs/binfmt_misc type binfmt_misc (rw,relatime)
+tmpfs on /run/user/124 type tmpfs (rw,nosuid,nodev,relatime,size=808244k,mode=700,uid=124,gid=131)
+/dev/mapper/benz-home on /var/lib/schroot/mount/sid-amd64-ed5e5176-2c0f-4708-b259-663d20011b26 type ext4 (rw,relatime,data=ordered)
+proc on /var/lib/schroot/mount/sid-amd64-ed5e5176-2c0f-4708-b259-663d20011b26/proc type proc (rw,nosuid,nodev,noexec,relatime)
+sysfs on /var/lib/schroot/mount/sid-amd64-ed5e5176-2c0f-4708-b259-663d20011b26/sys type sysfs (rw,nosuid,nodev,noexec,relatime)
+udev on /var/lib/schroot/mount/sid-amd64-ed5e5176-2c0f-4708-b259-663d20011b26/dev type devtmpfs (rw,relatime,size=10240k,nr_inodes=1008105,mode=755)
+devpts on /var/lib/schroot/mount/sid-amd64-ed5e5176-2c0f-4708-b259-663d20011b26/dev/pts type devpts (rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000)
+devpts on /dev/pts type devpts (rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000)
+/dev/mapper/benz-home on /var/lib/schroot/mount/sid-amd64-ed5e5176-2c0f-4708-b259-663d20011b26/home type ext4 (rw,relatime,data=ordered)
+/dev/mapper/benz-root on /var/lib/schroot/mount/sid-amd64-ed5e5176-2c0f-4708-b259-663d20011b26/tmp type ext4 (rw,relatime,errors=remount-ro,data=ordered)
+/dev/mapper/benz-home on /var/lib/schroot/mount/sid-amd64-ed5e5176-2c0f-4708-b259-663d20011b26/srv type ext4 (rw,relatime,data=ordered)
+/dev/mapper/benz-root on /var/lib/schroot/mount/sid-amd64-ed5e5176-2c0f-4708-b259-663d20011b26/media type ext4 (rw,relatime,errors=remount-ro,data=ordered)
+//newton/credativ on /credativ/credativ type cifs (rw,nosuid,nodev,noexec,relatime,vers=1.0,cache=strict,username=cbe,domain=CREDATIV,uid=0,noforceuid,gid=0,noforcegid,addr=172.26.14.2,unix,posixpaths,serverino,acl,rsize=1048576,wsize=65536,actimeo=1,user)
+//newton/cbe on /credativ/cbe type cifs (rw,nosuid,nodev,noexec,relatime,vers=1.0,cache=strict,username=cbe,domain=CREDATIV,uid=0,noforceuid,gid=0,noforcegid,addr=172.26.14.2,unix,posixpaths,serverino,acl,rsize=1048576,wsize=65536,actimeo=1,user)
+devpts on /dev/pts type devpts (rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000)
+devpts on /var/lib/schroot/mount/sid-amd64-ed5e5176-2c0f-4708-b259-663d20011b26/dev/pts type devpts (rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000)
+tmpfs on /run/user/2062 type tmpfs (rw,nosuid,nodev,relatime,size=808244k,mode=700,uid=2062,gid=2062)
+gvfsd-fuse on /run/user/2062/gvfs type fuse.gvfsd-fuse (rw,nosuid,nodev,relatime,user_id=2062,group_id=2062)
+/dev/mapper/benz-home on /var/lib/schroot/mount/wheezy-i386-a6e9e772-1061-4587-8321-c1615f21ebb2 type ext4 (rw,relatime,data=ordered)
+proc on /var/lib/schroot/mount/wheezy-i386-a6e9e772-1061-4587-8321-c1615f21ebb2/proc type proc (rw,nosuid,nodev,noexec,relatime)
+sysfs on /var/lib/schroot/mount/wheezy-i386-a6e9e772-1061-4587-8321-c1615f21ebb2/sys type sysfs (rw,nosuid,nodev,noexec,relatime)
+udev on /var/lib/schroot/mount/wheezy-i386-a6e9e772-1061-4587-8321-c1615f21ebb2/dev type devtmpfs (rw,relatime,size=10240k,nr_inodes=1008105,mode=755)
+devpts on /var/lib/schroot/mount/wheezy-i386-a6e9e772-1061-4587-8321-c1615f21ebb2/dev/pts type devpts (rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000)
+devpts on /dev/pts type devpts (rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000)
+devpts on /var/lib/schroot/mount/sid-amd64-ed5e5176-2c0f-4708-b259-663d20011b26/dev/pts type devpts (rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000)
+/dev/mapper/benz-home on /var/lib/schroot/mount/wheezy-i386-a6e9e772-1061-4587-8321-c1615f21ebb2/home type ext4 (rw,relatime,data=ordered)
+/dev/mapper/benz-root on /var/lib/schroot/mount/wheezy-i386-a6e9e772-1061-4587-8321-c1615f21ebb2/tmp type ext4 (rw,relatime,errors=remount-ro,data=ordered)
+/dev/mapper/benz-home on /var/lib/schroot/mount/wheezy-i386-a6e9e772-1061-4587-8321-c1615f21ebb2/srv type ext4 (rw,relatime,data=ordered)
+/dev/mapper/benz-root on /var/lib/schroot/mount/wheezy-i386-a6e9e772-1061-4587-8321-c1615f21ebb2/media type ext4 (rw,relatime,errors=remount-ro,data=ordered)
+devpts on /dev/pts type devpts (rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000)
+devpts on /var/lib/schroot/mount/sid-amd64-ed5e5176-2c0f-4708-b259-663d20011b26/dev/pts type devpts (rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000)
+devpts on /var/lib/schroot/mount/wheezy-i386-a6e9e772-1061-4587-8321-c1615f21ebb2/dev/pts type devpts (rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000)
+</pre>
+</font>
+<p>&hellip; try <a href="http://svn.df7cb.de/dotfiles/cb/bin/mounttree">mounttree</a>:</p>
+<pre>
+$ mounttree
+</pre>
+<font size="-3">
+<pre>
+/                               rootfs                          rw
+/                               /dev/mapper/benz-root (ext4)    rw,relatime,errors=remount-ro,data=ordered
+  boot                          /dev/sda1 (ext2)                rw,relatime
+  credativ/cbe                  //newton/cbe (cifs)             rw,nosuid,nodev,noexec,relatime,vers=1.0,cache=strict,username=cbe,domain=CREDATIV,uid=0,noforceuid,gid=0,noforcegid,addr=172.26.14.2,unix,posixpaths,serverino,acl,rsize=1048576,wsize=65536,actimeo=1
+  credativ/credativ             //newton/credativ (cifs)        rw,nosuid,nodev,noexec,relatime,vers=1.0,cache=strict,username=cbe,domain=CREDATIV,uid=0,noforceuid,gid=0,noforcegid,addr=172.26.14.2,unix,posixpaths,serverino,acl,rsize=1048576,wsize=65536,actimeo=1
+  dev                           udev (devtmpfs)                 rw,relatime,size=10240k,nr_inodes=1008105,mode=755
+    hugepages                   hugetlbfs                       rw,relatime
+    mqueue                      mqueue                          rw,relatime
+    pts                         devpts                          rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000
+    pts                         devpts                          rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000
+    pts                         devpts                          rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000
+    pts                         devpts                          rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000
+    pts                         devpts                          rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000
+    shm                         tmpfs                           rw,nosuid,nodev
+  home                          /dev/mapper/benz-home (ext4)    rw,relatime,data=ordered
+  proc                          proc                            rw,nosuid,nodev,noexec,relatime
+    sys/fs/binfmt_misc          systemd-1 (autofs)              rw,relatime,fd=22,pgrp=1,timeout=300,minproto=5,maxproto=5,direct
+    sys/fs/binfmt_misc          binfmt_misc                     rw,relatime
+  run                           tmpfs                           rw,nosuid,relatime,size=1616484k,mode=755
+    lock                        tmpfs                           rw,nosuid,nodev,noexec,relatime,size=5120k
+    user/124                    tmpfs                           rw,nosuid,nodev,relatime,size=808244k,mode=700,uid=124,gid=131
+    user/2062                   tmpfs                           rw,nosuid,nodev,relatime,size=808244k,mode=700,uid=2062,gid=2062
+      gvfs                      gvfsd-fuse (fuse.gvfsd-fuse)    rw,nosuid,nodev,relatime,user_id=2062,group_id=2062
+  sys                           sysfs                           rw,nosuid,nodev,noexec,relatime
+    fs/cgroup                   tmpfs                           ro,nosuid,nodev,noexec,mode=755
+      blkio                     cgroup                          rw,nosuid,nodev,noexec,relatime,blkio
+      cpu,cpuacct               cgroup                          rw,nosuid,nodev,noexec,relatime,cpu,cpuacct
+      cpuset                    cgroup                          rw,nosuid,nodev,noexec,relatime,cpuset
+      devices                   cgroup                          rw,nosuid,nodev,noexec,relatime,devices
+      freezer                   cgroup                          rw,nosuid,nodev,noexec,relatime,freezer
+      net_cls,net_prio          cgroup                          rw,nosuid,nodev,noexec,relatime,net_cls,net_prio
+      perf_event                cgroup                          rw,nosuid,nodev,noexec,relatime,perf_event
+      systemd                   cgroup                          rw,nosuid,nodev,noexec,relatime,xattr,release_agent=/lib/systemd/systemd-cgroups-agent,name=systemd
+    fs/fuse/connections         fusectl                         rw,relatime
+    fs/pstore                   pstore                          rw,nosuid,nodev,noexec,relatime
+    kernel/debug                debugfs                         rw,relatime
+    kernel/security             securityfs                      rw,nosuid,nodev,noexec,relatime
+  var/lib/schroot/mount/sid-amd64-ed5e5176-2c0f-4708-b259-663d20011b26  /dev/mapper/benz-home (ext4)    rw,relatime,data=ordered
+    dev                         udev (devtmpfs)                 rw,relatime,size=10240k,nr_inodes=1008105,mode=755
+      pts                       devpts                          rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000
+      pts                       devpts                          rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000
+      pts                       devpts                          rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000
+      pts                       devpts                          rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000
+    home                        /dev/mapper/benz-home (ext4)    rw,relatime,data=ordered
+    media                       /dev/mapper/benz-root (ext4)    rw,relatime,errors=remount-ro,data=ordered
+    proc                        proc                            rw,nosuid,nodev,noexec,relatime
+    srv                         /dev/mapper/benz-home (ext4)    rw,relatime,data=ordered
+    sys                         sysfs                           rw,nosuid,nodev,noexec,relatime
+    tmp                         /dev/mapper/benz-root (ext4)    rw,relatime,errors=remount-ro,data=ordered
+  var/lib/schroot/mount/wheezy-i386-a6e9e772-1061-4587-8321-c1615f21ebb2  /dev/mapper/benz-home (ext4)    rw,relatime,data=ordered
+    dev                         udev (devtmpfs)                 rw,relatime,size=10240k,nr_inodes=1008105,mode=755
+      pts                       devpts                          rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000
+      pts                       devpts                          rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000
+    home                        /dev/mapper/benz-home (ext4)    rw,relatime,data=ordered
+    media                       /dev/mapper/benz-root (ext4)    rw,relatime,errors=remount-ro,data=ordered
+    proc                        proc                            rw,nosuid,nodev,noexec,relatime
+    srv                         /dev/mapper/benz-home (ext4)    rw,relatime,data=ordered
+    sys                         sysfs                           rw,nosuid,nodev,noexec,relatime
+    tmp                         /dev/mapper/benz-root (ext4)    rw,relatime,errors=remount-ro,data=ordered
+</pre>
+</font>
+    </div>
+    <a href="/blog/posts/2014/mounttree.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2014/new_urxvt_tab_in_current_directory.html" class="link black dim">
+        New urxvt in current directory
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>Following Enrico&rsquo;s
+<a href="http://www.enricozini.org/2014/debian/terminal-emulators/">terminal-emulators</a>
+comparison, I wanted to implement &ldquo;start a new terminal tab in my current
+working directory&rdquo; for rxvt-unicode aka urxvt. As Enrico notes, this
+functionality is something between &ldquo;rather fragile&rdquo; and non-existing, so I went
+to implement it myself. Martin Pohlack had the
+<a href="http://permalink.gmane.org/gmane.comp.terminal-emulators.rxvt-unicode.general/1175">
+right hint</a>, so here&rsquo;s the patch:</p>
+<pre>
+--- /usr/lib/urxvt/perl/tabbed	2014-05-03 21:37:37.000000000 +0200
+--- ./tabbed	2014-07-09 18:50:26.000000000 +0200
+@@ -97,6 +97,16 @@
+       $term->resource (perl_ext_2 => $term->resource ("perl_ext_2") . ",-tabbed");
+    };
+ 
++   if (@{ $self->{tabs} }) {
++      # Get the working directory of the current tab and append a -cd to the command line
++      my $pid = $self->{cur}{pid};
++      my $pwd = readlink "/proc/$pid/cwd";
++      #print "pid $pid pwd $pwd\n";
++      if ($pwd) {
++         push @argv, "-cd", $pwd;
++      }
++   }
++
+    push @urxvt::TERM_EXT, urxvt::ext::tabbed::tab::;
+ 
+    my $term = new urxvt::term
+@@ -312,6 +322,12 @@
+    1
+ }
+ 
++sub tab_child_start {
++   my ($self, $term, $pid) = @_;
++   $term->{pid} = $pid;
++   1;
++}
++
+ sub tab_start {
+    my ($self, $tab) = @_;
+ 
+@@ -402,7 +418,7 @@
+ # simply proxies all interesting calls back to the tabbed class.
+ 
+ {
+-   for my $hook (qw(start destroy key_press property_notify)) {
++   for my $hook (qw(start destroy key_press property_notify child_start)) {
+       eval qq{
+          sub on_$hook {
+             my \$parent = \$_[0]{term}{parent}
+</pre>
+    </div>
+    <a href="/blog/posts/2014/new_urxvt_tab_in_current_directory.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2014/comparing_version_numbers_in_shell.html" class="link black dim">
+        Comparing Version Numbers in Shell
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>On RedHat/CentOS/rpm systems, there&rsquo;s no <i>dpkg &ndash;compare-versions</i>
+available - <i>sort -V</i> can help to compare version numbers:</p>
+<pre><code>version_lt () {
+    newest=$( ( echo &quot;$1&quot;; echo &quot;$2&quot; ) | sort -V | tail -n1)
+    [ &quot;$1&quot; != &quot;$newest&quot; ]
+}
+
+$ version_lt 1.5 1.1 &amp;&amp; echo yes
+$ version_lt 1.5 1.10 &amp;&amp; echo yes
+yes
+</code></pre>
+    </div>
+    <a href="/blog/posts/2014/comparing_version_numbers_in_shell.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2014/postgresql_9.4_on_debian.html" class="link black dim">
+        PostgreSQL 9.4 on Debian
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>Yesterday saw the first beta release of the new PostgreSQL version 9.4. Along
+with the sources, we uploaded binary packages to Debian experimental and
+apt.postgresql.org, so there&rsquo;s now packages ready to be tested on Debian
+wheezy, squeeze, testing/unstable, and Ubuntu trusty, saucy, precise, and
+lucid.</p>
+<p>If you are using one of the release distributions of Debian or Ubuntu, add this
+to your /etc/apt/sources.list.d/pgdg.list to have 9.4 available:</p>
+<p>deb <a href="http://apt.postgresql.org/pub/repos/apt/">http://apt.postgresql.org/pub/repos/apt/</a> codename-pgdg main 9.4</p>
+<p>On Debian jessie and sid, install the packages from experimental.</p>
+<p>Happy testing!</p>
+    </div>
+    <a href="/blog/posts/2014/postgresql_9.4_on_debian.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+    </section>
+    <ul class="pagination pagination-default">
+      <li class="page-item">
+        <a href="/blog/posts/index.html" aria-label="First" class="page-link" role="button"><span aria-hidden="true">&laquo;&laquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/blog/posts/index.html" aria-label="Previous" class="page-link" role="button"><span aria-hidden="true">&laquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/blog/posts/index.html" aria-label="Page 1" class="page-link" role="button">1</a>
+      </li>
+      <li class="page-item active">
+        <a aria-current="page" aria-label="Page 2" class="page-link" role="button">2</a>
+      </li>
+      <li class="page-item">
+        <a href="/blog/posts/page/3/index.html" aria-label="Page 3" class="page-link" role="button">3</a>
+      </li>
+      <li class="page-item">
+        <a href="/blog/posts/page/4/index.html" aria-label="Page 4" class="page-link" role="button">4</a>
+      </li>
+      <li class="page-item">
+        <a href="/blog/posts/page/5/index.html" aria-label="Page 5" class="page-link" role="button">5</a>
+      </li>
+      <li class="page-item">
+        <a href="/blog/posts/page/3/index.html" aria-label="Next" class="page-link" role="button"><span aria-hidden="true">&raquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/blog/posts/page/16/index.html" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
+      </li>
+    </ul></article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white white-70 dn dib-ns pv2 ph3 no-underline" href="https://df7cb.de/blog/index.html" >
+    &copy;  Myon's Blog 2025 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Myon&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="">
+    <meta name="generator" content="Hugo 0.152.2">
+    
+    
+    
+      <meta name="robots" content="index, follow">
+    
+    <meta name="author" content="Christoph Berg">
+    
+
+    
+<link rel="stylesheet" href="/blog/ananke/css/main.min.efe4d852f731d5d1fbb87718387202a97aafd768cdcdaed0662bbe6982e91824.css" >
+
+
+
+
+    
+
+
+    
+      
+
+    
+
+    
+    
+      <link href="/blog/posts/index.xml" rel="alternate" type="application/rss+xml" title="Myon&#39;s Blog" />
+      <link href="/blog/posts/index.xml" rel="feed" type="application/rss+xml" title="Myon&#39;s Blog" />
+      
+    
+
+    
+      <link rel="canonical" href="https://df7cb.de/blog/posts/index.html">
+    
+
+    <meta property="og:url" content="https://df7cb.de/blog/posts/index.html">
+  <meta property="og:site_name" content="Myon&#39;s Blog">
+  <meta property="og:title" content="Posts">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="website">
+
+  <meta itemprop="name" content="Posts">
+  <meta itemprop="datePublished" content="2024-03-18T15:22:23+01:00">
+  <meta itemprop="dateModified" content="2024-03-18T15:22:23+01:00">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Posts">
+
+      
+    
+	
+  </head><body class="ma0 avenir bg-near-white production">
+
+    
+
+  <header>
+    <div class="pb3-m pb6-l bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l center items-center justify-between">
+    <a href="/blog/index.html" class="f3 fw2 hover-white white-90 dib no-underline">
+      
+        Myon&#39;s Blog
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+      <div class="tc-l pv3 ph3 ph4-ns">
+        <h1 class="f2 f-subheadline-l fw2 light-silver mb0 lh-title">
+          Posts
+        </h1>
+        
+      </div>
+    </div>
+  </header>
+
+
+    <main class="pb7" role="main">
+      
+  <article class="pa3 pa4-ns nested-copy-line-height">
+    <section class="cf ph3 ph5-l pv3 pv4-l f4 tc-l center measure-wide lh-copy nested-links mid-gray"></section>
+    <section class="flex-ns mt5 flex-wrap justify-around">
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2024/vcswatch-git-filter.html" class="link black dim">
+        vcswatch and git --filter
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>Debian is running a &ldquo;<a href="https://qa.debian.org/cgi-bin/vcswatch">vcswatch</a>&rdquo;
+service that keeps track of the status of all packaging repositories that have a
+<a href="https://www.debian.org/doc/manuals/developers-reference/best-pkging-practices.de.html#vcs"><tt>Vcs-Git</tt></a>
+(and other VCSes) header set and shows which repos might need a package upload to push pending changes out.</p>
+<p>Naturally, this is a lot of data and the scratch partition on qa.debian.org
+had to be expanded several times, up to 300 GB in the last iteration.
+Attempts to reduce that size using shallow clones (<tt>git clone &ndash;depth=50</tt>)
+did not result more than a few percent of space saved. Running <tt>git gc</tt> on
+all repos helps a bit, but is tedious and as Debian is growing, the repos are
+still growing both in size and number. I ended up blocking all repos with
+checkouts larger than a gigabyte, and still the only cure was expanding the
+disk, or to lower the blocking threshold.</p>
+<p>Since we only need a tiny bit of info from the repositories, namely the content
+of <tt>debian/changelog</tt> and a few other files from <tt>debian/</tt>, plus
+the number of commits since the last tag on the packaging branch, it made sense
+to try to get the info without fetching a full repo clone. The question if we
+could grab that solely using the GitLab API at salsa.debian.org was never
+really answered. But then, in <a href="https://bugs.debian.org/1032623">#1032623</a>,
+Gábor Németh suggested the use of
+<a href="https://git-scm.com/docs/git-clone#Documentation/git-clone.txt---filterltfilter-specgt"><tt>git clone &ndash;filter blob:none</tt></a>.
+As things go, this sat unattended in the bug report for almost a year until the
+next &ldquo;disk full&rdquo; event made me give it a try.</p>
+<p>The <tt>blob:none</tt> filter makes git clone omit all files, fetching only commit and
+tree information. Any blob (file content) needed at git run time is
+transparently fetched from the upstream repository, and stored locally. It
+turned out to be a game-changer. The (largish) repositories I tried it on
+shrank to 1/100 of the original size.</p>
+<p>Poking around I figured we could even do better by using <tt>tree:0</tt> as
+filter. This additionally omits all trees from the git clone, again only
+fetching the information at run time when needed. Some of the larger repos I
+tried it on shrank to <em>1/1000</em> of their original size.</p>
+<p>I deployed the new option on qa.debian.org and scheduled all repositories to
+fetch a new clone on the next scan:</p>
+<img src="https://www.df7cb.de/blog/2024/df-month.png">
+<p>The initial dip from 100% to 95% is my first &ldquo;what happens if we block repos
+&gt; 500 MB&rdquo; attempt. Over the week after that, the git filter clones reduce the
+overall disk consumption from almost 300 GB to 15 GB, a <em>1/20</em>. Some
+repos shrank from GBs to below a MB.</p>
+<p>Perhaps I should make all my git clones use one of the filters.</p>
+    </div>
+    <a href="/blog/posts/2024/vcswatch-git-filter.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2023/popcon-postgresql.html" class="link black dim">
+        PostgreSQL Popularity Contest
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>Back in 2015, when PostgreSQL 9.5 alpha 1 was released, I had posted the
+<a href="https://www.df7cb.de/blog/2015/PostgreSQL_9.5_in_Debian.html">PostgreSQL data from Debian&rsquo;s popularity contest</a>.</p>
+<p>8 years and 8 PostgreSQL releases later, the graph now looks like this:</p>
+<p><a href="https://qa.debian.org/popcon-graph.php?packages=postgresql+postgresql-7.4+postgresql-8.0+postgresql-8.1+postgresql-8.2+postgresql-8.3+postgresql-8.4+postgresql-9.0+postgresql-9.1+postgresql-9.2+postgresql-9.3+postgresql-9.4+postgresql-9.5+postgresql-9.6+postgresql-10+postgresql-11+postgresql-12+postgresql-13+postgresql-14+postgresql-15+postgresql-16&show_installed=on&want_legend=on&want_ticks=on&from_date=&to_date=&hlght_date=&date_fmt=%25Y-%25m&beenhere=1"><img src="https://www.df7cb.de/blog/2023/popcon-postgresql.png"></a></p>
+<p>Currently, the most popular PostgreSQL on Debian systems is still PostgreSQL 13 (shipped in Bullseye), followed by PostgreSQL 11 (Buster). At the time of writing,
+PostgreSQL 9.6 (Stretch) and PostgreSQL 15 (Bookworm) share the third place, with 15 rising quickly.</p>
+    </div>
+    <a href="/blog/posts/2023/popcon-postgresql.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2023/ic7610ftdi.html" class="link black dim">
+        Getting I/Q SDR data from Icom IC-7610&#39;s USB 3 port using libftd3xx
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>I had been looking around for some time if someone had already managed to get
+I/Q data from Icom&rsquo;s IC-7610 HF transceiver without going through the
+binary-only hdsdr driver provided by Icom, but couldn&rsquo;t find anything.</p>
+<p>First attempts at doing that on Debian Linux using libftdi1 didn&rsquo;t work, so I
+resorted to using the (again binary-only) libftd3xx driver from FT, and
+succeeded after some tinkering around.</p>
+<p>The program writes raw I/Q data to a file in int16-int16 format.</p>
+<ul>
+<li>ic7610ftdi: <a href="https://github.com/df7cb/ic7610ftdi">https://github.com/df7cb/ic7610ftdi</a></li>
+<li>Get libftd3xx from <a href="https://ftdichip.com/drivers/d3xx-drivers/">https://ftdichip.com/drivers/d3xx-drivers/</a></li>
+<li>IC-7610 I/Q port reference: <a href="https://www.icomjapan.com/support/manual/1792/">https://www.icomjapan.com/support/manual/1792/</a></li>
+<li>The IC-7610 needs to be connected using a decent USB 3 cable, preferably without any hub in-between</li>
+<li>If the SuperSpeed-FIFO Bridge disappears after some time, re-plug the cable or power-cycle the transceiver</li>
+</ul>
+<pre tabindex="0"><code>$ lsusb | grep IC
+Bus 002 Device 024: ID 0c26:0029 Prolific Technology Inc. IC-7610 SuperSpeed-FIFO Bridge
+
+$ make
+cc -Wall -g   -c -o ic7610ftdi.o ic7610ftdi.c
+cc   ic7610ftdi.o  -lftd3xx -o ic7610ftdi
+
+$ ./ic7610ftdi iq.cs16
+Device[0]
+	Flags: 0x4 [USB 3] | Type: 600 | ID: 0x0C260029
+	SerialNumber=23001123
+	Description=IC-7610 SuperSpeed-FIFO Bridge
+fe fe 98 e0 1a 0b fd ff
+fe fe e0 98 1a 0b 00 fd IQ data output: 0
+fe fe 98 e0 1a 0b 01 fd
+fe fe e0 98 fb fd ff ff OK
+RX 42 MiB ^C
+fe fe 98 e0 1a 0b 00 fd
+fe fe e0 98 fb fd ff ff OK
+
+$ ls -l iq.cs16
+-rw-rw-r-- 1 myon myon 44040192 26. Aug 22:37 iq.cs16
+
+$ inspectrum -r 1920000 iq.cs16 &amp;
+</code></pre>
+    </div>
+    <a href="/blog/posts/2023/ic7610ftdi.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2022/udp-portforwarding.html" class="link black dim">
+        UDP port forwarding with iptables and ferm
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>To talk to my IC-7610 via wireguard, I set up UDP port forwarding for ports 50001 50002 50003 on a raspi:</p>
+<pre tabindex="0"><code>domain (ip) {
+  table filter {
+    chain FORWARD {
+      policy ACCEPT;
+    }
+  }
+
+  table nat {
+    chain PREROUTING {
+      interface (wg0) {
+        proto udp dport 50001 DNAT to 192.168.0.6;
+        proto udp dport 50002 DNAT to 192.168.0.6;
+        proto udp dport 50003 DNAT to 192.168.0.6;
+      }
+    }
+
+    chain POSTROUTING {
+      outerface (eth0) {
+        proto udp dport 50001 SNAT to-source 192.168.0.3;
+        proto udp dport 50002 SNAT to-source 192.168.0.3;
+        proto udp dport 50003 SNAT to-source 192.168.0.3;
+      }
+    }
+  }
+}
+</code></pre>
+    </div>
+    <a href="/blog/posts/2022/udp-portforwarding.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2022/lora-aprs-igate.html" class="link black dim">
+        LoRa APRS iGate on TTGO LoRa32
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <h1 id="lora-aprs-igate">LoRa APRS iGate</h1>
+<p>The official documentation of
+<a href="https://github.com/lora-aprs/LoRa_APRS_iGate">https://github.com/lora-aprs/LoRa_APRS_iGate</a>
+uses the PlatformIO plugin of MS Visual Studio Code. Here are the commands to
+get it running without the GUI:</p>
+<pre tabindex="0"><code>git clone https://github.com/lora-aprs/LoRa_APRS_iGate.git
+cd LoRa_APRS_iGate
+</code></pre><ul>
+<li>Edit data/is-cfg.json with your station info</li>
+<li>Edit platformio.ini: <code>board = ttgo-lora32-v21</code></li>
+</ul>
+<pre tabindex="0"><code>pip3 install platformio
+
+pio run
+...
+Building .pio/build/lora_board/firmware.bin
+...
+
+pio run --target upload
+...
+Uploading .pio/build/lora_board/firmware.bin
+...
+
+pio run --target uploadfs
+...
+Building SPIFFS image from &#39;data&#39; directory to .pio/build/lora_board/spiffs.bin
+/is-cfg.json
+...
+Uploading .pio/build/lora_board/spiffs.bin
+...
+</code></pre><h1 id="lora-aprs-tracker">LoRa APRS Tracker</h1>
+<p>The procedure for the tracker is the same, but the GPS module might need a
+reset first:</p>
+<pre tabindex="0"><code>git clone https://github.com/lora-aprs/TTGO-T-Beam_GPS-reset.git
+cd TTGO-T-Beam_GPS-reset
+pio run -e ttgo-t-beam-v1
+pio run --target upload -e ttgo-t-beam-v1
+# screen /dev/ttyACM0 115200
+</code></pre><p>&hellip; and then upload <a href="https://github.com/lora-aprs/LoRa_APRS_Tracker.git">https://github.com/lora-aprs/LoRa_APRS_Tracker.git</a></p>
+    </div>
+    <a href="/blog/posts/2022/lora-aprs-igate.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2022/midicwkeyer.html" class="link black dim">
+        Iambic CW keyer based on DigiSpark, MIDI, and PulseAudio on Linux
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>Classic ham radio transceivers have physical connectors for morse keys and
+microphones. When the transceiver is a software defined radio (SDR) device,
+voice operation is easy by attaching a headset, but solutions to connect a
+morse key, be it a straight key or paddles, to a modern PC are rare. In the old
+times, machines had serial ports with RTS/DTR lines, but these do not exist
+anymore, so a new interface is needed.</p>
+<p>I am using a LimeSDR as ground station for the QO-100 satellite, and naturally
+also wanted to do CW operation there. I started with SDRangel which has a
+built-in morse generator, but naturally wanted to connect a CW key. At first
+sight, all the bits are there, there&rsquo;s a tune button that could be used as a
+straight key, as well as keyboard bindings for dots and dashes. But the delay
+key-&gt;local audio is almost a full second, so that&rsquo;s a no-go. I then went to
+hack my K3NG keyer to output ^ (high) _ (low) signals on the USB interface, and
+have a smallish Python program read that and send SDRangel REST API requests.
+Works, but that solution always felt &ldquo;too big&rdquo; to me, plus the sidetone from
+the buzzer inside the Arduino case could be heard in the whole house. And the
+total TX-RX delay was well over a second.</p>
+<p>Next I tried building some GNU Radio flowcharts to solve the same problem but
+which all had the same trouble that the buffers grew way too big to allow the
+sidetone to be used for keying. At the same time, I switched the transceiver
+from SDRangel to another GR flowchart which reduced the overall TX-RX delay to
+something much shorter, but the local audio delay was still too slow for CW.</p>
+<p>So after some back and forth, I came up with this solution: the external
+interface from the CW paddles to the PC is a small DigiSpark board programmed
+to output MIDI signals, and on the (Linux) PC side, there is a Python program
+listening for MIDI and acting as a iambic CW keyer. The morse dots and dashes
+are uploaded as &ldquo;samples&rdquo; to PulseAudio, where they are played both on the
+local sidetone channel (usually headphones) and on the audio channel driving
+the SDR transceiver. There is no delay. :)</p>
+<h2 id="digispark-hardware">DigiSpark hardware</h2>
+<p>The DigiSpark is a very small embedded computer that can be programmed using
+the Arduino toolchain.</p>
+<p>Of the 6 IO pins, two are used for the USB bus, two connect the dit and dah
+lines of the CW paddle, one connects to a potentiometer for adjusting the
+keying speed, and the last one is unconnected in this design, but could be used
+for keying a physical transceiver. (The onboard LED uses the this pin.)</p>
+<pre tabindex="0"><code>            +---------------+
+            |            P5 o  -- 10k potentiometer middle pin
+        =====  Attiny85  P4 o  -- USB (internal)
+   USB  -----            P3 o  -- USB (internal)
+        -----            P2 o  -- dah paddle
+        =====   78M05    P1 o  -- (LED/TRX)
+            |            P0 o  -- dit paddle
+            +---o-o-o-------+
+</code></pre><p>There is an extra 27 kΩ resistor in the ground connection of the potentiometer
+to keep the P5 voltage &gt; 2.5 V, or else the DigiSpark resets. (This could be
+changed by blowing some fuses, but is not necessary.)</p>
+    </div>
+    <a href="/blog/posts/2022/midicwkeyer.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2021/postgresql-undelete.html" class="link black dim">
+        PostgreSQL and Undelete
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <h2 id="pg_dirtyread">pg_dirtyread</h2>
+<p>Earlier this week, I updated <a href="https://github.com/df7cb/pg_dirtyread">pg_dirtyread</a>
+to work with <a href="https://www.postgresql.org/docs/14/index.html">PostgreSQL 14</a>.
+pg_dirtyread is a PostgreSQL extension that allows reading &ldquo;dead&rdquo; rows from
+tables, i.e. rows that have already been deleted, or updated. Of course that
+works only if the table has not been cleaned-up yet by a VACUUM command or
+autovacuum, which is PostgreSQL&rsquo;s garbage collection machinery.</p>
+<p>Here&rsquo;s an example of pg_dirtyread in action:</p>
+<pre tabindex="0"><code># create table foo (id int, t text);
+CREATE TABLE
+# insert into foo values (1, &#39;Doc1&#39;);
+INSERT 0 1
+# insert into foo values (2, &#39;Doc2&#39;);
+INSERT 0 1
+# insert into foo values (3, &#39;Doc3&#39;);
+INSERT 0 1
+
+# select * from foo;
+ id │  t
+────┼──────
+  1 │ Doc1
+  2 │ Doc2
+  3 │ Doc3
+(3 rows)
+
+# delete from foo where id &lt; 3;
+DELETE 2
+
+# select * from foo;
+ id │  t
+────┼──────
+  3 │ Doc3
+(1 row)
+</code></pre><p>Oops! The first two documents have disappeared.</p>
+<p>Now let&rsquo;s use pg_dirtyread to look at the table:</p>
+<pre tabindex="0"><code># create extension pg_dirtyread;
+CREATE EXTENSION
+
+# select * from pg_dirtyread(&#39;foo&#39;) t(id int, t text);
+ id │  t
+────┼──────
+  1 │ Doc1
+  2 │ Doc2
+  3 │ Doc3
+</code></pre><p>All three documents are still there, but only one of them is visible.</p>
+<p>pg_dirtyread can also show PostgreSQL&rsquo;s system colums with the row location and
+visibility information. For the first two documents, xmax is set, which means
+the row has been deleted:</p>
+<pre tabindex="0"><code># select * from pg_dirtyread(&#39;foo&#39;) t(ctid tid, xmin xid, xmax xid, id int, t text);
+ ctid  │ xmin │ xmax │ id │  t
+───────┼──────┼──────┼────┼──────
+ (0,1) │ 1577 │ 1580 │  1 │ Doc1
+ (0,2) │ 1578 │ 1580 │  2 │ Doc2
+ (0,3) │ 1579 │    0 │  3 │ Doc3
+(3 rows)
+</code></pre><h2 id="undelete">Undelete</h2>
+<p><strong>Caveat:</strong> <em>I&rsquo;m not promising any of the ideas quoted below will actually work in
+practice. There are a few caveats and a good portion of intricate knowledge
+about the PostgreSQL internals might be required to succeed properly. Consider
+consulting your favorite PostgreSQL support channel for advice if you need to
+recover data on any production system.</em> <strong>Don&rsquo;t try this at work.</strong></p>
+<p>I always had plans to extend pg_dirtyread to include some &ldquo;undelete&rdquo; command to
+make deleted rows reappear, but never got around to trying that. But rows can already be
+restored by using the output of pg_dirtyread itself:</p>
+<pre tabindex="0"><code># insert into foo select * from pg_dirtyread(&#39;foo&#39;) t(id int, t text) where id = 1;
+</code></pre><p>This is not a true &ldquo;undelete&rdquo;, though - it just inserts new rows from the data
+read from the table.</p>
+<h2 id="pg_surgery">pg_surgery</h2>
+<p>Enter <a href="https://www.postgresql.org/docs/current/pgsurgery.html">pg_surgery</a>,
+which is a new PostgreSQL extension supplied with PostgreSQL 14. It contains
+two functions to &ldquo;perform surgery on a damaged relation&rdquo;. As a side-effect,
+they can also make delete tuples reappear.</p>
+<p>As I discovered now, one of the functions, heap_force_freeze(), works nicely
+with pg_dirtyread. It takes a list of ctids (row locations) that it marks
+&ldquo;frozen&rdquo;, but at the same time as &ldquo;not deleted&rdquo;.</p>
+<p>Let&rsquo;s apply it to our test table, using the ctids that pg_dirtyread can read:</p>
+<pre tabindex="0"><code># create extension pg_surgery;
+CREATE EXTENSION
+
+# select heap_force_freeze(&#39;foo&#39;, array_agg(ctid))
+    from pg_dirtyread(&#39;foo&#39;) t(ctid tid, xmin xid, xmax xid, id int, t text) where id = 1;
+ heap_force_freeze
+───────────────────
+
+(1 row)
+</code></pre><p>Et voilà, our deleted document is back:</p>
+    </div>
+    <a href="/blog/posts/2021/postgresql-undelete.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2020/arm64-on-apt.postgresql.org.html" class="link black dim">
+        arm64 on apt.postgresql.org
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>The <a href="https://apt.postgresql.org/">apt.postgresql.org</a> repository has been extended
+to cover the <em>arm64</em> architecture.</p>
+<p>We had occasionally received user request to add &ldquo;arm&rdquo; in the past, but it was
+never really clear which kind of &ldquo;arm&rdquo; made sense to target for PostgreSQL. In
+terms of Debian architectures, there&rsquo;s (at least) armel, armhf, and arm64.
+Furthermore, Raspberry Pis are very popular (and indeed what most users seemed
+to were asking about), but the raspbian &ldquo;armhf&rdquo; port is incompatible with the
+Debian &ldquo;armhf&rdquo; port.</p>
+<p>Now that most hardware has moved to 64-bit, it was becoming clear that &ldquo;arm64&rdquo;
+was the way to go. Amit Khandekar made it happen that
+<a href="https://intl.huaweicloud.com/en-us/">HUAWEI Cloud Services</a>
+donated a arm64 build host with enough resources to build the arm64 packages
+at the same speed as the existing amd64, i386, and ppc64el architectures.
+A few days later, all the build jobs were done, including passing all
+test-suites. Very few arm-specific issues were encountered which makes me
+confident that arm64 is a solid architecture to run PostgreSQL on.</p>
+<p>We are targeting Debian buster (stable), bullseye (testing), and sid
+(unstable), and Ubuntu bionic (18.04) and focal (20.04). To use the arm64
+archive, just add the normal sources.list entry:</p>
+<pre>
+deb https://apt.postgresql.org/pub/repos/apt buster-pgdg main
+</pre>
+<h2>Ubuntu focal</h2>
+<p>At the same time, I&rsquo;ve added the next Ubuntu LTS release to apt.postgresql.org:
+focal (20.04). It ships amd64, arm64, and ppc64el binaries.</p>
+<pre>
+deb https://apt.postgresql.org/pub/repos/apt focal-pgdg main
+</pre>
+<h2>Old PostgreSQL versions</h2>
+<p>Many PostgreSQL extensions are still supporting older server versions that are
+EOL. For testing these extension, server packages need to be available. I&rsquo;ve
+built packages for PostgreSQL 9.2+ on all Debian distributions, and all Ubuntu
+LTS distributions. 9.1 will follow shortly.</p>
+<p>This means people can move to newer base distributions in their .travis.yml,
+.gitlab-ci.yml, and other CI files.</p>
+    </div>
+    <a href="/blog/posts/2020/arm64-on-apt.postgresql.org.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2020/apt-archive.postgresql.org.html" class="link black dim">
+        Announcing apt-archive.postgresql.org
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>Users had often asked where they could find older versions of packages from
+<a href="https://apt.postgresql.org/">apt.postgresql.org</a>. I had been
+collecting these since about April 2013, and in July 2016, I made the packages
+available via an ad-hoc URL on the repository master host, called &ldquo;the morgue&rdquo;.
+There was little repository structure, all files belonging to a source package
+were stuffed into a single directory, no matter what distribution they belonged
+to. Besides this not being particularly accessible for users, the main problem
+was the ever-increasing need for more disk space on the repository host. We are
+now at 175 GB for the archive, of which 152 GB is for the morgue.</p>
+<p>Our friends from <a href="https://yum.postgresql.org/">yum.postgresql.org</a>
+have had a proper archive host (yum-archive.postgresql.org) for some time
+already, so it was about time to follow suit and implement a proper archive
+for apt.postgresql.org as well, usable from apt.</p>
+<p>So here it is:
+<b><a href="https://apt-archive.postgresql.org/">apt-archive.postgresql.org</a></b></p>
+<p>The archive covers all past and current Debian and Ubuntu distributions. The
+apt sources.lists entries are similar to the main repository, just with &ldquo;-archive&rdquo;
+appended to the host name and the
+<a href="https://apt-archive.postgresql.org/pub/repos/apt/dists/index.html">distribution</a>:</p>
+<pre>
+deb https://apt-archive.postgresql.org/pub/repos/apt DIST-pgdg-archive main
+deb-src https://apt-archive.postgresql.org/pub/repos/apt DIST-pgdg-archive main
+</pre>
+<p>The oldest PostgreSQL server versions covered there are 8.2.23, 8.3.23, 8.4.17,
+9.0.13, 9.1.9, 9.2.4, 9.3beta1, and everything newer.</p>
+<p>Some example:</p>
+<pre>
+$ apt-cache policy postgresql-12
+postgresql-12:
+  Installed: 12.2-2.pgdg+1+b1
+  Candidate: 12.2-2.pgdg+1+b1
+  Version table:
+ *** 12.2-2.pgdg+1+b1 900
+        500 http://apt.postgresql.org/pub/repos/apt sid-pgdg/main amd64 Packages
+        500 https://apt-archive.postgresql.org/pub/repos/apt sid-pgdg-archive/main amd64 Packages
+        100 /var/lib/dpkg/status
+     12.2-2.pgdg+1 500
+        500 https://apt-archive.postgresql.org/pub/repos/apt sid-pgdg-archive/main amd64 Packages
+     12.2-1.pgdg+1 500
+        500 https://apt-archive.postgresql.org/pub/repos/apt sid-pgdg-archive/main amd64 Packages
+     12.1-2.pgdg+1 500
+        500 https://apt-archive.postgresql.org/pub/repos/apt sid-pgdg-archive/main amd64 Packages
+     12.1-1.pgdg+1 500
+        500 https://apt-archive.postgresql.org/pub/repos/apt sid-pgdg-archive/main amd64 Packages
+     12.0-2.pgdg+1 500
+        500 https://apt-archive.postgresql.org/pub/repos/apt sid-pgdg-archive/main amd64 Packages
+     12.0-1.pgdg+1 500
+        500 https://apt-archive.postgresql.org/pub/repos/apt sid-pgdg-archive/main amd64 Packages
+     12~rc1-1.pgdg+1 500
+        500 https://apt-archive.postgresql.org/pub/repos/apt sid-pgdg-archive/main amd64 Packages
+     12~beta4-1.pgdg+1 500
+        500 https://apt-archive.postgresql.org/pub/repos/apt sid-pgdg-archive/main amd64 Packages
+     12~beta3-1.pgdg+1 500
+        500 https://apt-archive.postgresql.org/pub/repos/apt sid-pgdg-archive/main amd64 Packages
+     12~beta2-1.pgdg+1 500
+        500 https://apt-archive.postgresql.org/pub/repos/apt sid-pgdg-archive/main amd64 Packages
+     12~beta1-1.pgdg+1 500
+        500 https://apt-archive.postgresql.org/pub/repos/apt sid-pgdg-archive/main amd64 Packages
+</pre>
+<p>Because this is hosted on S3, browsing directories is only supported indirectly by
+static index.html files, so if you want to look at some specific URL, append
+&ldquo;/index.html&rdquo; to see it.</p>
+<p>The archive is powered by a
+<a href="https://git.postgresql.org/gitweb/?p=pgapt.git;a=tree;f=pgapt-db/sql">PostgreSQL database</a> and a
+<a href="https://git.postgresql.org/gitweb/?p=pgapt.git;a=tree;f=repo/bin">bunch of python/shell scripts</a>,
+from which the apt index files are built.</p>
+<h2>Archiving old distributions</h2>
+<p>I&rsquo;m also using the opportunity to remove some long-retired distributions from the main
+repository host. The following distributions have been moved over:</p>
+<ul>
+<li>Debian etch (4.0)</li>
+<li>Debian lenny (5.0)</li>
+<li>Debian squeeze (6.0)</li>
+<li>Ubuntu lucid (10.04)</li>
+<li>Ubuntu saucy (13.10)</li>
+<li>Ubuntu utopic (14.10)</li>
+<li>Ubuntu wily (15.10)</li>
+<li>Ubuntu zesty (17.04)</li>
+<li>Ubuntu cosmic (18.10)</li>
+</ul>
+<p>They are available as &ldquo;<em>DIST</em>-pgdg&rdquo; from the archive, e.g. squeeze:</p>
+<pre>
+deb https://apt-archive.postgresql.org/pub/repos/apt squeeze-pgdg main
+deb-src https://apt-archive.postgresql.org/pub/repos/apt squeeze-pgdg main
+</pre>
+    </div>
+    <a href="/blog/posts/2020/apt-archive.postgresql.org.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2018/paste.html" class="link black dim">
+        Cool Unix Features: paste
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p><em>paste</em> is one of those tools nobody uses [1]. It puts two file side by side,
+line by line.</p>
+<p>One application for this came up today where some tool was called for several
+files at once and would spit out one line by file, but unfortunately not
+including the filename.</p>
+<pre><code>$ paste &lt;(ls *.rpm) &lt;(ls *.rpm | xargs -r rpm -q --queryformat '%{name} \n' -p)
+</code></pre>
+<p>[1] See &ldquo;J&rdquo; in <a href="http://ifaq.wap.org/computers/abcsofunix.html">The ABCs of Unix</a></p>
+<p>[<em>PS: I meant to blog this in 2011, but apparently never committed the file&hellip;</em>]</p>
+    </div>
+    <a href="/blog/posts/2018/paste.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+    </section>
+    <ul class="pagination pagination-default">
+      <li class="page-item disabled">
+        <a aria-disabled="true" aria-label="First" class="page-link" role="button" tabindex="-1"><span aria-hidden="true">&laquo;&laquo;</span></a>
+      </li>
+      <li class="page-item disabled">
+        <a aria-disabled="true" aria-label="Previous" class="page-link" role="button" tabindex="-1"><span aria-hidden="true">&laquo;</span></a>
+      </li>
+      <li class="page-item active">
+        <a aria-current="page" aria-label="Page 1" class="page-link" role="button">1</a>
+      </li>
+      <li class="page-item">
+        <a href="/blog/posts/page/2/index.html" aria-label="Page 2" class="page-link" role="button">2</a>
+      </li>
+      <li class="page-item">
+        <a href="/blog/posts/page/3/index.html" aria-label="Page 3" class="page-link" role="button">3</a>
+      </li>
+      <li class="page-item">
+        <a href="/blog/posts/page/4/index.html" aria-label="Page 4" class="page-link" role="button">4</a>
+      </li>
+      <li class="page-item">
+        <a href="/blog/posts/page/5/index.html" aria-label="Page 5" class="page-link" role="button">5</a>
+      </li>
+      <li class="page-item">
+        <a href="/blog/posts/page/2/index.html" aria-label="Next" class="page-link" role="button"><span aria-hidden="true">&raquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/blog/posts/page/16/index.html" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
+      </li>
+    </ul></article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white white-70 dn dib-ns pv2 ph3 no-underline" href="https://df7cb.de/blog/index.html" >
+    &copy;  Myon's Blog 2025 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

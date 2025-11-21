@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Myon&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="">
+    <meta name="generator" content="Hugo 0.152.2">
+    
+    
+    
+      <meta name="robots" content="index, follow">
+    
+    <meta name="author" content="Christoph Berg">
+    
+
+    
+<link rel="stylesheet" href="/blog/ananke/css/main.min.efe4d852f731d5d1fbb87718387202a97aafd768cdcdaed0662bbe6982e91824.css" >
+
+
+
+
+    
+
+
+    
+      
+
+    
+
+    
+    
+      <link href="/blog/posts/index.xml" rel="alternate" type="application/rss+xml" title="Myon&#39;s Blog" />
+      <link href="/blog/posts/index.xml" rel="feed" type="application/rss+xml" title="Myon&#39;s Blog" />
+      
+    
+
+    
+      <link rel="canonical" href="https://df7cb.de/blog/posts/index.html">
+    
+
+    <meta property="og:url" content="https://df7cb.de/blog/posts/index.html">
+  <meta property="og:site_name" content="Myon&#39;s Blog">
+  <meta property="og:title" content="Posts">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="website">
+
+  <meta itemprop="name" content="Posts">
+  <meta itemprop="datePublished" content="2024-03-18T15:22:23+01:00">
+  <meta itemprop="dateModified" content="2024-03-18T15:22:23+01:00">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Posts">
+
+      
+    
+	
+  </head><body class="ma0 avenir bg-near-white production">
+
+    
+
+  <header>
+    <div class="pb3-m pb6-l bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l center items-center justify-between">
+    <a href="/blog/index.html" class="f3 fw2 hover-white white-90 dib no-underline">
+      
+        Myon&#39;s Blog
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+      <div class="tc-l pv3 ph3 ph4-ns">
+        <h1 class="f2 f-subheadline-l fw2 light-silver mb0 lh-title">
+          Posts
+        </h1>
+        
+      </div>
+    </div>
+  </header>
+
+
+    <main class="pb7" role="main">
+      
+  <article class="pa3 pa4-ns nested-copy-line-height">
+    <section class="cf ph3 ph5-l pv3 pv4-l f4 tc-l center measure-wide lh-copy nested-links mid-gray"></section>
+    <section class="flex-ns mt5 flex-wrap justify-around">
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2007/mutt_hack.html" class="link black dim">
+        Mutt hack
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>When using a &lt;limit&gt; in mutt&rsquo;s message index, I always try to hit &lsquo;q&rsquo; to
+get back to the index view, but of course there&rsquo;s nothing to quit. The macro
+below changes &rsquo;l&rsquo; such that &lsquo;q&rsquo; will unlimit, and a subsequent &lsquo;q&rsquo; will then
+quit mutt:</p>
+<pre>
+macro index l '&lt;enter-command&gt;macro index q "&lt;limit\&gt;.&lt;enter\&gt;&lt;enter-command\&gt;bind index q quit&lt;enter\&gt;"&lt;enter&gt;&lt;limit&gt;' 'limit with quit enabled'
+</pre>
+<p>(The weird &amp;gt; quotes trick the parser into not parsing &lt;fct&gt; in the
+outer &lt;enter-command&gt; layer.)</p>
+    </div>
+    <a href="/blog/posts/2007/mutt_hack.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2007/hl-2030.html" class="link black dim">
+        New Printer: HL-2030
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>I finally decided I needed a printer at home. Of course it had to be a laser.
+When asked about Linux compatibility, the guys at the local store said
+&ldquo;uhmmm&hellip; Brother&hellip; maybe&rdquo;. They pointed me at some printer on special offer,
+a Brother HL-2030 for 110€. Naturally the box didn&rsquo;t say anything about
+Linux, but I was promised I could return it if it didn&rsquo;t work (unless I
+unpacked the toner cartridge, whatever).</p>
+<p> Back at home, I just had to install cupsys, cupsys-client, foomatic-db-engine
+and foomatic-db (using etch), fetch the HL-2060 (sic) ppd from
+linuxprinting.org, do some clicks in the CUPS web interface and everything
+worked out of the box. Setting the resolution to 1200x600 gave weird results
+though, so I'm doing with 600x600 now.
+    </div>
+    <a href="/blog/posts/2007/hl-2030.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2007/openpgp-dns.html" class="link black dim">
+        OpenPGP keys in DNS
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>The latest addition to the mutt CVS tree is PKA support via gpgme. While trying
+to figure out how that works in mutt (I haven&rsquo;t yet&hellip;) I configured my DNS
+server for PKA and CERT records.</p>
+<h2>PKA</h2>
+<p>PKA (public key association) puts a pointer where to obtain a key into a TXT
+record. At the same time that can be used to verify that a key belongs to a
+mail address. The documentation is at the
+<a href="http://www.g10code.de/docs/pka-intro.de.pdf">g10code website</a>
+(only in German so far). I put the following into the df7cb.de zone:</p>
+<p>
+cb._pka IN TXT "v=pka1;fpr=D224C8B07E63A6946DA32E07C5AF774A58510B5A;uri=finger:cb@df7cb.de"
+<pre>
+$ host -t TXT cb._pka.df7cb.de
+cb._pka.df7cb.de descriptive text "v=pka1\;fpr=D224C8B07E63A6946DA32E07C5AF774A58510B5A\;uri=finger:cb@df7cb.de"
+</pre>
+<p>Now gpg can be told to use PKA to find the key:</p>
+<pre>
+$ echo foo | gpg --auto-key-locate pka --recipient cb@df7cb.de --encrypt -a
+gpg: no keyserver known (use option --keyserver)
+gpg: requesting key 58510B5A from finger:cb@df7cb.de
+gpg: key 58510B5A: public key "Christoph Berg <cb@df7cb.de>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
+gpg: automatically retrieved `cb@df7cb.de' via PKA
+</pre>
+<h2>CERT</h2>
+<p>CERT records work similarly. Records are generated by make-dns-cert (from the
+tools directory in the gnupg source). cb.gpg is a stripped-down gpg keyring
+(created with pgp-clean -s and converting from .asc to .gpg).</p>
+<pre>
+$ ./make-dns-cert -f D224C8B07E63A6946DA32E07C5AF774A58510B5A -n cb
+cb      TYPE37  \# 26 0006 0000 00 14 D224C8B07E63A6946DA32E07C5AF774A58510B5A
+$ ./make-dns-cert -k cb.gpg -n cb
+cb      TYPE37  \# 1338 0003 0000 00 9901A20440 [...] 509C96D4BFF17B7
+</pre>
+<p>With a new bind and host (backports.org!) the format looks a bit nicer, that&rsquo;s
+also what I copied into the zone file:</p>
+<pre>
+$ host -t CERT cb.df7cb.de
+;; Truncated, retrying in TCP mode.
+cb.df7cb.de has CERT record PGP 0 0 mQGiBECBGdAR [...] UDlCcltS/8Xtw==
+cb.df7cb.de has CERT record 6 0 0 FNIkyLB+Y6aUbaMuB8Wvd0pYUQta
+</pre>
+<p>Again, gpg can be told to use that:</p>
+<pre>
+$ echo foo | gpg --auto-key-locate cert --recipient cb@df7cb.de --encrypt -a
+gpg: key 58510B5A: public key "Christoph Berg <cb@df7cb.de>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
+gpg: automatically retrieved `cb@df7cb.de' via DNS CERT
+</pre>
+<p>Thanks to weasel for some hints on using CERT.</p>
+<h2>SSHFP</h2>
+<p>I&rsquo;m also mentioning SSHFP records here since it fits in the topic - I have been
+using them for some months now:</p>
+<pre>
+$ host -t SSHFP tesla.df7cb.de
+tesla.df7cb.de has SSHFP record 1 1 EE49B803541293656C33B86ECD781BD8F1D78AB5
+tesla.df7cb.de has SSHFP record 2 1 3E82FB5EE8AA0205305F0D0186F94D6FB3E0E744
+$ ssh -o 'VerifyHostKeyDNS yes' tesla.df7cb.de
+The authenticity of host 'tesla.df7cb.de (88.198.227.218)' can't be established.
+RSA key fingerprint is 5a:c9:38:ca:c0:2b:11:c1:c8:fb:f1:ad:73:a1:9c:8b.
+Matching host key fingerprint found in DNS.
+Are you sure you want to continue connecting (yes/no)?
+</pre>
+<p>The records are generated with ssh-keygen -r.</p>
+    </div>
+    <a href="/blog/posts/2007/openpgp-dns.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2007/pkill.html" class="link black dim">
+        pkill
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>Note to self: the &ldquo;-v&rdquo; in &lsquo;pkill -v $pid&rsquo; does <i>not</i> mean &ndash;verbose.</p>
+    </div>
+    <a href="/blog/posts/2007/pkill.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2007/postpone.html" class="link black dim">
+        Postpone
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>I just finished implementing
+<a href="http://www.df7cb.de/projects/postpone/">postpone</a>, a wrapper that
+is intended to take an arbitrary command, fork into the background, wait until
+some lockfile is freed, and then run the command. Of course the idea is that
+the lockfile is /var/lib/dpkg/lock, and that postpone is used in maintainer
+scripts. (Update-menus already does that, and I&rsquo;ve basically grabbed that code
+and generalized it as a separate program.)</p>
+<p>As a test implementation, I <a href="http://www.df7cb.de/projects/postpone/texlive/">modified
+the post{inst,rm} templates in the tex-common package</a> and rebuilt
+texlive-lang-* using that. dpkg -i texlive-lang-*.deb takes over 4 minutes in
+the old version, but only a total of 60s with postpone used (35s for dpkg -i
+plus 25s for the background jobs).</p>
+<p>A Debian package is currently sitting in NEW, let&rsquo;s hope it will actually get
+used in maintainer scripts.</p>
+    </div>
+    <a href="/blog/posts/2007/postpone.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2007/sadness.html" class="link black dim">
+        Sadness
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>Sven L., you suck.</p>
+<p>I desperately hope Debian will recover from these months.</p>
+<p>PS: Please go see a psychologist. Really.</p>
+    </div>
+    <a href="/blog/posts/2007/sadness.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2007/screen_window_titles.html" class="link black dim">
+        Screen window titles
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>0-$ bash  1$ bash  2*$ bash</p>
+<p>If screen&rsquo;s default ^A w status line isn&rsquo;t really useful, put this in your bash prompt:</p>
+<p>PS1=&rsquo;\[\033k\u@\h\033\\\] &hellip;'</p>
+<p>In other words, ESCk ESC\ sets the screen window title. This is independent
+from the xterm title. Thanks to formorer for the pointer.</p>
+<p><em>Update:</em> fixed quoting in PS1</p>
+    </div>
+    <a href="/blog/posts/2007/screen_window_titles.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2007/sixxs.html" class="link black dim">
+        Sixxs
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>Why being a Debian Developer is good:</p>
+<pre>
+These are all the rows of your personal log.
+Date                    Log Entry                                               *
+2007-08-31 20:31:39     Credit update: free credits for Debian developers!      50
+</pre>
+    </div>
+    <a href="/blog/posts/2007/sixxs.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2007/dm.html" class="link black dim">
+        The DM GR
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>I haven&rsquo;t said anything in the DM threads yet because I still don&rsquo;t
+know which actual problem the introduction of DMs is trying to solve.</p>
+<p>IMHO the current process with sponsors reviewing and uploading
+packages has proven to work nicely, i.e. the amount of broken packages
+uploaded is not too high. Most of the perceived problems with this
+process stem from the fact that most of the packages offered on
+debian-mentors or #debian-mentors are initially crap and need lots of
+review cycles. Once people produce good packages asking the last
+sponsor for another upload should work. (And at that point NM will be
+a breeze.)</p>
+<p>Particularly I don&rsquo;t like the fact that the &ldquo;initial policy for an
+individual to be included in the keyring&rdquo; does not include any check
+of any technical or non-technical skills besides having a gpg key and
+be able to tick 3 checkboxes. I fear this will lead to people
+blacklisting &ldquo;DM&rdquo; packages because they don&rsquo;t want low-quality
+packages on their machines.</p>
+<p>At the same time, the rest of the GR text is micro-managing every
+other detail of the process in a way that doesn&rsquo;t leave much room for
+practical implementation decisions.</p>
+<p>It appears to me that the DM concept as sketched in the GR is mainly
+meant to let NMs upload earlier, i.e. it tries to fix the fact that
+front-desk or DAM approval take too long. I think the fix for that is
+just to find someone besides Joerg to also read the AM reports. DMs as
+in the GR are a workaround, not a solution.</p>
+<p>On a sidenote, I&rsquo;m still wondering why front-desk (and afaict the
+DAMs) were never asked about their opinion while/after the GR was
+drafted. I had some chats with Anthony on IRC on the topic, but that
+was shortly after Debconf 6 (there was a related BoF), nothing in the
+past months.</p>
+<p>(not with the front-desk hat on, but having it within reach)</p>
+<p>PS: I voted &ldquo;-1&rdquo;.</p>
+    </div>
+    <a href="/blog/posts/2007/dm.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2007/unix_locking.html" class="link black dim">
+        Unix Locking
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>Note to myself: fcntl() locks vanish after a fork(). flock() works, but doesn&rsquo;t
+work over NFS. Not that I care about the later, but sometimes I wonder why Unix
+is so weird.</p>
+    </div>
+    <a href="/blog/posts/2007/unix_locking.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+    </section>
+    <ul class="pagination pagination-default">
+      <li class="page-item">
+        <a href="/blog/posts/index.html" aria-label="First" class="page-link" role="button"><span aria-hidden="true">&laquo;&laquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/blog/posts/page/11/index.html" aria-label="Previous" class="page-link" role="button"><span aria-hidden="true">&laquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/blog/posts/page/10/index.html" aria-label="Page 10" class="page-link" role="button">10</a>
+      </li>
+      <li class="page-item">
+        <a href="/blog/posts/page/11/index.html" aria-label="Page 11" class="page-link" role="button">11</a>
+      </li>
+      <li class="page-item active">
+        <a aria-current="page" aria-label="Page 12" class="page-link" role="button">12</a>
+      </li>
+      <li class="page-item">
+        <a href="/blog/posts/page/13/index.html" aria-label="Page 13" class="page-link" role="button">13</a>
+      </li>
+      <li class="page-item">
+        <a href="/blog/posts/page/14/index.html" aria-label="Page 14" class="page-link" role="button">14</a>
+      </li>
+      <li class="page-item">
+        <a href="/blog/posts/page/13/index.html" aria-label="Next" class="page-link" role="button"><span aria-hidden="true">&raquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/blog/posts/page/16/index.html" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
+      </li>
+    </ul></article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white white-70 dn dib-ns pv2 ph3 no-underline" href="https://df7cb.de/blog/index.html" >
+    &copy;  Myon's Blog 2025 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>
