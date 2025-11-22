@@ -3,15 +3,21 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://df7cb.de/blog/index.html</loc>
-    <lastmod>2024-03-18T15:22:23+01:00</lastmod>
+    <lastmod>2025-11-22T23:47:26+01:00</lastmod>
   </url><url>
-    <loc>https://df7cb.de/blog/tags/debian.html</loc>
-    <lastmod>2024-03-18T15:22:23+01:00</lastmod>
+    <loc>https://df7cb.de/blog/tags/notes.html</loc>
+    <lastmod>2025-11-22T23:47:26+01:00</lastmod>
   </url><url>
     <loc>https://df7cb.de/blog/posts/index.html</loc>
-    <lastmod>2024-03-18T15:22:23+01:00</lastmod>
+    <lastmod>2025-11-22T23:47:26+01:00</lastmod>
+  </url><url>
+    <loc>https://df7cb.de/blog/posts/2025/minecraft-server.html</loc>
+    <lastmod>2025-11-22T23:47:26+01:00</lastmod>
   </url><url>
     <loc>https://df7cb.de/blog/tags/index.html</loc>
+    <lastmod>2025-11-22T23:47:26+01:00</lastmod>
+  </url><url>
+    <loc>https://df7cb.de/blog/tags/debian.html</loc>
     <lastmod>2024-03-18T15:22:23+01:00</lastmod>
   </url><url>
     <loc>https://df7cb.de/blog/posts/2024/vcswatch-git-filter.html</loc>
@@ -141,9 +147,6 @@
     <lastmod>2011-12-27T18:40:05+01:00</lastmod>
   </url><url>
     <loc>https://df7cb.de/blog/posts/2011/Migrating_from_OpenDNSSEC_to_DNSSEC-Tools.html</loc>
-    <lastmod>2011-12-27T18:02:58+01:00</lastmod>
-  </url><url>
-    <loc>https://df7cb.de/blog/tags/notes.html</loc>
     <lastmod>2011-12-27T18:02:58+01:00</lastmod>
   </url><url>
     <loc>https://df7cb.de/blog/posts/2011/Tab_completion_in_vim.html</loc>

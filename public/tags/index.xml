@@ -6,8 +6,15 @@
     <description>Recent content in Tags on Myon&#39;s Blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 18 Mar 2024 15:22:23 +0100</lastBuildDate>
+    <lastBuildDate>Sat, 22 Nov 2025 23:47:26 +0100</lastBuildDate>
     <atom:link href="https://df7cb.de/blog/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Notes</title>
+      <link>https://df7cb.de/blog/tags/notes.html</link>
+      <pubDate>Sat, 22 Nov 2025 23:47:26 +0100</pubDate>
+      <guid>https://df7cb.de/blog/tags/notes.html</guid>
+      <description></description>
+    </item>
     <item>
       <title>Debian</title>
       <link>https://df7cb.de/blog/tags/debian.html</link>
@@ -41,13 +48,6 @@
       <link>https://df7cb.de/blog/tags/life.html</link>
       <pubDate>Mon, 07 May 2012 23:56:12 +0200</pubDate>
       <guid>https://df7cb.de/blog/tags/life.html</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Notes</title>
-      <link>https://df7cb.de/blog/tags/notes.html</link>
-      <pubDate>Tue, 27 Dec 2011 18:02:58 +0100</pubDate>
-      <guid>https://df7cb.de/blog/tags/notes.html</guid>
       <description></description>
     </item>
     <item>

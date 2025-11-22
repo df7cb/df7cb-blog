@@ -48,8 +48,8 @@
   <meta property="og:type" content="website">
 
   <meta itemprop="name" content="Posts">
-  <meta itemprop="datePublished" content="2024-03-18T15:22:23+01:00">
-  <meta itemprop="dateModified" content="2024-03-18T15:22:23+01:00">
+  <meta itemprop="datePublished" content="2025-11-22T23:47:26+01:00">
+  <meta itemprop="dateModified" content="2025-11-22T23:47:26+01:00">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Posts">
 
@@ -94,6 +94,74 @@
   <article class="pa3 pa4-ns nested-copy-line-height">
     <section class="cf ph3 ph5-l pv3 pv4-l f4 tc-l center measure-wide lh-copy nested-links mid-gray"></section>
     <section class="flex-ns mt5 flex-wrap justify-around">
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2012/Shared_Memory_and_Swapping.html" class="link black dim">
+        Shared Memory and Swapping
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>We have this PostgreSQL server with plenty of RAM that is still using some of
+its swap over the day (up to 600MB). Then suddenly everything is swapped in
+again.</p>
+<img src="http://www.df7cb.de/blog/2012/dbsrv_swap.png">
+<p>It turned out the reason is there are two clusters running, and the second one
+isn&rsquo;t used as heavily as the first one. Disk I/O activity of the first cluster
+slowly evicts pages from the second shared buffers cache to swap, and then the
+daily pg_dump run reads them back every evening.</p>
+<p>I was not aware of an easy way to get numbers for &ldquo;amount of SysV shared memory
+swapped to disk&rdquo;, but some googling led to shmctl(2):</p>
+<pre>
+#define _GNU_SOURCE 1
+#include &lt;sys/ipc.h&gt;
+#include &lt;sys/shm.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;unistd.h&gt;
+
+int main ()
+{
+        struct shm_info info;
+        int max;
+        long PAGE_SIZE = sysconf(_SC_PAGESIZE);
+
+        max = shmctl(0, SHM_INFO, (struct shmid_ds *) &info);
+        printf ("max: %d\nshm_tot: %ld\nshm_rss: %ld\nshm_swp: %ld\n",
+                        max,
+                        info.shm_tot * PAGE_SIZE,
+                        info.shm_rss * PAGE_SIZE,
+                        info.shm_swp * PAGE_SIZE);
+
+        return 0;
+}
+</pre>
+<p>The output looks like this:</p>
+<pre>
+max: 13
+shm_tot: 13232308224
+shm_rss: 12626661376
+shm_swp: 601616384
+</pre>
+<p><b>Update:</b> Mark points out that <em>ipcs -mu</em> shows the same information. Thanks for the hint!</p>
+<pre>
+# ipcs -mu
+
+------ Shared Memory Status --------
+segments allocated 2
+pages allocated 3230544
+pages resident  3177975
+pages swapped   51585
+Swap performance: 0 attempts     0 successes
+</pre>
+    </div>
+    <a href="/blog/posts/2012/Shared_Memory_and_Swapping.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
       
         <div class="w-100 w-30-l mb4 relative bg-white">
           <div class="w-100 mb4 nested-copy-line-height relative bg-white">
@@ -457,28 +525,6 @@ echo "/cb/ns.df7cb.de/$ZONE.signed $ZONE cb@df7cb.de" &gt;&gt; checkzones.txt
 <p>(The filenames at the end are those used by <a href="http://www.incertum.net/archives/11-DNSSEC-mit-Debiansqueeze-dnssec-tools,-bind9.html">http://www.incertum.net/archives/11-DNSSEC-mit-Debiansqueeze-dnssec-tools,-bind9.html</a>)</p>
     </div>
     <a href="/blog/posts/2011/Migrating_from_OpenDNSSEC_to_DNSSEC-Tools.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="w-100 w-30-l mb4 relative bg-white">
-          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
-  <div class="mb3 pa4 gray overflow-hidden bg-white">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/blog/posts/2011/Tab_completion_in_vim.html" class="link black dim">
-        Tab completion in vim
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <p>Vim&rsquo;s habit of completing the full filename of the first match on :e has always
-annoyed me. Rhonda pointed me to <em>wildmode</em> - thanks!</p>
-<pre>
-set wildmode=longest,list:longest,list:full
-</pre>
-    </div>
-    <a href="/blog/posts/2011/Tab_completion_in_vim.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
   </div>
 </div>
 

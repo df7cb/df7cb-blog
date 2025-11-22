@@ -48,8 +48,8 @@
   <meta property="og:type" content="website">
 
   <meta itemprop="name" content="Posts">
-  <meta itemprop="datePublished" content="2024-03-18T15:22:23+01:00">
-  <meta itemprop="dateModified" content="2024-03-18T15:22:23+01:00">
+  <meta itemprop="datePublished" content="2025-11-22T23:47:26+01:00">
+  <meta itemprop="dateModified" content="2025-11-22T23:47:26+01:00">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Posts">
 
@@ -94,6 +94,32 @@
   <article class="pa3 pa4-ns nested-copy-line-height">
     <section class="cf ph3 ph5-l pv3 pv4-l f4 tc-l center measure-wide lh-copy nested-links mid-gray"></section>
     <section class="flex-ns mt5 flex-wrap justify-around">
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2018/paste.html" class="link black dim">
+        Cool Unix Features: paste
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p><em>paste</em> is one of those tools nobody uses [1]. It puts two file side by side,
+line by line.</p>
+<p>One application for this came up today where some tool was called for several
+files at once and would spit out one line by file, but unfortunately not
+including the filename.</p>
+<pre><code>$ paste &lt;(ls *.rpm) &lt;(ls *.rpm | xargs -r rpm -q --queryformat '%{name} \n' -p)
+</code></pre>
+<p>[1] See &ldquo;J&rdquo; in <a href="http://ifaq.wap.org/computers/abcsofunix.html">The ABCs of Unix</a></p>
+<p>[<em>PS: I meant to blog this in 2011, but apparently never committed the file&hellip;</em>]</p>
+    </div>
+    <a href="/blog/posts/2018/paste.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
       
         <div class="w-100 w-30-l mb4 relative bg-white">
           <div class="w-100 mb4 nested-copy-line-height relative bg-white">
@@ -584,33 +610,6 @@ yes
 </code></pre>
     </div>
     <a href="/blog/posts/2014/Comparing_Version_Numbers_in_Shell.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="w-100 w-30-l mb4 relative bg-white">
-          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
-  <div class="mb3 pa4 gray overflow-hidden bg-white">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/blog/posts/2014/PostgreSQL_9.4_on_Debian.html" class="link black dim">
-        PostgreSQL 9.4 on Debian
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <p>Yesterday saw the first beta release of the new PostgreSQL version 9.4. Along
-with the sources, we uploaded binary packages to Debian experimental and
-apt.postgresql.org, so there&rsquo;s now packages ready to be tested on Debian
-wheezy, squeeze, testing/unstable, and Ubuntu trusty, saucy, precise, and
-lucid.</p>
-<p>If you are using one of the release distributions of Debian or Ubuntu, add this
-to your /etc/apt/sources.list.d/pgdg.list to have 9.4 available:</p>
-<p>deb <a href="http://apt.postgresql.org/pub/repos/apt/">http://apt.postgresql.org/pub/repos/apt/</a> codename-pgdg main 9.4</p>
-<p>On Debian jessie and sid, install the packages from experimental.</p>
-<p>Happy testing!</p>
-    </div>
-    <a href="/blog/posts/2014/PostgreSQL_9.4_on_Debian.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
   </div>
 </div>
 

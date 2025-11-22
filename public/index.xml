@@ -6,8 +6,15 @@
     <description>Recent content on Myon&#39;s Blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 18 Mar 2024 15:22:23 +0100</lastBuildDate>
+    <lastBuildDate>Sat, 22 Nov 2025 23:47:26 +0100</lastBuildDate>
     <atom:link href="https://df7cb.de/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Setting up a Minecraft server with mods on a remote Linux box</title>
+      <link>https://df7cb.de/blog/posts/2025/minecraft-server.html</link>
+      <pubDate>Sat, 22 Nov 2025 23:47:26 +0100</pubDate>
+      <guid>https://df7cb.de/blog/posts/2025/minecraft-server.html</guid>
+      <description>&lt;p&gt;Information on this is sparse, so here&amp;rsquo;s a few notes in case I need this again:&lt;/p&gt;&#xA;&lt;p&gt;To use mods on a Minecraft server, a patched server with a mod loader is&#xA;required. There are about 4 different ones, but CurseForge seems to be the most&#xA;popular one.&lt;/p&gt;&#xA;&lt;p&gt;Go to &lt;a href=&#34;https://files.minecraftforge.net/&#34;&gt;https://files.minecraftforge.net/&lt;/a&gt; (redirects to &lt;a href=&#34;https://files.minecraftforge.net/net/minecraftforge/forge/&#34;&gt;https://files.minecraftforge.net/net/minecraftforge/forge/&lt;/a&gt;)&#xA;and download the installer for the desired Minecraft version.&lt;/p&gt;&#xA;&lt;p&gt;Copy that to the server and run&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;java -jar forge-1.21.10-60.1.0-installer.jar --installServer .&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This creates the directory structure for a Minecraft server. Start it:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;./run.sh&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;On the first run, it will refuse to run. Edit &lt;code&gt;eula.txt&lt;/code&gt; and accept the license:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;eula=true&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;If any mods are desired, copy the .jar files into the &lt;code&gt;mods/&lt;/code&gt; folder.&lt;/p&gt;&#xA;&lt;p&gt;Start it again and configure the whitelist:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;screen ./run&#xA;[19:36:07] [main/INFO] [cp.mo.mo.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forge_server]&#xA;[19:36:07] [main/INFO] [cp.mo.mo.Launcher/MODLAUNCHER]: JVM identified as Debian OpenJDK 64-Bit Server VM 25.0.1+8-Debian-1deb13u1&#xA;[19:36:07] [main/INFO] [cp.mo.mo.Launcher/MODLAUNCHER]: ModLauncher 10.2.4 starting: java version 25.0.1 by Debian; OS Linux arch aarch64 version 6.12.48+deb13-arm64&#xA;...&#xA;&amp;gt; whitelist on&#xA;&amp;gt; whitelist add swordfish&#xA;&amp;gt; op swordfish&#xA;[19:37:55] [Server thread/INFO] [minecraft/MinecraftServer]: Made swordfish a server operator&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
     <item>
       <title>vcswatch and git --filter</title>
       <link>https://df7cb.de/blog/posts/2024/vcswatch-git-filter.html</link>
@@ -140,13 +147,6 @@
       <pubDate>Wed, 25 Jun 2014 09:56:50 +0200</pubDate>
       <guid>https://df7cb.de/blog/posts/2014/Comparing_Version_Numbers_in_Shell.html</guid>
       <description>&lt;p&gt;On RedHat/CentOS/rpm systems, there&amp;rsquo;s no &lt;i&gt;dpkg &amp;ndash;compare-versions&lt;/i&gt;&#xA;available - &lt;i&gt;sort -V&lt;/i&gt; can help to compare version numbers:&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;version_lt () {&#xA;    newest=$( ( echo &amp;quot;$1&amp;quot;; echo &amp;quot;$2&amp;quot; ) | sort -V | tail -n1)&#xA;    [ &amp;quot;$1&amp;quot; != &amp;quot;$newest&amp;quot; ]&#xA;}&#xA;&#xA;$ version_lt 1.5 1.1 &amp;amp;&amp;amp; echo yes&#xA;$ version_lt 1.5 1.10 &amp;amp;&amp;amp; echo yes&#xA;yes&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
-    </item>
-    <item>
-      <title>PostgreSQL 9.4 on Debian</title>
-      <link>https://df7cb.de/blog/posts/2014/PostgreSQL_9.4_on_Debian.html</link>
-      <pubDate>Fri, 16 May 2014 07:54:27 +0200</pubDate>
-      <guid>https://df7cb.de/blog/posts/2014/PostgreSQL_9.4_on_Debian.html</guid>
-      <description>&lt;p&gt;Yesterday saw the first beta release of the new PostgreSQL version 9.4. Along&#xA;with the sources, we uploaded binary packages to Debian experimental and&#xA;apt.postgresql.org, so there&amp;rsquo;s now packages ready to be tested on Debian&#xA;wheezy, squeeze, testing/unstable, and Ubuntu trusty, saucy, precise, and&#xA;lucid.&lt;/p&gt;&#xA;&lt;p&gt;If you are using one of the release distributions of Debian or Ubuntu, add this&#xA;to your /etc/apt/sources.list.d/pgdg.list to have 9.4 available:&lt;/p&gt;&#xA;&lt;p&gt;deb &lt;a href=&#34;http://apt.postgresql.org/pub/repos/apt/&#34;&gt;http://apt.postgresql.org/pub/repos/apt/&lt;/a&gt; codename-pgdg main 9.4&lt;/p&gt;&#xA;&lt;p&gt;On Debian jessie and sid, install the packages from experimental.&lt;/p&gt;&#xA;&lt;p&gt;Happy testing!&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

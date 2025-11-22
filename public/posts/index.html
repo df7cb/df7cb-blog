@@ -48,8 +48,8 @@
   <meta property="og:type" content="website">
 
   <meta itemprop="name" content="Posts">
-  <meta itemprop="datePublished" content="2024-03-18T15:22:23+01:00">
-  <meta itemprop="dateModified" content="2024-03-18T15:22:23+01:00">
+  <meta itemprop="datePublished" content="2025-11-22T23:47:26+01:00">
+  <meta itemprop="dateModified" content="2025-11-22T23:47:26+01:00">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Posts">
 
@@ -94,6 +94,47 @@
   <article class="pa3 pa4-ns nested-copy-line-height">
     <section class="cf ph3 ph5-l pv3 pv4-l f4 tc-l center measure-wide lh-copy nested-links mid-gray"></section>
     <section class="flex-ns mt5 flex-wrap justify-around">
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2025/minecraft-server.html" class="link black dim">
+        Setting up a Minecraft server with mods on a remote Linux box
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>Information on this is sparse, so here&rsquo;s a few notes in case I need this again:</p>
+<p>To use mods on a Minecraft server, a patched server with a mod loader is
+required. There are about 4 different ones, but CurseForge seems to be the most
+popular one.</p>
+<p>Go to <a href="https://files.minecraftforge.net/">https://files.minecraftforge.net/</a> (redirects to <a href="https://files.minecraftforge.net/net/minecraftforge/forge/">https://files.minecraftforge.net/net/minecraftforge/forge/</a>)
+and download the installer for the desired Minecraft version.</p>
+<p>Copy that to the server and run</p>
+<pre tabindex="0"><code>java -jar forge-1.21.10-60.1.0-installer.jar --installServer .
+</code></pre><p>This creates the directory structure for a Minecraft server. Start it:</p>
+<pre tabindex="0"><code>./run.sh
+</code></pre><p>On the first run, it will refuse to run. Edit <code>eula.txt</code> and accept the license:</p>
+<pre tabindex="0"><code>eula=true
+</code></pre><p>If any mods are desired, copy the .jar files into the <code>mods/</code> folder.</p>
+<p>Start it again and configure the whitelist:</p>
+<pre tabindex="0"><code>screen ./run
+[19:36:07] [main/INFO] [cp.mo.mo.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forge_server]
+[19:36:07] [main/INFO] [cp.mo.mo.Launcher/MODLAUNCHER]: JVM identified as Debian OpenJDK 64-Bit Server VM 25.0.1+8-Debian-1deb13u1
+[19:36:07] [main/INFO] [cp.mo.mo.Launcher/MODLAUNCHER]: ModLauncher 10.2.4 starting: java version 25.0.1 by Debian; OS Linux arch aarch64 version 6.12.48+deb13-arm64
+...
+&gt; whitelist on
+&gt; whitelist add swordfish
+&gt; op swordfish
+[19:37:55] [Server thread/INFO] [minecraft/MinecraftServer]: Made swordfish a server operator
+</code></pre>
+    </div>
+    <a href="/blog/posts/2025/minecraft-server.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
       
         <div class="w-100 w-30-l mb4 relative bg-white">
           <div class="w-100 mb4 nested-copy-line-height relative bg-white">
@@ -646,32 +687,6 @@ deb-src https://apt-archive.postgresql.org/pub/repos/apt squeeze-pgdg main
 </pre>
     </div>
     <a href="/blog/posts/2020/apt-archive.postgresql.org.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="w-100 w-30-l mb4 relative bg-white">
-          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
-  <div class="mb3 pa4 gray overflow-hidden bg-white">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/blog/posts/2018/paste.html" class="link black dim">
-        Cool Unix Features: paste
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <p><em>paste</em> is one of those tools nobody uses [1]. It puts two file side by side,
-line by line.</p>
-<p>One application for this came up today where some tool was called for several
-files at once and would spit out one line by file, but unfortunately not
-including the filename.</p>
-<pre><code>$ paste &lt;(ls *.rpm) &lt;(ls *.rpm | xargs -r rpm -q --queryformat '%{name} \n' -p)
-</code></pre>
-<p>[1] See &ldquo;J&rdquo; in <a href="http://ifaq.wap.org/computers/abcsofunix.html">The ABCs of Unix</a></p>
-<p>[<em>PS: I meant to blog this in 2011, but apparently never committed the file&hellip;</em>]</p>
-    </div>
-    <a href="/blog/posts/2018/paste.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
   </div>
 </div>
 
