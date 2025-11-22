@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Using multiple IMAP accounts with Mutt | Myon&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Mutt&rsquo;s configuration is sometime more a toolbox than something offering ready
+solutions, and &ldquo;how to I use multiple accounts?&rdquo; is one of the most FAQs.
+Here&rsquo;s a condensed version of my setup.
+In the most simple solution, just &lsquo;c&rsquo;hange folders to the IMAP server:
+c imaps://imap.example.com &lt;enter&gt;
+c imaps://imap.otherdomain.tld &lt;enter&gt;
+
+That&rsquo;s cumbersome to type, so let&rsquo;s automate it:
+# .mutt/muttrc
+macro index &lt;f2&gt; &#39;&lt;change-folder&gt;imaps://imap.example.com&lt;enter&gt;&#39;
+macro index &lt;f3&gt; &#39;&lt;change-folder&gt;imaps://imap.otherdomain.tld&lt;enter&gt;&#39;
+
+That would be the basic setup.
+The two accounts have settings associated with them, we put them in two files:
+# .mutt/account.example
+set from=me@example.com
+set hostname=&quot;example.com&quot;
+set folder=&quot;imaps://imap.example.com/&quot;
+set postponed=&quot;=Drafts&quot;
+set spoolfile=&quot;imaps://imap.example.com/INBOX&quot;
+set signature=&quot;~/.mutt/signature.example&quot;
+set smtp_url=&quot;smtp://me@mail.example.com&quot; smtp_pass=&quot;$my_pw_example&quot;
+
+# .mutt/account.otherdomain
+set from=myself@otherdomain.tld
+set hostname=&quot;otherdomain.tld&quot;
+set folder=&quot;imaps://imap.otherdomain.tld/&quot;
+set postponed=&quot;=Drafts&quot;
+set spoolfile=&quot;imaps://imap.otherdomain.tld/INBOX&quot;
+set signature=&quot;~/.mutt/signature.otherdomain&quot;
+set smtp_url=&quot;smtp://myself@mail.otherdomain.tld&quot; smtp_pass=&quot;$my_pw_otherdomain&quot;
+
+Now all that&rsquo;s left to do is two folder-hooks to load the files:
+# .mutt/muttrc
+folder-hook &#39;example.com&#39; &#39;source ~/.mutt/account.example&#39;
+folder-hook &#39;otherdomain.tld&#39; &#39;source ~/.mutt/account.otherdomain&#39;
+# switch to default account on startup
+source ~/.mutt/account.example
+
+A slight variation of the macros also uses the account files:
+macro index &lt;f2&gt; &#39;&lt;sync-mailbox&gt;&lt;enter-command&gt;source ~/.mutt/account.example&lt;enter&gt;&lt;change-folder&gt;!&lt;enter&gt;&#39;
+macro index &lt;f3&gt; &#39;&lt;sync-mailbox&gt;&lt;enter-command&gt;source ~/.mutt/account.otherdomain&lt;enter&gt;&lt;change-folder&gt;!&lt;enter&gt;&#39;
+
+To save entering the password all the time, we use account-hooks:
+account-hook example.org &#39;set imap_user=me imap_pass=pw1&#39;
+account-hook otherdomain.tld &#39;set imap_user=myself imap_pass=pw2&#39;
+
+Putting passwords in configs isn&rsquo;t something I like, so I pull them from the
+Gnome keyring:
+set my_pw_example=`gnome-keyring-query get mutt_example`
+set my_pw_otherdomain=`gnome-keyring-query get mutt_otherdomain`
+account-hook example.org &#39;set imap_user=me imap_pass=$my_pw_example&#39;
+account-hook otherdomain.tld &#39;set imap_user=myself imap_pass=$my_pw_otherdomain&#39;
+
+(I found gnome-keyring-query in the
+Gentoo Wiki.)
+Martti Rahkila has more verbose article with similar ideas.
+Update 2013-01-02: smtp_url and smtp_pass added">
+    <meta name="generator" content="Hugo 0.152.2">
+    
+    
+    
+      <meta name="robots" content="index, follow">
+    
+    <meta name="author" content="Christoph Berg">
+    
+
+    
+<link rel="stylesheet" href="/blog/ananke/css/main.min.efe4d852f731d5d1fbb87718387202a97aafd768cdcdaed0662bbe6982e91824.css" >
+
+
+
+
+    
+
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="https://df7cb.de/blog/posts/2010/Using_multiple_IMAP_accounts_with_Mutt.html">
+    
+
+    <meta property="og:url" content="https://df7cb.de/blog/posts/2010/Using_multiple_IMAP_accounts_with_Mutt.html">
+  <meta property="og:site_name" content="Myon&#39;s Blog">
+  <meta property="og:title" content="Using multiple IMAP accounts with Mutt">
+  <meta property="og:description" content="Mutt’s configuration is sometime more a toolbox than something offering ready solutions, and “how to I use multiple accounts?” is one of the most FAQs. Here’s a condensed version of my setup.
+In the most simple solution, just ‘c’hange folders to the IMAP server:
+c imaps://imap.example.com &lt;enter&gt; c imaps://imap.otherdomain.tld &lt;enter&gt; That’s cumbersome to type, so let’s automate it:
+# .mutt/muttrc macro index &lt;f2&gt; &#39;&lt;change-folder&gt;imaps://imap.example.com&lt;enter&gt;&#39; macro index &lt;f3&gt; &#39;&lt;change-folder&gt;imaps://imap.otherdomain.tld&lt;enter&gt;&#39; That would be the basic setup.
+The two accounts have settings associated with them, we put them in two files:
+# .mutt/account.example set from=me@example.com set hostname=&#34;example.com&#34; set folder=&#34;imaps://imap.example.com/&#34; set postponed=&#34;=Drafts&#34; set spoolfile=&#34;imaps://imap.example.com/INBOX&#34; set signature=&#34;~/.mutt/signature.example&#34; set smtp_url=&#34;smtp://me@mail.example.com&#34; smtp_pass=&#34;$my_pw_example&#34; # .mutt/account.otherdomain set from=myself@otherdomain.tld set hostname=&#34;otherdomain.tld&#34; set folder=&#34;imaps://imap.otherdomain.tld/&#34; set postponed=&#34;=Drafts&#34; set spoolfile=&#34;imaps://imap.otherdomain.tld/INBOX&#34; set signature=&#34;~/.mutt/signature.otherdomain&#34; set smtp_url=&#34;smtp://myself@mail.otherdomain.tld&#34; smtp_pass=&#34;$my_pw_otherdomain&#34; Now all that’s left to do is two folder-hooks to load the files:
+# .mutt/muttrc folder-hook &#39;example.com&#39; &#39;source ~/.mutt/account.example&#39; folder-hook &#39;otherdomain.tld&#39; &#39;source ~/.mutt/account.otherdomain&#39; # switch to default account on startup source ~/.mutt/account.example A slight variation of the macros also uses the account files:
+macro index &lt;f2&gt; &#39;&lt;sync-mailbox&gt;&lt;enter-command&gt;source ~/.mutt/account.example&lt;enter&gt;&lt;change-folder&gt;!&lt;enter&gt;&#39; macro index &lt;f3&gt; &#39;&lt;sync-mailbox&gt;&lt;enter-command&gt;source ~/.mutt/account.otherdomain&lt;enter&gt;&lt;change-folder&gt;!&lt;enter&gt;&#39; To save entering the password all the time, we use account-hooks:
+account-hook example.org &#39;set imap_user=me imap_pass=pw1&#39; account-hook otherdomain.tld &#39;set imap_user=myself imap_pass=pw2&#39; Putting passwords in configs isn’t something I like, so I pull them from the Gnome keyring:
+set my_pw_example=`gnome-keyring-query get mutt_example` set my_pw_otherdomain=`gnome-keyring-query get mutt_otherdomain` account-hook example.org &#39;set imap_user=me imap_pass=$my_pw_example&#39; account-hook otherdomain.tld &#39;set imap_user=myself imap_pass=$my_pw_otherdomain&#39; (I found gnome-keyring-query in the Gentoo Wiki.)
+Martti Rahkila has more verbose article with similar ideas.
+Update 2013-01-02: smtp_url and smtp_pass added">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2010-02-17T13:21:52+01:00">
+    <meta property="article:modified_time" content="2010-02-17T13:21:52+01:00">
+    <meta property="article:tag" content="Debian">
+    <meta property="article:tag" content="Unix">
+
+  <meta itemprop="name" content="Using multiple IMAP accounts with Mutt">
+  <meta itemprop="description" content="Mutt’s configuration is sometime more a toolbox than something offering ready solutions, and “how to I use multiple accounts?” is one of the most FAQs. Here’s a condensed version of my setup.
+In the most simple solution, just ‘c’hange folders to the IMAP server:
+c imaps://imap.example.com &lt;enter&gt; c imaps://imap.otherdomain.tld &lt;enter&gt; That’s cumbersome to type, so let’s automate it:
+# .mutt/muttrc macro index &lt;f2&gt; &#39;&lt;change-folder&gt;imaps://imap.example.com&lt;enter&gt;&#39; macro index &lt;f3&gt; &#39;&lt;change-folder&gt;imaps://imap.otherdomain.tld&lt;enter&gt;&#39; That would be the basic setup.
+The two accounts have settings associated with them, we put them in two files:
+# .mutt/account.example set from=me@example.com set hostname=&#34;example.com&#34; set folder=&#34;imaps://imap.example.com/&#34; set postponed=&#34;=Drafts&#34; set spoolfile=&#34;imaps://imap.example.com/INBOX&#34; set signature=&#34;~/.mutt/signature.example&#34; set smtp_url=&#34;smtp://me@mail.example.com&#34; smtp_pass=&#34;$my_pw_example&#34; # .mutt/account.otherdomain set from=myself@otherdomain.tld set hostname=&#34;otherdomain.tld&#34; set folder=&#34;imaps://imap.otherdomain.tld/&#34; set postponed=&#34;=Drafts&#34; set spoolfile=&#34;imaps://imap.otherdomain.tld/INBOX&#34; set signature=&#34;~/.mutt/signature.otherdomain&#34; set smtp_url=&#34;smtp://myself@mail.otherdomain.tld&#34; smtp_pass=&#34;$my_pw_otherdomain&#34; Now all that’s left to do is two folder-hooks to load the files:
+# .mutt/muttrc folder-hook &#39;example.com&#39; &#39;source ~/.mutt/account.example&#39; folder-hook &#39;otherdomain.tld&#39; &#39;source ~/.mutt/account.otherdomain&#39; # switch to default account on startup source ~/.mutt/account.example A slight variation of the macros also uses the account files:
+macro index &lt;f2&gt; &#39;&lt;sync-mailbox&gt;&lt;enter-command&gt;source ~/.mutt/account.example&lt;enter&gt;&lt;change-folder&gt;!&lt;enter&gt;&#39; macro index &lt;f3&gt; &#39;&lt;sync-mailbox&gt;&lt;enter-command&gt;source ~/.mutt/account.otherdomain&lt;enter&gt;&lt;change-folder&gt;!&lt;enter&gt;&#39; To save entering the password all the time, we use account-hooks:
+account-hook example.org &#39;set imap_user=me imap_pass=pw1&#39; account-hook otherdomain.tld &#39;set imap_user=myself imap_pass=pw2&#39; Putting passwords in configs isn’t something I like, so I pull them from the Gnome keyring:
+set my_pw_example=`gnome-keyring-query get mutt_example` set my_pw_otherdomain=`gnome-keyring-query get mutt_otherdomain` account-hook example.org &#39;set imap_user=me imap_pass=$my_pw_example&#39; account-hook otherdomain.tld &#39;set imap_user=myself imap_pass=$my_pw_otherdomain&#39; (I found gnome-keyring-query in the Gentoo Wiki.)
+Martti Rahkila has more verbose article with similar ideas.
+Update 2013-01-02: smtp_url and smtp_pass added">
+  <meta itemprop="datePublished" content="2010-02-17T13:21:52+01:00">
+  <meta itemprop="dateModified" content="2010-02-17T13:21:52+01:00">
+  <meta itemprop="wordCount" content="252">
+  <meta itemprop="keywords" content="Debian,Unix">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Using multiple IMAP accounts with Mutt">
+  <meta name="twitter:description" content="Mutt’s configuration is sometime more a toolbox than something offering ready solutions, and “how to I use multiple accounts?” is one of the most FAQs. Here’s a condensed version of my setup.
+In the most simple solution, just ‘c’hange folders to the IMAP server:
+c imaps://imap.example.com &lt;enter&gt; c imaps://imap.otherdomain.tld &lt;enter&gt; That’s cumbersome to type, so let’s automate it:
+# .mutt/muttrc macro index &lt;f2&gt; &#39;&lt;change-folder&gt;imaps://imap.example.com&lt;enter&gt;&#39; macro index &lt;f3&gt; &#39;&lt;change-folder&gt;imaps://imap.otherdomain.tld&lt;enter&gt;&#39; That would be the basic setup.
+The two accounts have settings associated with them, we put them in two files:
+# .mutt/account.example set from=me@example.com set hostname=&#34;example.com&#34; set folder=&#34;imaps://imap.example.com/&#34; set postponed=&#34;=Drafts&#34; set spoolfile=&#34;imaps://imap.example.com/INBOX&#34; set signature=&#34;~/.mutt/signature.example&#34; set smtp_url=&#34;smtp://me@mail.example.com&#34; smtp_pass=&#34;$my_pw_example&#34; # .mutt/account.otherdomain set from=myself@otherdomain.tld set hostname=&#34;otherdomain.tld&#34; set folder=&#34;imaps://imap.otherdomain.tld/&#34; set postponed=&#34;=Drafts&#34; set spoolfile=&#34;imaps://imap.otherdomain.tld/INBOX&#34; set signature=&#34;~/.mutt/signature.otherdomain&#34; set smtp_url=&#34;smtp://myself@mail.otherdomain.tld&#34; smtp_pass=&#34;$my_pw_otherdomain&#34; Now all that’s left to do is two folder-hooks to load the files:
+# .mutt/muttrc folder-hook &#39;example.com&#39; &#39;source ~/.mutt/account.example&#39; folder-hook &#39;otherdomain.tld&#39; &#39;source ~/.mutt/account.otherdomain&#39; # switch to default account on startup source ~/.mutt/account.example A slight variation of the macros also uses the account files:
+macro index &lt;f2&gt; &#39;&lt;sync-mailbox&gt;&lt;enter-command&gt;source ~/.mutt/account.example&lt;enter&gt;&lt;change-folder&gt;!&lt;enter&gt;&#39; macro index &lt;f3&gt; &#39;&lt;sync-mailbox&gt;&lt;enter-command&gt;source ~/.mutt/account.otherdomain&lt;enter&gt;&lt;change-folder&gt;!&lt;enter&gt;&#39; To save entering the password all the time, we use account-hooks:
+account-hook example.org &#39;set imap_user=me imap_pass=pw1&#39; account-hook otherdomain.tld &#39;set imap_user=myself imap_pass=pw2&#39; Putting passwords in configs isn’t something I like, so I pull them from the Gnome keyring:
+set my_pw_example=`gnome-keyring-query get mutt_example` set my_pw_otherdomain=`gnome-keyring-query get mutt_otherdomain` account-hook example.org &#39;set imap_user=me imap_pass=$my_pw_example&#39; account-hook otherdomain.tld &#39;set imap_user=myself imap_pass=$my_pw_otherdomain&#39; (I found gnome-keyring-query in the Gentoo Wiki.)
+Martti Rahkila has more verbose article with similar ideas.
+Update 2013-01-02: smtp_url and smtp_pass added">
+
+      
+    
+	
+  </head><body class="ma0 avenir bg-near-white production">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l center items-center justify-between">
+    <a href="/blog/index.html" class="f3 fw2 hover-white white-90 dib no-underline">
+      
+        Myon&#39;s Blog
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  
+  <article class="flex-l mw8 center ph3 flex-wrap justify-between">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Posts
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">Using multiple IMAP accounts with Mutt</h1>
+      
+      <p class="tracked"><strong>Christoph Berg</strong>
+      </p>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2010-02-17T13:21:52+01:00">February 17, 2010</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>Mutt&rsquo;s configuration is sometime more a toolbox than something offering ready
+solutions, and &ldquo;how to I use multiple accounts?&rdquo; is one of the most FAQs.
+Here&rsquo;s a condensed version of my setup.</p>
+<p>In the most simple solution, just &lsquo;c&rsquo;hange folders to the IMAP server:</p>
+<pre><code>c imaps://imap.example.com &lt;enter&gt;
+c imaps://imap.otherdomain.tld &lt;enter&gt;
+</code></pre>
+<p>That&rsquo;s cumbersome to type, so let&rsquo;s automate it:</p>
+<pre><code># .mutt/muttrc
+macro index &lt;f2&gt; '&lt;change-folder&gt;imaps://imap.example.com&lt;enter&gt;'
+macro index &lt;f3&gt; '&lt;change-folder&gt;imaps://imap.otherdomain.tld&lt;enter&gt;'
+</code></pre>
+<p>That would be the basic setup.</p>
+<p>The two accounts have settings associated with them, we put them in two files:</p>
+<pre><code># .mutt/account.example
+set from=me@example.com
+set hostname=&quot;example.com&quot;
+set folder=&quot;imaps://imap.example.com/&quot;
+set postponed=&quot;=Drafts&quot;
+set spoolfile=&quot;imaps://imap.example.com/INBOX&quot;
+set signature=&quot;~/.mutt/signature.example&quot;
+set smtp_url=&quot;smtp://me@mail.example.com&quot; smtp_pass=&quot;$my_pw_example&quot;
+
+# .mutt/account.otherdomain
+set from=myself@otherdomain.tld
+set hostname=&quot;otherdomain.tld&quot;
+set folder=&quot;imaps://imap.otherdomain.tld/&quot;
+set postponed=&quot;=Drafts&quot;
+set spoolfile=&quot;imaps://imap.otherdomain.tld/INBOX&quot;
+set signature=&quot;~/.mutt/signature.otherdomain&quot;
+set smtp_url=&quot;smtp://myself@mail.otherdomain.tld&quot; smtp_pass=&quot;$my_pw_otherdomain&quot;
+</code></pre>
+<p>Now all that&rsquo;s left to do is two folder-hooks to load the files:</p>
+<pre><code># .mutt/muttrc
+folder-hook 'example.com' 'source ~/.mutt/account.example'
+folder-hook 'otherdomain.tld' 'source ~/.mutt/account.otherdomain'
+# switch to default account on startup
+source ~/.mutt/account.example
+</code></pre>
+<p>A slight variation of the macros also uses the account files:</p>
+<pre><code>macro index &lt;f2&gt; '&lt;sync-mailbox&gt;&lt;enter-command&gt;source ~/.mutt/account.example&lt;enter&gt;&lt;change-folder&gt;!&lt;enter&gt;'
+macro index &lt;f3&gt; '&lt;sync-mailbox&gt;&lt;enter-command&gt;source ~/.mutt/account.otherdomain&lt;enter&gt;&lt;change-folder&gt;!&lt;enter&gt;'
+</code></pre>
+<p>To save entering the password all the time, we use account-hooks:</p>
+<pre><code>account-hook example.org 'set imap_user=me imap_pass=pw1'
+account-hook otherdomain.tld 'set imap_user=myself imap_pass=pw2'
+</code></pre>
+<p>Putting passwords in configs isn&rsquo;t something I like, so I pull them from the
+Gnome keyring:</p>
+<pre><code>set my_pw_example=`gnome-keyring-query get mutt_example`
+set my_pw_otherdomain=`gnome-keyring-query get mutt_otherdomain`
+account-hook example.org 'set imap_user=me imap_pass=$my_pw_example'
+account-hook otherdomain.tld 'set imap_user=myself imap_pass=$my_pw_otherdomain'
+</code></pre>
+<p>(I found gnome-keyring-query in the
+<a href="http://www.gentoo-wiki.info/HOWTO_Use_gnome-keyring_to_store_SSH_passphrases">Gentoo Wiki</a>.)</p>
+<p>Martti Rahkila has <a href="http://www.acoustics.hut.fi/~mara/mutt/profiles.html">more verbose article</a> with similar ideas.</p>
+<p><em>Update 2013-01-02:</em> smtp_url and smtp_pass added</p>
+<ul class="pa0">
+  
+   <li class="list di">
+     <a href="/blog/tags/debian.html" class="link f5 grow br-pill ba ph3 pv2 mb2 dib black sans-serif no-underline">Debian</a>
+   </li>
+  
+   <li class="list di">
+     <a href="/blog/tags/unix.html" class="link f5 grow br-pill ba ph3 pv2 mb2 dib black sans-serif no-underline">Unix</a>
+   </li>
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3">Related</p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/blog/posts/2010/dev_full.html">Cool Unix Features: /dev/full</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/blog/posts/2010/column_-t.html">Cool Unix Features: column -t</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/blog/posts/2010/date_at.html">Cool Unix Features: date -d @</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/blog/posts/2010/df_-T.html">Cool Unix Features: df -T</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/blog/posts/2010/flock.html">Cool Unix Features: flock</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/blog/posts/2010/nproc.html">Cool Unix Features: nproc</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/blog/posts/2010/paste.html">Cool Unix Features: paste</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/blog/posts/2010/stat.html">Cool Unix Features: stat</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/blog/posts/2010/seq.html">seq is nice, but ...</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/blog/posts/2010/Clamav_segfaults.html">Clamav segfaults</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/blog/posts/2010/Firefox_HeaderControl.html">Firefox: HeaderControl</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/blog/posts/2010/Upgrading_only_installed_packages.html">Upgrading only installed packages</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/blog/posts/2010/belier.html">belier</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/blog/posts/2010/tenace_0.10_released.html">tenace 0.10 released</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/blog/posts/2009/Dedicating_Lenny_to_Thiemo.html">Dedicating Lenny to Thiemo</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white white-70 dn dib-ns pv2 ph3 no-underline" href="https://df7cb.de/blog/index.html" >
+    &copy;  Myon's Blog 2025 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>
