@@ -48,3 +48,10 @@ screen ./run
 [19:37:55] [Server thread/INFO] [minecraft/MinecraftServer]: Made swordfish a server operator
 ```
 
+*Update:* To use "Fabric" instead of Forge, go to https://fabricmc.net/use/server/, and use
+
+```
+java -jar jar
+```
+
+This "downloader" is then also used to launch the server itself with the same command.
