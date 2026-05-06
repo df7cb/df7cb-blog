@@ -7,7 +7,7 @@
     <title>Myon&#39;s Blog</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1">
     <meta name="description" content="">
-    <meta name="generator" content="Hugo 0.152.2">
+    <meta name="generator" content="Hugo 0.161.0">
     
     
     
@@ -48,8 +48,8 @@
   <meta property="og:type" content="website">
 
   <meta itemprop="name" content="Posts">
-  <meta itemprop="datePublished" content="2025-11-22T23:47:26+01:00">
-  <meta itemprop="dateModified" content="2025-11-22T23:47:26+01:00">
+  <meta itemprop="datePublished" content="2026-05-06T19:11:21+02:00">
+  <meta itemprop="dateModified" content="2026-05-06T19:11:21+02:00">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Posts">
 
@@ -94,6 +94,38 @@
   <article class="pa3 pa4-ns nested-copy-line-height">
     <section class="cf ph3 ph5-l pv3 pv4-l f4 tc-l center measure-wide lh-copy nested-links mid-gray"></section>
     <section class="flex-ns mt5 flex-wrap justify-around">
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2010/nproc.html" class="link black dim">
+        Cool Unix Features: nproc
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>Since coreutils 8.1 (in Squeeze, not Lenny), there is a command that simply
+prints out how many processors (cores, processing units) are available:</p>
+<pre><code>$ nproc
+2
+</code></pre>
+<p>The use case is obvious:</p>
+<pre><code>$ make -j $(nproc)
+</code></pre>
+<p>On a side note, this is gnulib&rsquo;s nproc module wrapped into a C program. If you
+didn&rsquo;t know gnulib before (it had slipped my attention until recently), it is a
+library of portability functions and other useful things. Adding it to a
+project is simply done by calling gnulib-tool and tweaking a few lines in the
+automake/whatever build scripts.</p>
+<p><i>PS: do not use nproc unconditionally in debian/rules. Parse
+DEB_BUILD_OPTIONS for &ldquo;parallel&rdquo; instead.</i></p>
+    </div>
+    <a href="/blog/posts/2010/nproc.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
       
         <div class="w-100 w-30-l mb4 relative bg-white">
           <div class="w-100 mb4 nested-copy-line-height relative bg-white">
@@ -418,35 +450,6 @@ sed -i -e "s/prefix.*/prefix $local6to4prefix::\\/64/" /etc/radvd.conf
 
         </div>
       
-        <div class="w-100 w-30-l mb4 relative bg-white">
-          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
-  <div class="mb3 pa4 gray overflow-hidden bg-white">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/blog/posts/2009/Dedicating_Lenny_to_Thiemo.html" class="link black dim">
-        Dedicating Lenny to Thiemo
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <p>I just finished packing up the signature collection for dedication-5.0.txt.
-Hopefully I didn&rsquo;t miss any signatures, saving about 400 attachments is
-tedious. Fortunately most people got the filenames right. On the down side,
-there were about 80 signatures that I couldn&rsquo;t verify because the corresponding
-key could not be found on the key servers. I&rsquo;ve mailed the owners, and about 20
-have uploaded their key until now.</p>
-<p>There are 355 valid signatures. Thanks to all for such a huge participation,
-that&rsquo;s about twice the number (185) we got for dedicating Potato to Espy in
-2000. (These were DD-only, though.)</p>
-<p>Comparing to the various Debian keyrings, 207 active DDs participated, 3 former
-DDs, 12 Debian maintainers, and 133 other contributors.</p>
-<p>Let&rsquo;s hope Lenny will be as great as Thiemo would have liked it.</p>
-    </div>
-    <a href="/blog/posts/2009/Dedicating_Lenny_to_Thiemo.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-  </div>
-</div>
-
-        </div>
-      
     </section>
     <ul class="pagination pagination-default">
       <li class="page-item">
@@ -482,7 +485,7 @@ DDs, 12 Debian maintainers, and 133 other contributors.</p>
     <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
   <div class="flex justify-between">
   <a class="f4 fw4 hover-white white-70 dn dib-ns pv2 ph3 no-underline" href="https://df7cb.de/blog/index.html" >
-    &copy;  Myon's Blog 2025 
+    &copy;  Myon's Blog 2026 
   </a>
     <div><div class="ananke-socials"></div>
 </div>

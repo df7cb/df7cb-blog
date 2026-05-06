@@ -7,7 +7,7 @@
     <title>Myon&#39;s Blog</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1">
     <meta name="description" content="">
-    <meta name="generator" content="Hugo 0.152.2">
+    <meta name="generator" content="Hugo 0.161.0">
     
     
     
@@ -48,8 +48,8 @@
   <meta property="og:type" content="website">
 
   <meta itemprop="name" content="Tags">
-  <meta itemprop="datePublished" content="2025-11-22T23:47:26+01:00">
-  <meta itemprop="dateModified" content="2025-11-22T23:47:26+01:00">
+  <meta itemprop="datePublished" content="2026-05-06T19:11:21+02:00">
+  <meta itemprop="dateModified" content="2026-05-06T19:11:21+02:00">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Tags">
 
@@ -105,6 +105,73 @@
             Tag: Notes
           </a>
         </h2>
+        
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2026/immich-on-cifs.html" class="link black dim">
+        Running Immich on CIFS
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>Some weeks ago I discovered <a href="https://immich.app/">Immich</a> and was immediately
+hooked and started feeding the family photo collection into it.</p>
+<h1 id="immich-on-cifs">Immich on CIFS</h1>
+<p>It&rsquo;s running on a VM at Hetzner, and I immediately filled up the disk with too
+much data. Looking around, I discovered that Hetzner offers &ldquo;storage boxes&rdquo; at
+the fraction of the cost of a VM with the same disk space, so I launched a 1 TB
+instance there.</p>
+<p>The Immich instance is rooted at /cb/immich/library/. In that directory, Immich
+confusingly creates another &ldquo;library&rdquo; directory, which holds the actual
+pictures, plus some more subdirectories.</p>
+<p>There is now a cifs mount inside the outer library dir:</p>
+<pre tabindex="0"><code>//u000000-sub1.your-storagebox.de/u000000-sub1 on /cb/immich/library/cifs type cifs
+</code></pre><p>And a bunch of symlinks redirect some of the Immich directories to the remote server:</p>
+<pre tabindex="0"><code>$ ls -l /cb/immich/library/
+insgesamt 12
+drwxr-xr-x 2 root root 4096 25. Mär 02:00 backups/
+drwxr-xr-x 2 root root    0  2. Apr 18:18 cifs/
+lrwxrwxrwx 1 root root   18 24. Mär 19:28 encoded-video -&gt; cifs/encoded-video/
+lrwxrwxrwx 1 root root   12 24. Mär 19:28 library -&gt; cifs/library/
+drwxr-xr-x 3 root root 4096 23. Mär 13:05 profile/
+lrwxrwxrwx 1 root root   11  2. Apr 20:37 thumbs -&gt; cifs/thumbs/
+drwxr-xr-x 4 root root 4096 25. Mär 21:54 upload/
+</code></pre><p>Initially I had planned to keep the &ldquo;thumbs&rdquo; directory on the local disk for
+performance, but it outgrew the local disk pretty fast as well. (Perhaps I
+should move the remaining two over as well&hellip;)</p>
+<p>It&rsquo;s not the fastest setup, but it works and the storage space costs are very much ok.</p>
+<h1 id="immich-on-postgresql">Immich on PostgreSQL</h1>
+<p>I already have a PostgreSQL instance running, so I didn&rsquo;t want Immich to create
+another one. The official documentation mentions this is possible, but doesn&rsquo;t
+detail out the instructions. Here&rsquo;s what I did:</p>
+<ol>
+<li>
+<p>In docker-compose.yml, removed the entire <code>database:</code> section.</p>
+</li>
+<li>
+<p>In .env, use these database settings:</p>
+</li>
+</ol>
+<pre tabindex="0"><code>DB_PASSWORD=xxxxxxxxxxxx
+DB_URL=&#39;postgresql://immich:xxxxxxxxxxxx@172.17.0.1/immich&#39;
+DB_DATABASE_NAME=immich
+</code></pre><p>(Possibly DB_URL is enough, but the other two don&rsquo;t hurt.)</p>
+<ol start="3">
+<li>One complication was that the PostgreSQL running outside of Docker needs to
+be reachable by Immich inside Docker, so I told it to use the Docker network
+address <code>172.17.0.1</code>. PostgreSQL was already set to <code>listen_addresses='*'</code>, and
+I just had to add a ufw firewall rule:</li>
+</ol>
+<pre tabindex="0"><code>sudo ufw allow proto tcp from 172.17.0.0/16 to 0.0.0.0/0 port 5432
+</code></pre><p>And a pg_hba.conf entry:</p>
+<pre tabindex="0"><code>host    all             all             172.18.0.0/16           scram-sha-256
+</code></pre>
+    </div>
+    <a href="/blog/posts/2026/immich-on-cifs.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
         
           <div class="w-100 mb4 nested-copy-line-height relative bg-white">
   <div class="mb3 pa4 gray overflow-hidden bg-white">
@@ -7318,7 +7385,7 @@ users.sourceforge.net   32
     <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
   <div class="flex justify-between">
   <a class="f4 fw4 hover-white white-70 dn dib-ns pv2 ph3 no-underline" href="https://df7cb.de/blog/index.html" >
-    &copy;  Myon's Blog 2025 
+    &copy;  Myon's Blog 2026 
   </a>
     <div><div class="ananke-socials"></div>
 </div>

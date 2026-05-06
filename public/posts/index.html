@@ -7,7 +7,7 @@
     <title>Myon&#39;s Blog</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1">
     <meta name="description" content="">
-    <meta name="generator" content="Hugo 0.152.2">
+    <meta name="generator" content="Hugo 0.161.0">
     
     
     
@@ -48,8 +48,8 @@
   <meta property="og:type" content="website">
 
   <meta itemprop="name" content="Posts">
-  <meta itemprop="datePublished" content="2025-11-22T23:47:26+01:00">
-  <meta itemprop="dateModified" content="2025-11-22T23:47:26+01:00">
+  <meta itemprop="datePublished" content="2026-05-06T19:11:21+02:00">
+  <meta itemprop="dateModified" content="2026-05-06T19:11:21+02:00">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Posts">
 
@@ -94,6 +94,75 @@
   <article class="pa3 pa4-ns nested-copy-line-height">
     <section class="cf ph3 ph5-l pv3 pv4-l f4 tc-l center measure-wide lh-copy nested-links mid-gray"></section>
     <section class="flex-ns mt5 flex-wrap justify-around">
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2026/immich-on-cifs.html" class="link black dim">
+        Running Immich on CIFS
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>Some weeks ago I discovered <a href="https://immich.app/">Immich</a> and was immediately
+hooked and started feeding the family photo collection into it.</p>
+<h1 id="immich-on-cifs">Immich on CIFS</h1>
+<p>It&rsquo;s running on a VM at Hetzner, and I immediately filled up the disk with too
+much data. Looking around, I discovered that Hetzner offers &ldquo;storage boxes&rdquo; at
+the fraction of the cost of a VM with the same disk space, so I launched a 1 TB
+instance there.</p>
+<p>The Immich instance is rooted at /cb/immich/library/. In that directory, Immich
+confusingly creates another &ldquo;library&rdquo; directory, which holds the actual
+pictures, plus some more subdirectories.</p>
+<p>There is now a cifs mount inside the outer library dir:</p>
+<pre tabindex="0"><code>//u000000-sub1.your-storagebox.de/u000000-sub1 on /cb/immich/library/cifs type cifs
+</code></pre><p>And a bunch of symlinks redirect some of the Immich directories to the remote server:</p>
+<pre tabindex="0"><code>$ ls -l /cb/immich/library/
+insgesamt 12
+drwxr-xr-x 2 root root 4096 25. Mär 02:00 backups/
+drwxr-xr-x 2 root root    0  2. Apr 18:18 cifs/
+lrwxrwxrwx 1 root root   18 24. Mär 19:28 encoded-video -&gt; cifs/encoded-video/
+lrwxrwxrwx 1 root root   12 24. Mär 19:28 library -&gt; cifs/library/
+drwxr-xr-x 3 root root 4096 23. Mär 13:05 profile/
+lrwxrwxrwx 1 root root   11  2. Apr 20:37 thumbs -&gt; cifs/thumbs/
+drwxr-xr-x 4 root root 4096 25. Mär 21:54 upload/
+</code></pre><p>Initially I had planned to keep the &ldquo;thumbs&rdquo; directory on the local disk for
+performance, but it outgrew the local disk pretty fast as well. (Perhaps I
+should move the remaining two over as well&hellip;)</p>
+<p>It&rsquo;s not the fastest setup, but it works and the storage space costs are very much ok.</p>
+<h1 id="immich-on-postgresql">Immich on PostgreSQL</h1>
+<p>I already have a PostgreSQL instance running, so I didn&rsquo;t want Immich to create
+another one. The official documentation mentions this is possible, but doesn&rsquo;t
+detail out the instructions. Here&rsquo;s what I did:</p>
+<ol>
+<li>
+<p>In docker-compose.yml, removed the entire <code>database:</code> section.</p>
+</li>
+<li>
+<p>In .env, use these database settings:</p>
+</li>
+</ol>
+<pre tabindex="0"><code>DB_PASSWORD=xxxxxxxxxxxx
+DB_URL=&#39;postgresql://immich:xxxxxxxxxxxx@172.17.0.1/immich&#39;
+DB_DATABASE_NAME=immich
+</code></pre><p>(Possibly DB_URL is enough, but the other two don&rsquo;t hurt.)</p>
+<ol start="3">
+<li>One complication was that the PostgreSQL running outside of Docker needs to
+be reachable by Immich inside Docker, so I told it to use the Docker network
+address <code>172.17.0.1</code>. PostgreSQL was already set to <code>listen_addresses='*'</code>, and
+I just had to add a ufw firewall rule:</li>
+</ol>
+<pre tabindex="0"><code>sudo ufw allow proto tcp from 172.17.0.0/16 to 0.0.0.0/0 port 5432
+</code></pre><p>And a pg_hba.conf entry:</p>
+<pre tabindex="0"><code>host    all             all             172.18.0.0/16           scram-sha-256
+</code></pre>
+    </div>
+    <a href="/blog/posts/2026/immich-on-cifs.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
       
         <div class="w-100 w-30-l mb4 relative bg-white">
           <div class="w-100 mb4 nested-copy-line-height relative bg-white">
@@ -592,108 +661,6 @@ LTS distributions. 9.1 will follow shortly.</p>
 
         </div>
       
-        <div class="w-100 w-30-l mb4 relative bg-white">
-          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
-  <div class="mb3 pa4 gray overflow-hidden bg-white">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/blog/posts/2020/apt-archive.postgresql.org.html" class="link black dim">
-        Announcing apt-archive.postgresql.org
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <p>Users had often asked where they could find older versions of packages from
-<a href="https://apt.postgresql.org/">apt.postgresql.org</a>. I had been
-collecting these since about April 2013, and in July 2016, I made the packages
-available via an ad-hoc URL on the repository master host, called &ldquo;the morgue&rdquo;.
-There was little repository structure, all files belonging to a source package
-were stuffed into a single directory, no matter what distribution they belonged
-to. Besides this not being particularly accessible for users, the main problem
-was the ever-increasing need for more disk space on the repository host. We are
-now at 175 GB for the archive, of which 152 GB is for the morgue.</p>
-<p>Our friends from <a href="https://yum.postgresql.org/">yum.postgresql.org</a>
-have had a proper archive host (yum-archive.postgresql.org) for some time
-already, so it was about time to follow suit and implement a proper archive
-for apt.postgresql.org as well, usable from apt.</p>
-<p>So here it is:
-<b><a href="https://apt-archive.postgresql.org/">apt-archive.postgresql.org</a></b></p>
-<p>The archive covers all past and current Debian and Ubuntu distributions. The
-apt sources.lists entries are similar to the main repository, just with &ldquo;-archive&rdquo;
-appended to the host name and the
-<a href="https://apt-archive.postgresql.org/pub/repos/apt/dists/index.html">distribution</a>:</p>
-<pre>
-deb https://apt-archive.postgresql.org/pub/repos/apt DIST-pgdg-archive main
-deb-src https://apt-archive.postgresql.org/pub/repos/apt DIST-pgdg-archive main
-</pre>
-<p>The oldest PostgreSQL server versions covered there are 8.2.23, 8.3.23, 8.4.17,
-9.0.13, 9.1.9, 9.2.4, 9.3beta1, and everything newer.</p>
-<p>Some example:</p>
-<pre>
-$ apt-cache policy postgresql-12
-postgresql-12:
-  Installed: 12.2-2.pgdg+1+b1
-  Candidate: 12.2-2.pgdg+1+b1
-  Version table:
- *** 12.2-2.pgdg+1+b1 900
-        500 http://apt.postgresql.org/pub/repos/apt sid-pgdg/main amd64 Packages
-        500 https://apt-archive.postgresql.org/pub/repos/apt sid-pgdg-archive/main amd64 Packages
-        100 /var/lib/dpkg/status
-     12.2-2.pgdg+1 500
-        500 https://apt-archive.postgresql.org/pub/repos/apt sid-pgdg-archive/main amd64 Packages
-     12.2-1.pgdg+1 500
-        500 https://apt-archive.postgresql.org/pub/repos/apt sid-pgdg-archive/main amd64 Packages
-     12.1-2.pgdg+1 500
-        500 https://apt-archive.postgresql.org/pub/repos/apt sid-pgdg-archive/main amd64 Packages
-     12.1-1.pgdg+1 500
-        500 https://apt-archive.postgresql.org/pub/repos/apt sid-pgdg-archive/main amd64 Packages
-     12.0-2.pgdg+1 500
-        500 https://apt-archive.postgresql.org/pub/repos/apt sid-pgdg-archive/main amd64 Packages
-     12.0-1.pgdg+1 500
-        500 https://apt-archive.postgresql.org/pub/repos/apt sid-pgdg-archive/main amd64 Packages
-     12~rc1-1.pgdg+1 500
-        500 https://apt-archive.postgresql.org/pub/repos/apt sid-pgdg-archive/main amd64 Packages
-     12~beta4-1.pgdg+1 500
-        500 https://apt-archive.postgresql.org/pub/repos/apt sid-pgdg-archive/main amd64 Packages
-     12~beta3-1.pgdg+1 500
-        500 https://apt-archive.postgresql.org/pub/repos/apt sid-pgdg-archive/main amd64 Packages
-     12~beta2-1.pgdg+1 500
-        500 https://apt-archive.postgresql.org/pub/repos/apt sid-pgdg-archive/main amd64 Packages
-     12~beta1-1.pgdg+1 500
-        500 https://apt-archive.postgresql.org/pub/repos/apt sid-pgdg-archive/main amd64 Packages
-</pre>
-<p>Because this is hosted on S3, browsing directories is only supported indirectly by
-static index.html files, so if you want to look at some specific URL, append
-&ldquo;/index.html&rdquo; to see it.</p>
-<p>The archive is powered by a
-<a href="https://git.postgresql.org/gitweb/?p=pgapt.git;a=tree;f=pgapt-db/sql">PostgreSQL database</a> and a
-<a href="https://git.postgresql.org/gitweb/?p=pgapt.git;a=tree;f=repo/bin">bunch of python/shell scripts</a>,
-from which the apt index files are built.</p>
-<h2>Archiving old distributions</h2>
-<p>I&rsquo;m also using the opportunity to remove some long-retired distributions from the main
-repository host. The following distributions have been moved over:</p>
-<ul>
-<li>Debian etch (4.0)</li>
-<li>Debian lenny (5.0)</li>
-<li>Debian squeeze (6.0)</li>
-<li>Ubuntu lucid (10.04)</li>
-<li>Ubuntu saucy (13.10)</li>
-<li>Ubuntu utopic (14.10)</li>
-<li>Ubuntu wily (15.10)</li>
-<li>Ubuntu zesty (17.04)</li>
-<li>Ubuntu cosmic (18.10)</li>
-</ul>
-<p>They are available as &ldquo;<em>DIST</em>-pgdg&rdquo; from the archive, e.g. squeeze:</p>
-<pre>
-deb https://apt-archive.postgresql.org/pub/repos/apt squeeze-pgdg main
-deb-src https://apt-archive.postgresql.org/pub/repos/apt squeeze-pgdg main
-</pre>
-    </div>
-    <a href="/blog/posts/2020/apt-archive.postgresql.org.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-  </div>
-</div>
-
-        </div>
-      
     </section>
     <ul class="pagination pagination-default">
       <li class="page-item disabled">
@@ -729,7 +696,7 @@ deb-src https://apt-archive.postgresql.org/pub/repos/apt squeeze-pgdg main
     <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
   <div class="flex justify-between">
   <a class="f4 fw4 hover-white white-70 dn dib-ns pv2 ph3 no-underline" href="https://df7cb.de/blog/index.html" >
-    &copy;  Myon's Blog 2025 
+    &copy;  Myon's Blog 2026 
   </a>
     <div><div class="ananke-socials"></div>
 </div>
