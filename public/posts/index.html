@@ -7,7 +7,7 @@
     <title>Myon&#39;s Blog</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1">
     <meta name="description" content="">
-    <meta name="generator" content="Hugo 0.161.0">
+    <meta name="generator" content="Hugo 0.161.1">
     
     
     
@@ -48,8 +48,8 @@
   <meta property="og:type" content="website">
 
   <meta itemprop="name" content="Posts">
-  <meta itemprop="datePublished" content="2026-05-06T19:11:21+02:00">
-  <meta itemprop="dateModified" content="2026-05-06T19:11:21+02:00">
+  <meta itemprop="datePublished" content="2026-06-04T19:14:24+02:00">
+  <meta itemprop="dateModified" content="2026-06-04T19:14:24+02:00">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Posts">
 
@@ -94,6 +94,53 @@
   <article class="pa3 pa4-ns nested-copy-line-height">
     <section class="cf ph3 ph5-l pv3 pv4-l f4 tc-l center measure-wide lh-copy nested-links mid-gray"></section>
     <section class="flex-ns mt5 flex-wrap justify-around">
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2026/qc25.html" class="link black dim">
+        Fixing a Bose QC25 with broken ANC battery
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>For the CQ WPX SSB in March 2026, I was a guest operator at DR1A in Goch. For
+the event, I got a used Bose QuietComfort 25 headset where the ANC worked well
+to dampen the noise from the neighboring operators. The headset also worked
+well on a flight to the 2026 pgconf.dev conference in Vancouver. However, on
+the way back, the ANC battery went dead about one hour into the flight. I did
+have a spare battery with me, but ANC wouldn&rsquo;t power on again. Being in a
+plane, I couldn&rsquo;t do much about it, so I just kept using the headset without
+ANC.</p>
+<p><img src="qc25-1.jpg" alt="The battery flap"></p>
+<p>Back at home, I went looking for the problem. The battery is hidden behind one
+of the ear piece handles. The flap is also the minus terminal, but I couldn&rsquo;t
+figure out how this thing is even connected to the rest of the circuits. There
+had to be a cable, but since it moved very freely, my instincts told me &ldquo;no way
+this is connected properly&rdquo;. May 2026 with the CQ WPX CW came, and I asked a
+few fellow contesters if they had ever seen the problem before, but no one
+knew. I did the contest without ANC. Luckily, in CW no one is shouting all the
+time.</p>
+<p>Back at home I then took the headset apart. After some investigation, I figured
+out which cables are connecting the battery, and behold, the connection to the
+minus terminal was indeed broken. Pulling on the wire produced a pretty
+crumpled piece of wire.</p>
+<p>Replacing the original wire turned out to be impossible, I couldn&rsquo;t even get
+the flap removed. But it turned out there is a big empty spot right opposite of
+the metal front of the flap, with a nifty slot directly next to it, leading to
+the part with the PCB. So I curled up some copper wire to improvise a spring,
+put it there, attached a small wire and ran it to the PCB pin.</p>
+<p><img src="qc25-4.jpg" alt=""></p>
+<p><img src="qc25-2.jpg" alt=""></p>
+<p><img src="qc25-3.jpg" alt=""></p>
+<p>ANC is back.</p>
+    </div>
+    <a href="/blog/posts/2026/qc25.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
       
         <div class="w-100 w-30-l mb4 relative bg-white">
           <div class="w-100 mb4 nested-copy-line-height relative bg-white">
@@ -609,58 +656,6 @@ CREATE EXTENSION
 
         </div>
       
-        <div class="w-100 w-30-l mb4 relative bg-white">
-          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
-  <div class="mb3 pa4 gray overflow-hidden bg-white">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/blog/posts/2020/arm64-on-apt.postgresql.org.html" class="link black dim">
-        arm64 on apt.postgresql.org
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <p>The <a href="https://apt.postgresql.org/">apt.postgresql.org</a> repository has been extended
-to cover the <em>arm64</em> architecture.</p>
-<p>We had occasionally received user request to add &ldquo;arm&rdquo; in the past, but it was
-never really clear which kind of &ldquo;arm&rdquo; made sense to target for PostgreSQL. In
-terms of Debian architectures, there&rsquo;s (at least) armel, armhf, and arm64.
-Furthermore, Raspberry Pis are very popular (and indeed what most users seemed
-to were asking about), but the raspbian &ldquo;armhf&rdquo; port is incompatible with the
-Debian &ldquo;armhf&rdquo; port.</p>
-<p>Now that most hardware has moved to 64-bit, it was becoming clear that &ldquo;arm64&rdquo;
-was the way to go. Amit Khandekar made it happen that
-<a href="https://intl.huaweicloud.com/en-us/">HUAWEI Cloud Services</a>
-donated a arm64 build host with enough resources to build the arm64 packages
-at the same speed as the existing amd64, i386, and ppc64el architectures.
-A few days later, all the build jobs were done, including passing all
-test-suites. Very few arm-specific issues were encountered which makes me
-confident that arm64 is a solid architecture to run PostgreSQL on.</p>
-<p>We are targeting Debian buster (stable), bullseye (testing), and sid
-(unstable), and Ubuntu bionic (18.04) and focal (20.04). To use the arm64
-archive, just add the normal sources.list entry:</p>
-<pre>
-deb https://apt.postgresql.org/pub/repos/apt buster-pgdg main
-</pre>
-<h2>Ubuntu focal</h2>
-<p>At the same time, I&rsquo;ve added the next Ubuntu LTS release to apt.postgresql.org:
-focal (20.04). It ships amd64, arm64, and ppc64el binaries.</p>
-<pre>
-deb https://apt.postgresql.org/pub/repos/apt focal-pgdg main
-</pre>
-<h2>Old PostgreSQL versions</h2>
-<p>Many PostgreSQL extensions are still supporting older server versions that are
-EOL. For testing these extension, server packages need to be available. I&rsquo;ve
-built packages for PostgreSQL 9.2+ on all Debian distributions, and all Ubuntu
-LTS distributions. 9.1 will follow shortly.</p>
-<p>This means people can move to newer base distributions in their .travis.yml,
-.gitlab-ci.yml, and other CI files.</p>
-    </div>
-    <a href="/blog/posts/2020/arm64-on-apt.postgresql.org.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-  </div>
-</div>
-
-        </div>
-      
     </section>
     <ul class="pagination pagination-default">
       <li class="page-item disabled">
@@ -688,7 +683,7 @@ LTS distributions. 9.1 will follow shortly.</p>
         <a href="/blog/posts/page/2/index.html" aria-label="Next" class="page-link" role="button"><span aria-hidden="true">&raquo;</span></a>
       </li>
       <li class="page-item">
-        <a href="/blog/posts/page/16/index.html" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/blog/posts/page/17/index.html" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
       </li>
     </ul></article>
 

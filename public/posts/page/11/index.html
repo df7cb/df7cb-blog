@@ -7,7 +7,7 @@
     <title>Myon&#39;s Blog</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1">
     <meta name="description" content="">
-    <meta name="generator" content="Hugo 0.161.0">
+    <meta name="generator" content="Hugo 0.161.1">
     
     
     
@@ -48,8 +48,8 @@
   <meta property="og:type" content="website">
 
   <meta itemprop="name" content="Posts">
-  <meta itemprop="datePublished" content="2026-05-06T19:11:21+02:00">
-  <meta itemprop="dateModified" content="2026-05-06T19:11:21+02:00">
+  <meta itemprop="datePublished" content="2026-06-04T19:14:24+02:00">
+  <meta itemprop="dateModified" content="2026-06-04T19:14:24+02:00">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Posts">
 
@@ -94,6 +94,77 @@
   <article class="pa3 pa4-ns nested-copy-line-height">
     <section class="cf ph3 ph5-l pv3 pv4-l f4 tc-l center measure-wide lh-copy nested-links mid-gray"></section>
     <section class="flex-ns mt5 flex-wrap justify-around">
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2007/Datamining.html" class="link black dim">
+        Datamining
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>I&rsquo;m just digging through OFTC&rsquo;s nickserv database to do some cleaning. We have
+a bit over 20k nicknames in the database on 18k accounts which means about 10%
+of registered nicks are linked to other master nicks.</p>
+<p>By the power of sql, here&rsquo;s some statistics on the domain names of the
+email addresses our users:</p>
+<pre>
+com  9144
+net  2241
+org  1778
+de   1016
+uk    392
+nl    288
+fr    223
+edu   217
+au    203
+it    193
+br    190
+ru    174
+ca    165
+se     88
+dk     74
+at     70
+fi     62
+cx     59
+info   58
+</pre>
+<pre>
+gmail.com             3997
+hotmail.com           1405
+yahoo.com              843
+gmx.de                 221
+gmx.net                201
+web.de                 156
+debian.org             148
+free.fr                 94
+aol.com                 90
+msn.com                 73
+comcast.net             72
+gentoo.org              71
+mail.ru                 65
+xs4all.nl               59
+linuxmail.org           58
+verizon.net             57
+yahoo.co.uk             54
+yahoo.com.br            45
+googlemail.com          45
+student.uq.edu.au       44
+sbcglobal.net           36
+earthlink.net           33
+users.sourceforge.net   32
+</pre>
+<p>The numbers could use some aggregation as some providers use zillions of TLDs
+(yahoo, gmx).</p>
+<p>My personal favorite in there is <b>root@localhorst</b> :-)</p>
+    </div>
+    <a href="/blog/posts/2007/Datamining.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
       
         <div class="w-100 w-30-l mb4 relative bg-white">
           <div class="w-100 mb4 nested-copy-line-height relative bg-white">
@@ -342,62 +413,6 @@ feels much more like Linux (even Debian) than the nvram stuff on openwrt.</p>
 
         </div>
       
-        <div class="w-100 w-30-l mb4 relative bg-white">
-          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
-  <div class="mb3 pa4 gray overflow-hidden bg-white">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/blog/posts/2007/Windowmanager.html" class="link black dim">
-        Looking for a Window Manager
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <p>I had been using fvwm2 for some 10 years when around the beginning of this
-year, I thought it might be time for a change. My config was originally copied
-from some SuSE templates and then heavily tweaked over the years, but recently
-broke more and more in subtle way with new fvwm upstream versions, e.g. moving
-windows suddenly required a different mouse button. Probably the config was
-just slightly out of spec and fvwm got &ldquo;fixed&rdquo;, but it was annoying.</p>
-<p>The &ldquo;tiled&rdquo; window managers I had seen on others&rsquo; desktops made me curious, so
-I gave ion3 a try some months ago. The overall appearance was all cool, but it
-tried a bit too hard to squeeze all windows into tiled windows - of course
-there&rsquo;s the floating workspace, but creating one was weird, and moving windows
-even weirder. And if only the (default) key bindings were more vi-like&hellip; I
-admit I never really bothered to read the documentation - probably everything
-would have been much nicer otherwise.</p>
-<p>Then there was the big license &ldquo;wtf&rdquo; with ion, at which point I started looking
-around further. dwm looks clearly too l33t to be serious, so wmii was the next
-choice, 3.1 to be exact. vi key bindings, a nicely configurable status bar, easy
-workspace switching and window moving. wmii doesn&rsquo;t have horizontally split
-windows (windows are always in columns), and no &ldquo;tabbed&rdquo; windows, though. It
-didn&rsquo;t warp the pointer to the currently active window (something I got used to
-with fvwm), but some config tweaks mostly fixed that. This time, I read the
-documentation, but there&rsquo;s only a 10 page pdf beginners document, but there&rsquo;s
-not much to configure anyway.</p>
-<p>Then came lenny. Testing and unstable currently feature version 3.6 which is a
-big disappointment. It is broken (the default config is unusable), and even
-after fixing that, it looks like they removed all the little details that I
-liked. The status bar is still there (though with a new location in the virtual
-filesystem), the color cannot be changed anymore (unless changing some other
-color as well). The windows used to have slim 1-pixel (configurable) borders.
-Now they still have, but the border will be expanded if the window chooses a
-different size - xterm always rounds down to the next character size, so all my
-terminals have fat surroundings now. The last-active window in a inactive
-column still had some markup so I knew which window Alt-Left/Right wound return
-to, now I have to guess. I wouldn&rsquo;t mind fixing my 3.1 config for 3.6, but I
-don&rsquo;t think I will, given these issues look unfixable. The 3.1 wmiirc file
-looked like a sh script, the 3.6 uses eval and a bunch of functions that
-frighten me. On a positive note, it is now possible to create new workspaces by
-just selecting them, which is much handier than start-program, wait,
-move-window-over, move-workspace.</p>
-<p>I guess I will give ion (2, 3?) another try&hellip;</p>
-    </div>
-    <a href="/blog/posts/2007/Windowmanager.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-  </div>
-</div>
-
-        </div>
-      
     </section>
     <ul class="pagination pagination-default">
       <li class="page-item">
@@ -425,7 +440,7 @@ move-window-over, move-workspace.</p>
         <a href="/blog/posts/page/12/index.html" aria-label="Next" class="page-link" role="button"><span aria-hidden="true">&raquo;</span></a>
       </li>
       <li class="page-item">
-        <a href="/blog/posts/page/16/index.html" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/blog/posts/page/17/index.html" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
       </li>
     </ul></article>
 

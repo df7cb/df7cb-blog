@@ -7,7 +7,7 @@
     <title>Myon&#39;s Blog</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1">
     <meta name="description" content="">
-    <meta name="generator" content="Hugo 0.161.0">
+    <meta name="generator" content="Hugo 0.161.1">
     
     
     
@@ -48,8 +48,8 @@
   <meta property="og:type" content="website">
 
   <meta itemprop="name" content="Posts">
-  <meta itemprop="datePublished" content="2026-05-06T19:11:21+02:00">
-  <meta itemprop="dateModified" content="2026-05-06T19:11:21+02:00">
+  <meta itemprop="datePublished" content="2026-06-04T19:14:24+02:00">
+  <meta itemprop="dateModified" content="2026-06-04T19:14:24+02:00">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Posts">
 
@@ -94,6 +94,67 @@
   <article class="pa3 pa4-ns nested-copy-line-height">
     <section class="cf ph3 ph5-l pv3 pv4-l f4 tc-l center measure-wide lh-copy nested-links mid-gray"></section>
     <section class="flex-ns mt5 flex-wrap justify-around">
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2012/apt.postgresql.org.html" class="link black dim">
+        apt.postgresql.org
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>So we finally made it, and sent out an
+<a href="http://archives.postgresql.org/pgsql-announce/2012-12/msg00008.php">official announcement</a> for
+<a href="https://wiki.postgresql.org/wiki/Apt">apt.postgresql.org</a>.</p>
+<p>This new repository hosts packages for all PostgreSQL server versions (at the
+moment 8.3, 8.4, 9.0, 9.1, 9.2) for several Debian/Ubuntu distributions
+(squeeze, wheezy, sid, precise) on two architectures (amd64, i386). Now add
+packages for extension modules on top of all these, and you get a really large
+amount of binaries from a small number of sources. Right now there&rsquo;s 1670 .deb
+files and 148 .dsc files, but the .dsc count includes variants that only differ
+in the version number per distribution (we attach .pgdg60+1 for squeeze
+packages, .pgdg70+1 for wheezy and so on), so the real number of different
+sources is rather something like 81, with 38 distinct source package names.</p>
+<p><a href="http://tapoueh.org/">Dimitri Fontaine</a>,
+<a href="http://www.hagander.net/">Magnus Hagander</a>, and I have been working
+on this since I first presented the idea at PGconf.EU 2011 in Amsterdam. We now
+have a Jenkins server building all the packages, an archive server with the
+master repository, and a feed that syncs the repository to the postgresql.org
+FTP (well, mostly http) server.</p>
+<p>If you were previously using pgapt.debian.net, that&rsquo;s the same archive as on
+apt.postgresql.org (one rsync away). Please update your sources.list to point
+to apt.postgresql.org, I&rsquo;ll shut down the archive at that location at the end
+of January.</p>
+<p>Here&rsquo;s the <a href="https://wiki.postgresql.org/wiki/Apt#Quickstart">Quickstart
+instructions from the Wiki page</a>:</p>
+<p>Import the repository key from <a href="http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc">http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc</a>:</p>
+<pre>
+wget -O - http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc | sudo apt-key add -
+</pre>
+<p>Edit /etc/apt/sources.list.d/pgdg.list. The distributions are called codename-pgdg. In the example, replace squeeze with the actual distribution you are using:</p>
+<pre>
+deb http://apt.postgresql.org/pub/repos/apt/ squeeze-pgdg main
+</pre>
+<p>Configure apt&rsquo;s package pinning to prefer the PGDG packages over the Debian ones in /etc/apt/preferences.d/pgdg.pref:</p>
+<pre>
+Package: *
+Pin: release o=apt.postgresql.org
+Pin-Priority: 500
+</pre>
+<p>Note: this will replace all your Debian/Ubuntu packages with available packages from the PGDG repository. If you do not want this, skip this step.</p>
+<p>Update the package lists, and install the pgdg-keyring package to automatically get repository key updates:</p>
+<pre>
+apt-get update
+apt-get install pgdg-keyring
+</pre>
+    </div>
+    <a href="/blog/posts/2012/apt.postgresql.org.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
       
         <div class="w-100 w-30-l mb4 relative bg-white">
           <div class="w-100 mb4 nested-copy-line-height relative bg-white">
@@ -411,73 +472,6 @@ autocmd BufRead *.orig set readonly
 
         </div>
       
-        <div class="w-100 w-30-l mb4 relative bg-white">
-          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
-  <div class="mb3 pa4 gray overflow-hidden bg-white">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/blog/posts/2011/Generating_symbols_files_from_a_series_of_.deb_files.html" class="link black dim">
-        Generating symbols files from a series of .deb files
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <p>PostgreSQL&rsquo;s libpq5 package got its symbols file somewhere around version 8.4,
-so the symbols in there were all marked with version &ldquo;8.4~&rdquo; or greater. As I&rsquo;m
-working on <a href="http://pgapt.debian.net">pgapt.debian.net</a> aiming at
-providing packages for all upstream-supported PG versions (currently 8.3 and
-up), this made packages incompatible with 8.3&rsquo;s libpq5.</p>
-<p>There didn&rsquo;t seem to be a ready program to feed a series of .deb files which
-would then run dpkg-gensymbols and build a symbols file, so I wrote this shell
-script:</p>
-<pre>
-#!/bin/sh
-
-set -eu
-
-[ -d tmp ] || mkdir tmp
-
-i=1
-
-for pkg in "$@" ; do
-	echo "$pkg"
-	test -e "$pkg"
-	name=$(dpkg-deb -I "$pkg" | perl -lne 'print $1 if /^ Package: (.+)/')
-	version=$(dpkg-deb -I "$pkg" | perl -lne 'print $1 if /^ Version: (.+)/')
-	out=$(printf "tmp/%03d_%s" $i "$version")
-	dpkg-deb -x "$pkg" "$out"
-	dpkg-gensymbols -P"$out" -p"$name" -v"$version" \
-		${oldsymbols:+-I"$oldsymbols"} -O"$out.symbols" | \
-		tee "$out.symbols.diff"
-	test -s "$out.symbols.diff" || rm "$out.symbols.diff"
-	oldsymbols="$out.symbols"
-	rm -rf "$out"
-	i=$(expr $i + 1)
-done
-</pre>
-<p>To use it, do the following:</p>
-<ul>
-<li>debsnap -a i386 libpq5
-<li>ls binary-libpq5/*.deb > files
-<li>edit "files" to have proper ordering (~rc versions before releases, remove bpo versions, etc.)
-<li>./walk-symbols $(cat files)
-</ul>
-<p>The highest-numbered *.symbols file in tmp/ will then have symbol information
-for all packages. I then did some manual post-processing like s/<del>rc1-1/</del>/ to
-get nice (and backportable) version numbers.</p>
-<p>Another nice trick (pointed out by jcristau) is to replace the lowest version
-number of that package (8.2~ here, where libpq changed SONAME) by 0 which will
-make dpkg-shlibdeps omit the &gt;= version part. (Most packages depending on
-libpq5 will profit from that.)</p>
-<p>I&rsquo;m still pondering whether this script is non-trivial enough add to
-devscripts. (The people I asked so far only made comments about the mkdir
-call&hellip;)</p>
-    </div>
-    <a href="/blog/posts/2011/Generating_symbols_files_from_a_series_of_.deb_files.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-  </div>
-</div>
-
-        </div>
-      
     </section>
     <ul class="pagination pagination-default">
       <li class="page-item">
@@ -505,7 +499,7 @@ call&hellip;)</p>
         <a href="/blog/posts/page/5/index.html" aria-label="Next" class="page-link" role="button"><span aria-hidden="true">&raquo;</span></a>
       </li>
       <li class="page-item">
-        <a href="/blog/posts/page/16/index.html" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/blog/posts/page/17/index.html" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
       </li>
     </ul></article>
 

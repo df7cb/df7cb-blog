@@ -7,7 +7,7 @@
     <title>Myon&#39;s Blog</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1">
     <meta name="description" content="">
-    <meta name="generator" content="Hugo 0.161.0">
+    <meta name="generator" content="Hugo 0.161.1">
     
     
     
@@ -48,8 +48,8 @@
   <meta property="og:type" content="website">
 
   <meta itemprop="name" content="Posts">
-  <meta itemprop="datePublished" content="2026-05-06T19:11:21+02:00">
-  <meta itemprop="dateModified" content="2026-05-06T19:11:21+02:00">
+  <meta itemprop="datePublished" content="2026-06-04T19:14:24+02:00">
+  <meta itemprop="dateModified" content="2026-06-04T19:14:24+02:00">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Posts">
 
@@ -94,6 +94,74 @@
   <article class="pa3 pa4-ns nested-copy-line-height">
     <section class="cf ph3 ph5-l pv3 pv4-l f4 tc-l center measure-wide lh-copy nested-links mid-gray"></section>
     <section class="flex-ns mt5 flex-wrap justify-around">
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2014/New_urxvt_tab_in_current_directory.html" class="link black dim">
+        New urxvt in current directory
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>Following Enrico&rsquo;s
+<a href="http://www.enricozini.org/2014/debian/terminal-emulators/">terminal-emulators</a>
+comparison, I wanted to implement &ldquo;start a new terminal tab in my current
+working directory&rdquo; for rxvt-unicode aka urxvt. As Enrico notes, this
+functionality is something between &ldquo;rather fragile&rdquo; and non-existing, so I went
+to implement it myself. Martin Pohlack had the
+<a href="http://permalink.gmane.org/gmane.comp.terminal-emulators.rxvt-unicode.general/1175">
+right hint</a>, so here&rsquo;s the patch:</p>
+<pre>
+--- /usr/lib/urxvt/perl/tabbed	2014-05-03 21:37:37.000000000 +0200
+--- ./tabbed	2014-07-09 18:50:26.000000000 +0200
+@@ -97,6 +97,16 @@
+       $term->resource (perl_ext_2 => $term->resource ("perl_ext_2") . ",-tabbed");
+    };
+ 
++   if (@{ $self->{tabs} }) {
++      # Get the working directory of the current tab and append a -cd to the command line
++      my $pid = $self->{cur}{pid};
++      my $pwd = readlink "/proc/$pid/cwd";
++      #print "pid $pid pwd $pwd\n";
++      if ($pwd) {
++         push @argv, "-cd", $pwd;
++      }
++   }
++
+    push @urxvt::TERM_EXT, urxvt::ext::tabbed::tab::;
+ 
+    my $term = new urxvt::term
+@@ -312,6 +322,12 @@
+    1
+ }
+ 
++sub tab_child_start {
++   my ($self, $term, $pid) = @_;
++   $term->{pid} = $pid;
++   1;
++}
++
+ sub tab_start {
+    my ($self, $tab) = @_;
+ 
+@@ -402,7 +418,7 @@
+ # simply proxies all interesting calls back to the tabbed class.
+ 
+ {
+-   for my $hook (qw(start destroy key_press property_notify)) {
++   for my $hook (qw(start destroy key_press property_notify child_start)) {
+       eval qq{
+          sub on_$hook {
+             my \$parent = \$_[0]{term}{parent}
+</pre>
+    </div>
+    <a href="/blog/posts/2014/New_urxvt_tab_in_current_directory.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
       
         <div class="w-100 w-30-l mb4 relative bg-white">
           <div class="w-100 mb4 nested-copy-line-height relative bg-white">
@@ -433,67 +501,6 @@ update your sources.list entries to point to apt.postgresql.org!</p>
 
         </div>
       
-        <div class="w-100 w-30-l mb4 relative bg-white">
-          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
-  <div class="mb3 pa4 gray overflow-hidden bg-white">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/blog/posts/2012/apt.postgresql.org.html" class="link black dim">
-        apt.postgresql.org
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <p>So we finally made it, and sent out an
-<a href="http://archives.postgresql.org/pgsql-announce/2012-12/msg00008.php">official announcement</a> for
-<a href="https://wiki.postgresql.org/wiki/Apt">apt.postgresql.org</a>.</p>
-<p>This new repository hosts packages for all PostgreSQL server versions (at the
-moment 8.3, 8.4, 9.0, 9.1, 9.2) for several Debian/Ubuntu distributions
-(squeeze, wheezy, sid, precise) on two architectures (amd64, i386). Now add
-packages for extension modules on top of all these, and you get a really large
-amount of binaries from a small number of sources. Right now there&rsquo;s 1670 .deb
-files and 148 .dsc files, but the .dsc count includes variants that only differ
-in the version number per distribution (we attach .pgdg60+1 for squeeze
-packages, .pgdg70+1 for wheezy and so on), so the real number of different
-sources is rather something like 81, with 38 distinct source package names.</p>
-<p><a href="http://tapoueh.org/">Dimitri Fontaine</a>,
-<a href="http://www.hagander.net/">Magnus Hagander</a>, and I have been working
-on this since I first presented the idea at PGconf.EU 2011 in Amsterdam. We now
-have a Jenkins server building all the packages, an archive server with the
-master repository, and a feed that syncs the repository to the postgresql.org
-FTP (well, mostly http) server.</p>
-<p>If you were previously using pgapt.debian.net, that&rsquo;s the same archive as on
-apt.postgresql.org (one rsync away). Please update your sources.list to point
-to apt.postgresql.org, I&rsquo;ll shut down the archive at that location at the end
-of January.</p>
-<p>Here&rsquo;s the <a href="https://wiki.postgresql.org/wiki/Apt#Quickstart">Quickstart
-instructions from the Wiki page</a>:</p>
-<p>Import the repository key from <a href="http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc">http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc</a>:</p>
-<pre>
-wget -O - http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc | sudo apt-key add -
-</pre>
-<p>Edit /etc/apt/sources.list.d/pgdg.list. The distributions are called codename-pgdg. In the example, replace squeeze with the actual distribution you are using:</p>
-<pre>
-deb http://apt.postgresql.org/pub/repos/apt/ squeeze-pgdg main
-</pre>
-<p>Configure apt&rsquo;s package pinning to prefer the PGDG packages over the Debian ones in /etc/apt/preferences.d/pgdg.pref:</p>
-<pre>
-Package: *
-Pin: release o=apt.postgresql.org
-Pin-Priority: 500
-</pre>
-<p>Note: this will replace all your Debian/Ubuntu packages with available packages from the PGDG repository. If you do not want this, skip this step.</p>
-<p>Update the package lists, and install the pgdg-keyring package to automatically get repository key updates:</p>
-<pre>
-apt-get update
-apt-get install pgdg-keyring
-</pre>
-    </div>
-    <a href="/blog/posts/2012/apt.postgresql.org.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-  </div>
-</div>
-
-        </div>
-      
     </section>
     <ul class="pagination pagination-default">
       <li class="page-item">
@@ -521,7 +528,7 @@ apt-get install pgdg-keyring
         <a href="/blog/posts/page/4/index.html" aria-label="Next" class="page-link" role="button"><span aria-hidden="true">&raquo;</span></a>
       </li>
       <li class="page-item">
-        <a href="/blog/posts/page/16/index.html" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/blog/posts/page/17/index.html" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
       </li>
     </ul></article>
 
