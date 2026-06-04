@@ -7,8 +7,8 @@ tags:
 ---
 
 In contrast to chess, there is very little free software for bridge players.
-Some <a href="http://packages.debian.org/sid/deal">deal</a>
-<a href="http://packages.debian.org/sid/dealer">generators</a> have been around
+Some <a href="https://packages.debian.org/sid/deal">deal</a>
+<a href="https://packages.debian.org/sid/dealer">generators</a> have been around
 for years, but basically, that was all.
 
 Nowadays major online bridge site is
@@ -25,17 +25,17 @@ where I started writing some perl scripts that would at least dump the board
 records as text files. At the same time I thought about doing something
 interesting with Gnome's glade UI builder. Over the past two years, I have been
 working on a GTK+ version of a bridge hand viewer and editor I called
-<a href="http://www.df7cb.de/bridge/tenace/">*tenace*</a>.
+<a href="https://www.df7cb.de/bridge/tenace/">*tenace*</a>.
 
 When <a href="http://web.telia.com/~u07502278/">Bo Haglund</a> released his
 double dummy solver library as GPL software, I
-<a href="http://packages.debian.org/sid/libdds-dev">packaged</a> it for Debian
+<a href="https://packages.debian.org/sid/libdds-dev">packaged</a> it for Debian
 and worked on integration into tenace. It will compute "best" cards to play,
 determine par scores.
 
 Now tenace should be stable enough so I can risk announcing it to the world.
 
-<img src="http://www.df7cb.de/bridge/tenace/img/tenace-0.6.png">
+<img src="https://www.df7cb.de/bridge/tenace/img/tenace-0.6.png">
 
 Coincidentally, the screenshot shows a board from last week's club
 championships. East can beat 3NT by returning a Spade, but at my table they

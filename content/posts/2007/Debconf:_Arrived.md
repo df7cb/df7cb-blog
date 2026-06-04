@@ -7,7 +7,7 @@ tags:
 
 You know you have left the continent when you see this:
 
-<img src="http://www.df7cb.de/blog/2007/Left_Driving.jpg">
+<img src="https://www.df7cb.de/blog/2007/Left_Driving.jpg">
 
 I've arrived all well, only that I made the same mistake as always - leaving
 the house without writing down (or even looking up) the precise address where

@@ -6,16 +6,16 @@ tags:
 ---
 
 Yesterday evening saw the KALUG party which resulted in quite a lot of
-<a href="http://www.df7cb.de/pictures/0506-LinuxTag/050623-LinuxTag/30.html">funny</a>
-<a href="http://www.df7cb.de/pictures/0506-LinuxTag/050623-LinuxTag/34.html">pictures</a>
-<a href="http://www.df7cb.de/pictures/0506-LinuxTag/050623-LinuxTag/44.html">of</a>
-<a href="http://www.df7cb.de/pictures/0506-LinuxTag/050623-LinuxTag/68.html">Debian</a>
-<a href="http://www.df7cb.de/pictures/0506-LinuxTag/050623-LinuxTag/26.html">folks</a>.
+<a href="https://www.df7cb.de/pictures/0506-LinuxTag/050623-LinuxTag/30.html">funny</a>
+<a href="https://www.df7cb.de/pictures/0506-LinuxTag/050623-LinuxTag/34.html">pictures</a>
+<a href="https://www.df7cb.de/pictures/0506-LinuxTag/050623-LinuxTag/44.html">of</a>
+<a href="https://www.df7cb.de/pictures/0506-LinuxTag/050623-LinuxTag/68.html">Debian</a>
+<a href="https://www.df7cb.de/pictures/0506-LinuxTag/050623-LinuxTag/26.html">folks</a>.
 Alexander Schmehl won an 
-"<a href="http://www.df7cb.de/pictures/0506-LinuxTag/050623-LinuxTag/56.html">Etch prerelease</a>".
+"<a href="https://www.df7cb.de/pictures/0506-LinuxTag/050623-LinuxTag/56.html">Etch prerelease</a>".
 Later during the night, for what was declared the official German Sarge release
 party, Martin Zobel-Helas and Alexander Schmehl had prepared a
-<a href="http://www.df7cb.de/pictures/0506-LinuxTag/050623-LinuxTag/75.html">Debian quiz</a>
+<a href="https://www.df7cb.de/pictures/0506-LinuxTag/050623-LinuxTag/75.html">Debian quiz</a>
 show. People from the audience were "elected" to answer questions ranging from
 "bring sarge/slink/hamm/rex in the right order" to "how many signatures does
 Peter Palfrader have on his primary key?"
@@ -31,7 +31,7 @@ passed even without any training before.
 Next thing to happen: the social event.
 
 <p>
-<a href="http://www.df7cb.de/pictures/0506-LinuxTag/050624-LinuxTag/">
-<img src="http://www.df7cb.de/pictures/0506-LinuxTag/050624-LinuxTag/index.jpg" border="0">
+<a href="https://www.df7cb.de/pictures/0506-LinuxTag/050624-LinuxTag/">
+<img src="https://www.df7cb.de/pictures/0506-LinuxTag/050624-LinuxTag/index.jpg" border="0">
 </a>
 

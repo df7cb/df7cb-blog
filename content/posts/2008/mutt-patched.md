@@ -9,7 +9,7 @@ There have been several long-term wishlist bugs on Mutt to include the
 (in?)famous "sidebar" patch. It adds a panel on the left side of the screen to
 list mailboxes with message counts.
 
-<img src="http://www.df7cb.de/projects/mutt/sidebar/mutt-sidebar.png">
+<img src="https://www.df7cb.de/projects/mutt/sidebar/mutt-sidebar.png">
 
 We do ship several patches with Debian's Mutt package that are not considered
 for inclusion by the upstream authors, but this one is different. It touches
@@ -29,7 +29,7 @@ trick was to build the patched version *before* the regular one), and I
 resolved some more involved conflicts with the maildir-mtime patch.
 
 So, finally, there it is:
-<a href="http://packages.debian.org/sid/mutt-patched">mutt-patched</a>.
+<a href="https://packages.debian.org/sid/mutt-patched">mutt-patched</a>.
 
 *Disclaimer:* As said, there _are_ bugs. YMMV.
 

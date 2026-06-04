@@ -30,4 +30,4 @@ post</a> I could then locate the display connector and fix it.
 Putting the case back together was actually harder than disassembling it because
 some plastic bits got stuck, but now everything is back to normal.
 
-<img src="http://www.df7cb.de/blog/2013/tf101cable.jpg">
+<img src="https://www.df7cb.de/blog/2013/tf101cable.jpg">

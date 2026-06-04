@@ -10,7 +10,7 @@ We have this PostgreSQL server with plenty of RAM that is still using some of
 its swap over the day (up to 600MB). Then suddenly everything is swapped in
 again.
 
-<img src="http://www.df7cb.de/blog/2012/dbsrv_swap.png">
+<img src="https://www.df7cb.de/blog/2012/dbsrv_swap.png">
 
 It turned out the reason is there are two clusters running, and the second one
 isn't used as heavily as the first one. Disk I/O activity of the first cluster

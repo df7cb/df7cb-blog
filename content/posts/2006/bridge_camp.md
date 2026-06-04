@@ -27,7 +27,7 @@ Somehow, the castle operates in a different time zone, breakfast was served at
 end, and who would run for Miss and Mister DebConf...
 
 <p> The pictures I took are in
-<a href="http://www.df7cb.de/pictures/0607-Rieneck/">my gallery</a>.
+<a href="https://www.df7cb.de/pictures/0607-Rieneck/">my gallery</a>.
 Sadly I didn't take a picture of the coffee tally list where one guy made
 <em>two</em> ticks in the "flatrate" column 8-)
 

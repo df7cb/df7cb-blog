@@ -7,7 +7,7 @@ tags:
 ---
 
 At this year's FOSDEM I gave a talk in the PostgreSQL devroom
-about <a href="http://www.df7cb.de/projects/talks/2015-FOSDEM/">
+about <a href="https://www.df7cb.de/projects/talks/2015-FOSDEM/">
 Large Scale Quality Assurance in the PostgreSQL Ecosystem</a>.
 The talk included a graph about the growth of the
 <a href="https://apt.postgresql.org/">apt.postgresql.org</a>

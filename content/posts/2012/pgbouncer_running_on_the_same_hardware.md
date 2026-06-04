@@ -14,7 +14,7 @@ pgbouncer (running on the database server) started listing up to half of the
 client connections to be in cl_waiting state. Load was still low, but
 application performance was bad.
 
-<img src="http://www.df7cb.de/blog/2012/renice_pgbouncer.png">
+<img src="https://www.df7cb.de/blog/2012/renice_pgbouncer.png">
 
 The culprit turned out to be the kernel scheduler, fairly distributing CPU time
 among all running processes. There's one single pgbouncer process, but hundreds

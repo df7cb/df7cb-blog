@@ -182,7 +182,7 @@ max: 13 shm_tot: 13232308224 shm_rss: 12626661376 shm_swp: 601616384 Update: Mar
     <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>We have this PostgreSQL server with plenty of RAM that is still using some of
 its swap over the day (up to 600MB). Then suddenly everything is swapped in
 again.</p>
-<img src="http://www.df7cb.de/blog/2012/dbsrv_swap.png">
+<img src="https://www.df7cb.de/blog/2012/dbsrv_swap.png">
 <p>It turned out the reason is there are two clusters running, and the second one
 isn&rsquo;t used as heavily as the first one. Disk I/O activity of the first cluster
 slowly evicts pages from the second shared buffers cache to swap, and then the

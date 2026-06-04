@@ -5,7 +5,7 @@ tags:
 - debian
 ---
 
-I've updated my <a href="http://www.df7cb.de/debian/nm-graph/">NM graphs</a>.
+I've updated my <a href="https://www.df7cb.de/debian/nm-graph/">NM graphs</a>.
 There were some cases where the advocate and AM entries in the NM database
 didn't match the Debian user name, so some people appeared with two different
 names. There are still lots of unconnected components in the advocate graph,
@@ -16,8 +16,8 @@ someone back then, please tell me so I can add that to my scripts.
 
 <p>
 <a href="http://www.grep.be/blog/2005/03/07#christoph_berg_nm_graphs">Wouter</a>
-mentioned that besides <a href="http://packages.debian.org/unstable/graphics/graphviz">neato</a>
-there was <a href="http://packages.debian.org/unstable/graphics/springgraph">springgraph</a>
+mentioned that besides <a href="https://packages.debian.org/unstable/graphics/graphviz">neato</a>
+there was <a href="https://packages.debian.org/unstable/graphics/springgraph">springgraph</a>
 to create this type of graph. Coincidentally, I happened to adopt that package
 last week and as upstream hasn't updated it for some years, I'm probably also
 its new upstream. However, I haven't managed yet to produce any useful output

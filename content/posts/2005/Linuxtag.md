@@ -25,8 +25,8 @@ organised. I took some pictures of the booth and the talks. (Sorry, not yet
 renamed/rotated/pruned.)
 
 <p>
-<a href="http://www.df7cb.de/pictures/0506-LinuxTag/050623-LinuxTag/">
-<img src="http://www.df7cb.de/pictures/0506-LinuxTag/050623-LinuxTag/index.jpg" border="0">
+<a href="https://www.df7cb.de/pictures/0506-LinuxTag/050623-LinuxTag/">
+<img src="https://www.df7cb.de/pictures/0506-LinuxTag/050623-LinuxTag/index.jpg" border="0">
 </a>
 
 <p>

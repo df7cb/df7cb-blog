@@ -6,7 +6,7 @@ tags:
 ---
 
 With the help of <a href="http://blog.schmehl.info/">Alexander Schmehl</a>
-I've created a <a href="http://www.df7cb.de/debian/quiz/">Debian Quiz</a>.
+I've created a <a href="https://www.df7cb.de/debian/quiz/">Debian Quiz</a>.
 Test your knowledge about Debian's distribution, people, mailing lists, etc.!
 
 <p> PS: Alex, you could have as well told me the

@@ -36,7 +36,7 @@ Random list of things that happened:
 Photos to come.
 
 <p>
-[Update 23:42 CET] Photos are <a href="http://www.df7cb.de/pictures/0509-QA-Meeting/">online</a>.
+[Update 23:42 CET] Photos are <a href="https://www.df7cb.de/pictures/0509-QA-Meeting/">online</a>.
 
 <p>
-<a href="http://www.df7cb.de/pictures/0509-QA-Meeting/"><img src="http://www.df7cb.de/pictures/0509-QA-Meeting/index.jpg" border="0"></a>
+<a href="https://www.df7cb.de/pictures/0509-QA-Meeting/"><img src="https://www.df7cb.de/pictures/0509-QA-Meeting/index.jpg" border="0"></a>
