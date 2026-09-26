@@ -7,7 +7,7 @@
     <title>Myon&#39;s Blog</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1">
     <meta name="description" content="">
-    <meta name="generator" content="Hugo 0.161.1">
+    <meta name="generator" content="Hugo 0.165.0">
     
     
     
@@ -42,16 +42,16 @@
     
 
     <meta property="og:url" content="https://df7cb.de/blog/posts/index.html">
-  <meta property="og:site_name" content="Myon&#39;s Blog">
-  <meta property="og:title" content="Posts">
-  <meta property="og:locale" content="en_us">
-  <meta property="og:type" content="website">
+	<meta property="og:site_name" content="Myon&#39;s Blog">
+	<meta property="og:title" content="Posts">
+	<meta property="og:locale" content="en_us">
+	<meta property="og:type" content="website">
 
-  <meta itemprop="name" content="Posts">
-  <meta itemprop="datePublished" content="2026-06-04T19:14:24+02:00">
-  <meta itemprop="dateModified" content="2026-06-04T19:14:24+02:00">
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Posts">
+	<meta itemprop="name" content="Posts">
+	<meta itemprop="datePublished" content="2026-09-26T13:35:50+02:00">
+	<meta itemprop="dateModified" content="2026-09-26T13:35:50+02:00">
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="Posts">
 
       
     
@@ -94,6 +94,65 @@
   <article class="pa3 pa4-ns nested-copy-line-height">
     <section class="cf ph3 ph5-l pv3 pv4-l f4 tc-l center measure-wide lh-copy nested-links mid-gray"></section>
     <section class="flex-ns mt5 flex-wrap justify-around">
+      
+        <div class="w-100 w-30-l mb4 relative bg-white">
+          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
+  <div class="mb3 pa4 gray overflow-hidden bg-white">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/blog/posts/2011/HP_2605dn_not_recognizing_new_cartridge.html" class="link black dim">
+        HP 2605dn not regcognizing new cartridge
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>When my wife bought her HP 2605dn color laser, she had also ordered a set of
+replacement cartridges because the originals would supposedly not last very
+long. It turned out that they would last over two years, though.</p>
+<p>Now, the black cartridge was empty. The replacements are original HP
+components, but recycled/refilled second hand from a different source. I put in
+the black one, and the trouble started with the new drum having a big scratch
+that would appear in every print. After two years, returning the cartridge was
+not an option. As the old drum was still good, the idea was
+to put the new toner into the old cartridge. A bit of googling (and visual
+inspection) quickly revealed that you are not supposed to do this, the device
+doesn&rsquo;t have any facilities to access anything.</p>
+<p>Some post did indicate though that the cartridge actually consists of two parts
+that are only held together by two pivot pins and two small springs. If you
+pull the two parts apart a bit, you can feel the axis the parts are moving
+around. So, I would try to use the old drum part with the new toner container
+part.</p>
+<p>Removing the springs is easy (also removing the flap covering the drum, along
+with a tiny third spring). The two pivot pins are pretty inaccessible, but I
+managed to pull out both using a pointy tong. One pin is made of metal, if you
+need more space you can drill a small hole right next to it. The other pin is
+made of plastic with a small hole in it, in one case I succeeded by screwing in
+a little screw and pulling at it.</p>
+<p>Reassembling the parts is not so hard. I put the &ldquo;new&rdquo; cartridge into the
+printer, waited for the initialization to finish, only to find out the printer
+would still think the cartridge was empty and should be replaced. Duh.</p>
+<p>I then discovered a small chip attached to one corner of the drum unit,
+probably carrying product ID and some serial number. Luckily, it was easy to
+be removed and exchanged with the other drum unit. Still, the printer thought
+the cartridge was empty. Some (windows) driver re-installations later it was
+clear that there is no &ldquo;ignore fill level and print anyway&rdquo; option. (Cups
+didn&rsquo;t print either.)</p>
+<p>The HP Support Forum has a long
+<a href="http://h30434.www3.hp.com/t5/Other-printing-questions/Ink-cartridge-empty-but-it-s-not/td-p/4101">Ink cartridge empty but it&rsquo;s not</a>
+thread with lots of complaints but few answers. (Their problem is mostly with
+new HP cartridges becoming &ldquo;empty&rdquo; after a few days.) Someone suggests trying
+to cold reset the printer. For the 2605dn, that&rsquo;s holding the left and right
+buttons while powering on. I removed the cartridges for doing so. When I had
+put them back in, the printer asked me to confirm that non-HP material was
+installed, and subsequently didn&rsquo;t display any fill level for the black
+cartridge anymore, just &ldquo;|?|&rdquo; in the display.</p>
+<p>Printing works now. Yay.</p>
+<p>(Lesson learned: I still hate dealing with printers.)</p>
+    </div>
+    <a href="/blog/posts/2011/HP_2605dn_not_recognizing_new_cartridge.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
       
         <div class="w-100 w-30-l mb4 relative bg-white">
           <div class="w-100 mb4 nested-copy-line-height relative bg-white">
@@ -363,66 +422,36 @@ Do 1. Jan 01:20:34 CET 1970
 
         </div>
       
-        <div class="w-100 w-30-l mb4 relative bg-white">
-          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
-  <div class="mb3 pa4 gray overflow-hidden bg-white">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/blog/posts/2010/df_-T.html" class="link black dim">
-        Cool Unix Features: df -T
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <p>Just discovered (thanks to XTaran): <em>df -T</em> &ndash; show file system type.</p>
-<pre><code>$ df -Th
-Filesystem    Type    Size  Used Avail Use% Mounted on
-/dev/mapper/benz-root
-              ext3    6.6G  4.9G  1.4G  79% /
-tmpfs        tmpfs    1.6G     0  1.6G   0% /lib/init/rw
-udev         tmpfs    1.6G  228K  1.6G   1% /dev
-tmpfs        tmpfs    1.6G     0  1.6G   0% /dev/shm
-/dev/sda1     ext3    236M   21M  203M  10% /boot
-/dev/mapper/benz-home
-              ext3    135G   82G   53G  61% /home
-newton:/home   nfs    459G  145G  291G  34% /nfs
-</code></pre>
-    </div>
-    <a href="/blog/posts/2010/df_-T.html" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-  </div>
-</div>
-
-        </div>
-      
     </section>
-    <ul class="pagination pagination-default">
-      <li class="page-item">
-        <a href="/blog/posts/index.html" aria-label="First" class="page-link" role="button"><span aria-hidden="true">&laquo;&laquo;</span></a>
-      </li>
-      <li class="page-item">
-        <a href="/blog/posts/page/5/index.html" aria-label="Previous" class="page-link" role="button"><span aria-hidden="true">&laquo;</span></a>
-      </li>
-      <li class="page-item">
-        <a href="/blog/posts/page/4/index.html" aria-label="Page 4" class="page-link" role="button">4</a>
-      </li>
-      <li class="page-item">
-        <a href="/blog/posts/page/5/index.html" aria-label="Page 5" class="page-link" role="button">5</a>
-      </li>
-      <li class="page-item active">
-        <a aria-current="page" aria-label="Page 6" class="page-link" role="button">6</a>
-      </li>
-      <li class="page-item">
-        <a href="/blog/posts/page/7/index.html" aria-label="Page 7" class="page-link" role="button">7</a>
-      </li>
-      <li class="page-item">
-        <a href="/blog/posts/page/8/index.html" aria-label="Page 8" class="page-link" role="button">8</a>
-      </li>
-      <li class="page-item">
-        <a href="/blog/posts/page/7/index.html" aria-label="Next" class="page-link" role="button"><span aria-hidden="true">&raquo;</span></a>
-      </li>
-      <li class="page-item">
-        <a href="/blog/posts/page/17/index.html" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
-      </li>
-    </ul></article>
+		<ul class="pagination pagination-default">
+			<li class="page-item">
+				<a href="/blog/posts/index.html" aria-label="First" class="page-link" role="button"><span aria-hidden="true">&laquo;&laquo;</span></a>
+			</li>
+		<li class="page-item">
+			<a href="/blog/posts/page/5/index.html" aria-label="Previous" class="page-link" role="button"><span aria-hidden="true">&laquo;</span></a>
+		</li>
+			<li class="page-item">
+				<a href="/blog/posts/page/4/index.html" aria-label="Page 4" class="page-link" role="button">4</a>
+			</li>
+			<li class="page-item">
+				<a href="/blog/posts/page/5/index.html" aria-label="Page 5" class="page-link" role="button">5</a>
+			</li>
+			<li class="page-item active">
+				<a aria-current="page" aria-label="Page 6" class="page-link" role="button">6</a>
+			</li>
+			<li class="page-item">
+				<a href="/blog/posts/page/7/index.html" aria-label="Page 7" class="page-link" role="button">7</a>
+			</li>
+			<li class="page-item">
+				<a href="/blog/posts/page/8/index.html" aria-label="Page 8" class="page-link" role="button">8</a>
+			</li>
+		<li class="page-item">
+			<a href="/blog/posts/page/7/index.html" aria-label="Next" class="page-link" role="button"><span aria-hidden="true">&raquo;</span></a>
+		</li>
+			<li class="page-item">
+				<a href="/blog/posts/page/17/index.html" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
+			</li>
+		</ul></article>
 
     </main>
     <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
