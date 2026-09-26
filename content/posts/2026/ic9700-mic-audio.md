@@ -24,7 +24,8 @@ IC-9700 mod: enable AF out on mic
 May 15, 2019
 By PH4X in hardware
 
-To enable the AF output on Pin 8 of the MIC socket (AFO line), solder a bridge across test point CP421 on the DISPLAY board.
+To enable the AF output on Pin 8 of the MIC socket (AFO line),
+solder a bridge across test point CP421 on the DISPLAY board.
 
 Schematic: Service manual, p. 10-17.
 Board layout: Service manual, p. 7-10, to left of R421
@@ -36,8 +37,8 @@ The test point is there:
 
 ![](https://www.df7cb.de/blog/posts/2026/test-point.png)
 
-Fortunately, the test point in on the back of the display unit, so to access
-it, only the main case have to be removed (that's a lot of screws, but at least
+Fortunately, the test point is on the back of the display unit, so to access
+it, only the main case has to be removed (that's a lot of screws, but at least
 there is no need to remove the rubber feet), and then there are 4 more screws
 to remove the display unit from the main body.
 
